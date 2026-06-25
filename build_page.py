@@ -229,6 +229,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="overall-sb">
     <div class="ot-wrap">
       <div class="ot-side">
+        <div class="ot-players" style="font-size:12px;font-weight:800;letter-spacing:.02em;margin-bottom:4px">Team Expand</div>
         <div class="ot-players">Alec &middot; Eddie &middot; Dave<br>Nathan &middot; Mike &middot; Matt</div>
         <div class="ot-score" id="ot-score-l">0</div>
       </div>
@@ -236,6 +237,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <div class="ot-side">
         <div class="ot-score" id="ot-score-r">0</div>
         <div class="ot-players">Dillon &middot; Adam &middot; Alex<br>Chris &middot; Luis &middot; John</div>
+        <div class="ot-players" style="font-size:12px;font-weight:800;letter-spacing:.02em;margin-top:4px">Team Shrink</div>
       </div>
     </div>
     <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
@@ -251,10 +253,10 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <!-- Team player filter -->
   <div class="team-filter">
     <div class="team-col" id="teamLeft">
-      <div class="team-col-hdr left-hdr">Left Team</div>
+      <div class="team-col-hdr left-hdr">Team Expand</div>
     </div>
     <div class="team-col" id="teamRight">
-      <div class="team-col-hdr right-hdr">Right Team</div>
+      <div class="team-col-hdr right-hdr">Team Shrink</div>
     </div>
   </div>
   <!-- Graph -->
@@ -298,8 +300,8 @@ function pillHTML(p){
 function renderPills(){
   const leftEl=document.getElementById('teamLeft');
   const rightEl=document.getElementById('teamRight');
-  leftEl.innerHTML='<div class="team-col-hdr left-hdr">Left Team</div>'+LEFT_TEAM.map(pillHTML).join('');
-  rightEl.innerHTML='<div class="team-col-hdr right-hdr">Right Team</div>'+RIGHT_TEAM.map(pillHTML).join('');
+  leftEl.innerHTML='<div class="team-col-hdr left-hdr">Team Expand</div>'+LEFT_TEAM.map(pillHTML).join('');
+  rightEl.innerHTML='<div class="team-col-hdr right-hdr">Team Shrink</div>'+RIGHT_TEAM.map(pillHTML).join('');
   document.querySelectorAll('.tpill:not(.no-data)').forEach(p=>p.addEventListener('click',()=>{
     const g=p.dataset.g;
     if(active.size===1&&active.has(g)){active=new Set(ORDER)}
