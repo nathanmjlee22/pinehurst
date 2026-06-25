@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Fetch fresh GHIN handicap revisions and recent rounds for all golfers."""
-import os, json, sys, requests
+"""Fetch fresh GHIN handicap revisions, recent rounds, and tournament scores."""
+import os, json, sys, math, requests
 from datetime import date
 
 BASE = "https://api.ghin.com/api/v1"
@@ -24,6 +24,75 @@ GOLFERS = {
     "11466889": {"name": "Mike Gronstal",    "club": "USGA/SCGA GC",       "color": "#059669"},
     "4990445":  {"name": "Alex Newman",      "club": "Preserve GC",        "color": "#dc2626"},
 }
+
+# Tournament round definitions
+ROUNDS = [
+    {"round": 1, "date": "2026-09-04", "course_num": 10, "par": 70,
+     "blue": {"rating": 74.1, "slope": 142}, "white": {"rating": 71.5, "slope": 137}},
+    {"round": 2, "date": "2026-09-05", "course_num": 4,  "par": 72,
+     "blue": {"rating": 73.7, "slope": 135}, "white": {"rating": 70.8, "slope": 131}},
+    {"round": 3, "date": "2026-09-05", "course_num": 2,  "par": 72,
+     "blue": {"rating": 75.4, "slope": 143}, "white": {"rating": 72.0, "slope": 139}},
+    {"round": 4, "date": "2026-09-06", "course_num": 8,  "par": 72,
+     "blue": {"rating": 72.9, "slope": 131}, "white": {"rating": 70.5, "slope": 127}},
+]
+
+def course_handicap(hi, slope, rating, par):
+    """USGA 2020 formula, rounded to nearest integer."""
+    return round(hi * (slope / 113) + (rating - par))
+
+def match_course(name, num):
+    """Check if a GHIN course name matches a Pinehurst course number."""
+    n = name.lower()
+    targets = [f"no. {num}", f"no.{num}", f"no {num}", f"#{num}",
+               f"pinehurst {num}", f"course {num}", f"number {num}"]
+    return any(t in n for t in targets)
+
+def fetch_tournament_scores(ghin, hdrs):
+    """Fetch scores for tournament dates from GHIN."""
+    # Fetch all scores from Aug 2026 onwards to catch tournament rounds
+    r = S.get(f"{BASE}/scores/search.json", headers=hdrs, params={
+        "golfer_id": ghin, "per_page": 200, "page": 1,
+        "from_date_played": "2026-08-01", "status": "Posted",
+    })
+    if r.status_code != 200:
+        return {}
+
+    all_scores = r.json().get("Scores", [])
+    result = {}
+
+    for rnd in ROUNDS:
+        rnum = rnd["round"]
+        date_scores = [s for s in all_scores if s.get("played_at") == rnd["date"]]
+
+        # Try to match by course number in course name
+        matched = [s for s in date_scores if match_course(s.get("course_name", ""), rnd["course_num"])]
+
+        # Fall back to any 18-hole score on that date if only one exists
+        if not matched and len(date_scores) == 1 and date_scores[0].get("number_of_holes") == 18:
+            matched = date_scores
+
+        if matched:
+            s = matched[0]
+            gross = s.get("adjusted_gross_score")
+            hi = float(s.get("handicap_index", 0) or 0)
+            slope = float(s.get("slope_rating") or rnd["blue"]["slope"])
+            rating = float(s.get("course_rating") or rnd["blue"]["rating"])
+            par = rnd["par"]
+            ch = course_handicap(hi, slope, rating, par)
+            net = gross - ch if gross else None
+            result[rnum] = {
+                "gross": gross,
+                "net": net,
+                "course_handicap": ch,
+                "hi": hi,
+                "course": s.get("course_name", ""),
+                "tee": s.get("tee_name", ""),
+                "slope": slope,
+                "rating": rating,
+            }
+
+    return result
 
 def login():
     username = os.environ.get("USER")
@@ -65,9 +134,8 @@ def fetch_rounds(ghin, hdrs):
         return []
     scores = r.json().get("Scores", [])
     scores.sort(key=lambda s: s["played_at"], reverse=True)
-    recent = scores[:20]
     result = []
-    for s in recent:
+    for s in scores[:20]:
         if s.get("handicap_index") is None:
             continue
         result.append({
@@ -91,6 +159,7 @@ def main():
         info = fetch_golfer_info(ghin, hdrs)
         revs = fetch_revisions(ghin, hdrs)
         rounds = fetch_rounds(ghin, hdrs)
+        tourney = fetch_tournament_scores(ghin, hdrs)
         data[ghin] = {
             "name": meta["name"],
             "club": meta["club"],
@@ -99,13 +168,14 @@ def main():
             "low": info["low"],
             "revs": revs,
             "rounds": rounds,
+            "tourney": tourney,
         }
-        print(f"  {len(revs)} revisions, {len(rounds)} rounds, current HI={data[ghin]['current']}")
+        played = list(tourney.keys())
+        print(f"  {len(revs)} revisions, {len(rounds)} rounds, HI={data[ghin]['current']}, tourney rounds: {played or 'none yet'}")
 
-    out = f"/Users/nathan.lee/pinehurst/ghin_data.json"
-    with open(out, "w") as f:
+    with open("/Users/nathan.lee/pinehurst/ghin_data.json", "w") as f:
         json.dump(data, f, indent=2)
-    print(f"\nSaved to {out}")
+    print("\nSaved to ghin_data.json")
 
 if __name__ == "__main__":
     main()

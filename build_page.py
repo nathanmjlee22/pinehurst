@@ -107,6 +107,28 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+/* ── Scores Table ── */
+.scores-wrap{padding-bottom:2px}
+.scores-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,.08)}
+.scores-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:13px}
+.scores-table thead tr:first-child{background:#0a3318}
+.scores-table thead tr:first-child th{padding:8px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;text-align:center}
+.scores-table thead tr:first-child th:first-child{text-align:left}
+.scores-table thead tr.sub-head th{padding:4px 10px 7px;font-size:9px;font-weight:600;color:rgba(255,255,255,.5);text-align:center;background:#0a3318;border-bottom:1px solid rgba(255,255,255,.12)}
+.scores-table thead tr.sub-head th:first-child{text-align:left}
+.scores-table td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.05);text-align:center;vertical-align:middle}
+.scores-table td:first-child{text-align:left;font-weight:600;font-size:13px}
+.scores-table tbody tr:last-child td{border-bottom:none}
+.scores-table tbody tr.team-divider td{border-top:2px solid rgba(0,0,0,.1);background:#f9fafb}
+.sc-name{font-weight:700;font-size:13px;color:#0d1a10}
+.sc-hi{font-size:10px;color:var(--dim);font-weight:500}
+.sc-gross{font-weight:700;font-size:14px;color:#0d1a10}
+.sc-net{font-size:11px;color:var(--dim);font-weight:600;margin-top:1px}
+.sc-pending{color:rgba(0,0,0,.2);font-size:18px}
+.sc-total{font-weight:800;font-size:14px;color:#0d1a10}
+.sc-par.under{color:#1a5c35;font-weight:800}
+.sc-par.over{color:#be123c;font-weight:800}
+.sc-par.even{color:var(--dim);font-weight:700}
 /* ── Course Info Table ── */
 .ci-wrap{padding-bottom:2px}
 .ci-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,.08)}
@@ -192,6 +214,8 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 <div class="content">
   <!-- Course Info -->
   __COURSE_INFO_TABLE__
+  <!-- Individual Scores -->
+  __SCORES_TABLE__
   <!-- Overall Scoreboard -->
   <div class="overall-sb">
     <div class="ot-wrap">
@@ -486,6 +510,116 @@ course_info_table = f"""<div class="ci-wrap">
     </div>
   </div>"""
 
+ROUNDS = [
+    {"round": 1, "date": "2026-09-04", "course_num": 10, "par": 70,
+     "blue": {"rating": 74.1, "slope": 142}, "white": {"rating": 71.5, "slope": 137}},
+    {"round": 2, "date": "2026-09-05", "course_num": 4,  "par": 72,
+     "blue": {"rating": 73.7, "slope": 135}, "white": {"rating": 70.8, "slope": 131}},
+    {"round": 3, "date": "2026-09-05", "course_num": 2,  "par": 72,
+     "blue": {"rating": 75.4, "slope": 143}, "white": {"rating": 72.0, "slope": 139}},
+    {"round": 4, "date": "2026-09-06", "course_num": 8,  "par": 72,
+     "blue": {"rating": 72.9, "slope": 131}, "white": {"rating": 70.5, "slope": 127}},
+]
+
+# All 12 players in order (left team then right team)
+ALL_PLAYERS = [
+    # (display_name, ghin_or_None, team)
+    ("Alec",   "3031631",  "left"),
+    ("Eddie",  "7866286",  "left"),
+    ("Dave",   "11367668", "left"),
+    ("Nathan", "7562830",  "left"),
+    ("Mike",   "11466889", "left"),
+    ("Matt",   None,       "left"),
+    ("Dillon", "8676617",  "right"),
+    ("Adam",   "11634995", "right"),
+    ("Alex",   "4990445",  "right"),
+    ("Chris",  None,       "right"),
+    ("Luis",   None,       "right"),
+    ("John",   "10460818", "right"),
+]
+
+TOTAL_PAR = sum(r["par"] for r in ROUNDS)  # 70+72+72+72 = 286
+
+def fmt_par(diff):
+    if diff is None: return '<span class="sc-pending">—</span>'
+    if diff == 0: return '<span class="sc-par even">E</span>'
+    sign = "+" if diff > 0 else ""
+    cls = "over" if diff > 0 else "under"
+    return f'<span class="sc-par {cls}">{sign}{diff}</span>'
+
+def build_scores_table():
+    score_rows = ""
+    prev_team = None
+    for name, ghin, team in ALL_PLAYERS:
+        if prev_team == "left" and team == "right":
+            # divider row between teams
+            score_rows += '<tr class="team-divider"><td colspan="9"></td></tr>'
+        prev_team = team
+
+        g = DATA.get(ghin, {}) if ghin else {}
+        hi = g.get("current", "—")
+        tourney = g.get("tourney", {}) if ghin else {}
+
+        cells = ""
+        total_gross = 0
+        total_net = 0
+        has_any = False
+
+        for rnd in ROUNDS:
+            rnum = rnd["round"]
+            rd = tourney.get(str(rnum)) or tourney.get(rnum)
+            if rd and rd.get("gross"):
+                gross = rd["gross"]
+                net = rd.get("net", "—")
+                total_gross += gross
+                if isinstance(net, int): total_net += net
+                has_any = True
+                net_str = str(net) if isinstance(net, int) else "—"
+                cells += f'<td><div class="sc-gross">{gross}</div><div class="sc-net">Net {net_str}</div></td>'
+            else:
+                cells += '<td><span class="sc-pending">—</span></td>'
+
+        if has_any:
+            gross_par = total_gross - TOTAL_PAR
+            net_par = total_net - TOTAL_PAR
+            total_cell = f'<td class="sc-total">{total_gross}</td>'
+            net_cell = f'<td class="sc-total">{total_net}</td>'
+            par_cell = f'<td>{fmt_par(gross_par)}</td>'
+            net_par_cell = f'<td>{fmt_par(net_par)}</td>'
+        else:
+            total_cell = '<td><span class="sc-pending">—</span></td>'
+            net_cell = '<td><span class="sc-pending">—</span></td>'
+            par_cell = '<td><span class="sc-pending">—</span></td>'
+            net_par_cell = '<td><span class="sc-pending">—</span></td>'
+
+        score_rows += f'''<tr>
+          <td><div class="sc-name">{name}</div><div class="sc-hi">HI {hi}</div></td>
+          {cells}{total_cell}{net_cell}{par_cell}{net_par_cell}
+        </tr>'''
+
+    scores_table = f'''<div class="scores-wrap">
+    <div class="scores-scroll">
+      <table class="scores-table">
+        <thead>
+          <tr>
+            <th rowspan="2">Player</th>
+            <th>R1 · 9/4</th><th>R2 · 9/5</th><th>R3 · 9/5</th><th>R4 · 9/6</th>
+            <th>Gross</th><th>Net</th><th>+/- Gross</th><th>+/- Net</th>
+          </tr>
+          <tr class="sub-head">
+            <th></th>
+            <th>No.10</th><th>No.4</th><th>No.2</th><th>No.8</th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
+        <tbody>{score_rows}</tbody>
+      </table>
+    </div>
+  </div>'''
+    return scores_table
+
+scores_table_html = build_scores_table()
+
 matchup_rows = [
     (1, 10, ("Alec","Nathan","Dillon","Adam"),   ("Eddie","Dave","Alex","Chris"),    ("Mike","Matt","Luis","John")),
     (2,  4, ("Alec","Dave","Alex","John"),        ("Eddie","Mike","Dillon","Luis"),   ("Nathan","Matt","Adam","Chris")),
@@ -524,6 +658,7 @@ HTML = HTML.replace("__TODAY__", TODAY)
 HTML = HTML.replace("__TODAY_ISO__", date.today().isoformat())
 HTML = HTML.replace("__MATCHUP_TABLE__", matchup_table)
 HTML = HTML.replace("__COURSE_INFO_TABLE__", course_info_table)
+HTML = HTML.replace("__SCORES_TABLE__", scores_table_html)
 
 for fname in ["index.html", "handicap.html"]:
     path = os.path.join(DIR, fname)
