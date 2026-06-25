@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Handicap History</title>
+<title>Pinehurst 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
@@ -131,6 +131,11 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .team-btn.gsel{background:rgba(10,51,24,.04)}
 .t-names{font-size:12px;font-weight:700;color:#0d1a10;line-height:1.4;word-break:break-word}
 .t-hi{font-size:10px;font-weight:600;color:var(--dim)}
+.t-player{display:flex;justify-content:space-between;align-items:center;gap:5px;width:100%;padding:2px 0}
+.t-player+.t-player{border-top:1px solid rgba(0,0,0,.05)}
+.t-pname{font-size:12px;font-weight:700;color:#0d1a10}
+.team-btn.won .t-pname{color:#0a3318}
+.t-phi{font-size:11px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 5px;flex-shrink:0}
 .sb-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;background:var(--surface);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);flex-shrink:0;width:72px}
 .win-btns{display:flex;gap:2px}
 .win-btn{width:20px;height:22px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:11px;font-weight:800;color:var(--dim);cursor:pointer;transition:all .12s;padding:0;display:flex;align-items:center;justify-content:center}
@@ -473,6 +478,7 @@ function updateOverall(){
 }
 
 function ghinsFor(names){return names.map(n=>NAME_GHIN[n]).filter(Boolean);}
+function playerHI(name){const g=Object.values(G).find(x=>x.name.split(' ')[0]===name);return g?parseFloat(g.current).toFixed(1):'—';}
 function teamHI(names){
   const vals=names.map(n=>{const g=Object.values(G).find(x=>x.name.split(' ')[0]===n);return g?parseFloat(g.current):null;}).filter(x=>x!==null);
   return vals.length?vals.reduce((a,b)=>a+b,0).toFixed(1):'—';
@@ -496,12 +502,12 @@ function renderSBRows(){
     const winner=saved.winner||'';
     const resultVal=saved.result||'';
     const lsel=sbSel===key+'-l',rsel=sbSel===key+'-r';
-    const lhi=teamHI(m.left),rhi=teamHI(m.right);
+    const lPlayers=m.left.map(n=>`<div class="t-player"><span class="t-pname">${n}</span><span class="t-phi">${playerHI(n)}</span></div>`).join('');
+    const rPlayers=m.right.map(n=>`<div class="t-player"><span class="t-pname">${n}</span><span class="t-phi">${playerHI(n)}</span></div>`).join('');
     return `<div class="foursome-card" data-key="${key}">
       <div class="foursome-teams">
         <button class="team-btn${winner==='l'?' won':''}${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
-          <div class="t-names">${m.left[0]}<br>${m.left[1]}</div>
-          <div class="t-hi">HI ${lhi}</div>
+          ${lPlayers}
         </button>
         <div class="sb-center">
           <div class="win-btns">
@@ -512,8 +518,7 @@ function renderSBRows(){
           <input class="result-input" data-key="${key}" placeholder="e.g. 2&1" value="${resultVal}">
         </div>
         <button class="team-btn${winner==='r'?' won':''}${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
-          <div class="t-names">${m.right[0]}<br>${m.right[1]}</div>
-          <div class="t-hi">HI ${rhi}</div>
+          ${rPlayers}
         </button>
       </div>
     </div>`;
