@@ -44,17 +44,17 @@ HTML = """<!DOCTYPE html>
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;padding-top:var(--safe-top);padding-bottom:calc(var(--safe-bot)+24px);-webkit-font-smoothing:antialiased}
-header{background:linear-gradient(160deg,#0a3318 0%,#132016 100%);padding:18px 16px 14px;border-bottom:1px solid rgba(0,0,0,0.06)}
+header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,0,0,0.08)}
 .header-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.logo{width:34px;height:34px;background:#ffffff;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#0a3318;flex-shrink:0;letter-spacing:-0.5px}
-.header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#ffffff}
-.header-sub{font-size:12px;color:rgba(255,255,255,0.55);margin-top:1px}
+.logo{width:34px;height:34px;background:#0a3318;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#ffffff;flex-shrink:0;letter-spacing:-0.5px}
+.header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#0d1a10}
+.header-sub{font-size:12px;color:#5a7a60;margin-top:1px}
 .pills{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pill{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.45);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;text-align:left}
+.pill{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;border:1.5px solid rgba(0,0,0,0.1);background:#f4f6f4;color:#5a7a60;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;text-align:left}
 .pill .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;opacity:.4;transition:opacity .18s}
 .pill .pname{font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
 .pill .phi{font-size:20px;font-weight:800;line-height:1;flex-shrink:0}
-.pill.on{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3);color:#ffffff}
+.pill.on{background:#ffffff;border-color:var(--c);color:#0d1a10}
 .pill.on .dot{opacity:1}
 .content{padding:14px;display:flex;flex-direction:column;gap:14px}
 .range-tabs{display:flex;background:var(--surface);border-radius:10px;padding:3px;gap:2px}
