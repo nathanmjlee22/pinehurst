@@ -186,7 +186,7 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 <header>
   <div class="header-row">
     <img class="logo" src="putterboy.png" alt="Pinehurst">
-    <div><div class="header-title">Pinehurst 2026</div><div class="header-sub">SCGA &middot; GHIN &middot; Updated __TODAY__</div></div>
+    <div><div class="header-title">Pinehurst 2026</div></div>
   </div>
 </header>
 <div class="content">
