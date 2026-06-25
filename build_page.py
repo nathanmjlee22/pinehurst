@@ -724,7 +724,6 @@ def build_scores_table():
             <th>Gross</th><th>Net</th><th>+/- Gross</th><th>+/- Net</th>
           </tr>
           <tr class="sub-head">
-            <th></th>
             <th>No.10</th><th>No.4</th><th>No.2</th><th>No.8</th>
             <th colspan="4"></th>
           </tr>
