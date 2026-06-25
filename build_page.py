@@ -97,10 +97,10 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 </header>
 <div class="content">
   <div class="range-tabs">
-    <button class="rtab" data-r="1">1Y</button>
+    <button class="rtab on" data-r="1">1Y</button>
     <button class="rtab" data-r="2">2Y</button>
     <button class="rtab" data-r="5">5Y</button>
-    <button class="rtab on" data-r="all">All</button>
+    <button class="rtab" data-r="all">All</button>
   </div>
   <div class="chart-card">
     <div class="chart-wrap"><canvas id="hiChart"></canvas></div>
@@ -122,7 +122,7 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 const G=__GOLFERS__;
 const ORDER=[__ORDER__];
 const NOW=new Date('__TODAY_ISO__');
-let active=new Set(ORDER),range='all',activeRounds=ORDER[0],chart=null;
+let active=new Set(ORDER),range='1',activeRounds=ORDER[0],chart=null;
 function cutoff(r){if(r==='all')return new Date('2000-01-01');const d=new Date(NOW);d.setFullYear(d.getFullYear()-parseInt(r));return d;}
 function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
 function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
@@ -145,7 +145,7 @@ function buildChart(){
     datasets.push({label:d.name,data:pts,borderColor:d.color,backgroundColor:'transparent',borderWidth:2.5,fill:false,tension:0.3,pointRadius:0,pointHoverRadius:4,pointBackgroundColor:d.color,pointBorderColor:'#ffffff',pointBorderWidth:2,pointHoverBackgroundColor:'#ffffff',pointHoverBorderColor:d.color,pointHoverBorderWidth:2});
   });
   if(chart)chart.destroy();
-  const endLabelPlugin={id:'endLabels',afterDatasetsDraw(chart){const ctx=chart.ctx;chart.data.datasets.forEach((ds,i)=>{if(!ds.data.length)return;const meta=chart.getDatasetMeta(i);if(meta.hidden)return;const last=meta.data[meta.data.length-1];if(!last)return;const name=ds.label.split(' ')[0];ctx.save();ctx.fillStyle=ds.borderColor;ctx.font='bold 11px -apple-system,BlinkMacSystemFont,sans-serif';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(name,last.x+6,last.y);ctx.restore();});}};
+  const endLabelPlugin={id:'endLabels',afterDatasetsDraw(chart){const ctx=chart.ctx;const GAP=15;const labels=[];chart.data.datasets.forEach((ds,i)=>{if(!ds.data.length)return;const meta=chart.getDatasetMeta(i);if(meta.hidden)return;const last=meta.data[meta.data.length-1];if(!last)return;labels.push({y:last.y,color:ds.borderColor,name:ds.label.split(' ')[0]});});if(!labels.length)return;labels.sort((a,b)=>a.y-b.y);const adj=labels.map(l=>l.y);for(let i=1;i<adj.length;i++){if(adj[i]-adj[i-1]<GAP)adj[i]=adj[i-1]+GAP;}const top=chart.chartArea.top+6,bot=chart.chartArea.bottom-6;for(let i=adj.length-1;i>=0;i--){adj[i]=Math.min(adj[i],bot-(adj.length-1-i)*GAP);}for(let i=0;i<adj.length;i++){adj[i]=Math.max(adj[i],top+i*GAP);}const xRight=chart.chartArea.right+6;ctx.save();ctx.font='bold 11px -apple-system,BlinkMacSystemFont,sans-serif';ctx.textAlign='left';ctx.textBaseline='middle';labels.forEach((l,i)=>{ctx.fillStyle=l.color;ctx.fillText(l.name,xRight,adj[i]);});ctx.restore();}};
   chart=new Chart(ctx,{type:'line',data:{datasets},plugins:[endLabelPlugin],options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false,axis:'x'},layout:{padding:{right:52}},plugins:{legend:{display:false},tooltip:{enabled:false,external:extTT}},scales:{x:{type:'time',time:{unit:range==='1'?'month':range==='2'?'month':'year',tooltipFormat:'MMM d, yyyy'},grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#5a7a60',font:{size:11},maxTicksLimit:6},border:{display:false}},y:{reverse:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#5a7a60',font:{size:11},maxTicksLimit:6,callback:v=>v.toFixed(1)},border:{display:false}}}}});
 }
 const tt=document.getElementById('tooltip'),ttD=document.getElementById('ttDate'),ttH=document.getElementById('ttHI'),ttN=document.getElementById('ttName');
