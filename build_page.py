@@ -26,6 +26,24 @@ for ghin in ORDER:
     golfers_js += '},\n'
 golfers_js += "}"
 
+# Build first-name → current HI map from fetched data
+name_hi = {}
+for ghin, g in DATA.items():
+    first = g["name"].split()[0]
+    name_hi[first] = g["current"]
+# David Ryu is "Dave" in the matchup table
+name_hi["Dave"] = name_hi.get("David", "—")
+
+def p(name):
+    """Render a player name with handicap badge."""
+    hi = name_hi.get(name, "—")
+    badge = f'<span class="p-hi">{hi}</span>' if hi != "—" else '<span class="p-hi dim">—</span>'
+    return f'<span class="player">{name}{badge}</span>'
+
+def match(a, b, c, d):
+    """Render a matchup cell: (a+b) vs (c+d)."""
+    return f'{p(a)}<span class="plus">+</span>{p(b)}<span class="vs">vs</span>{p(c)}<span class="plus">+</span>{p(d)}'
+
 HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,19 +99,21 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
-.matchup-wrap{padding-bottom:8px}
-.matchup-header{font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.matchup-wrap{padding-bottom:4px}
 .matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
-.matchup-table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+.matchup-table{width:100%;border-collapse:collapse;white-space:nowrap}
 .matchup-table thead tr{background:#f4f6f4}
-.matchup-table th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(0,0,0,0.08)}
-.matchup-table td{padding:11px 14px;border-bottom:1px solid rgba(0,0,0,0.05);vertical-align:middle}
+.matchup-table th{padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(0,0,0,0.08)}
+.matchup-table td{padding:10px 12px;border-bottom:1px solid rgba(0,0,0,0.05);vertical-align:middle}
 .matchup-table tbody tr:last-child td{border-bottom:none}
 .matchup-table tbody tr:nth-child(even){background:#fafafa}
-.round-num{font-weight:800;font-size:15px;color:#0d1a10;text-align:center;width:44px}
-.course-num{font-weight:700;font-size:13px;color:var(--dim);text-align:center;width:56px}
-.team{font-weight:600;color:#0d1a10}
-.vs{margin:0 6px;font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.04em}
+.round-num{font-weight:800;font-size:14px;color:#0d1a10;text-align:center;width:36px}
+.course-num{font-weight:700;font-size:12px;color:var(--dim);text-align:center;width:48px}
+.player{display:inline-flex;flex-direction:column;align-items:center;font-weight:600;font-size:12px;color:#0d1a10;line-height:1.2}
+.p-hi{font-size:10px;font-weight:700;color:#0a3318}
+.p-hi.dim{color:var(--dim)}
+.plus{margin:0 4px;font-size:11px;color:var(--dim);font-weight:600}
+.vs{margin:0 8px;font-size:10px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;vertical-align:middle}
 #tooltip{position:fixed;background:#ffffff;border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:10px 14px;pointer-events:none;display:none;box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:999;transform:translateX(-50%);white-space:nowrap}
 .tt-date{font-size:11px;color:var(--dim);margin-bottom:2px}
 .tt-hi{font-size:26px;font-weight:800;line-height:1}
@@ -109,6 +129,7 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="pills" id="pills"></div>
 </header>
 <div class="content">
+  __MATCHUP_TABLE__
   <div class="range-tabs">
     <button class="rtab on" data-r="1">1Y</button>
     <button class="rtab" data-r="2">2Y</button>
@@ -126,51 +147,9 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
     <div class="rounds-list" id="roundsList"></div>
   </div>
 
-  <div class="matchup-wrap">
-    <div class="matchup-header">Matchups</div>
-    <div class="matchup-scroll">
-      <table class="matchup-table">
-        <thead>
-          <tr>
-            <th>Round</th>
-            <th>Course</th>
-            <th>Foursome 1</th>
-            <th>Foursome 2</th>
-            <th>Foursome 3</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="round-num">1</td>
-            <td class="course-num">10</td>
-            <td><span class="team">Alec + Nathan</span><span class="vs">vs</span><span class="team">Dillon + Adam</span></td>
-            <td><span class="team">Eddie + Dave</span><span class="vs">vs</span><span class="team">Alex + Chris</span></td>
-            <td><span class="team">Mike + Matt</span><span class="vs">vs</span><span class="team">Luis + John</span></td>
-          </tr>
-          <tr>
-            <td class="round-num">2</td>
-            <td class="course-num">4</td>
-            <td><span class="team">Alec + Dave</span><span class="vs">vs</span><span class="team">Alex + John</span></td>
-            <td><span class="team">Eddie + Mike</span><span class="vs">vs</span><span class="team">Dillon + Luis</span></td>
-            <td><span class="team">Nathan + Matt</span><span class="vs">vs</span><span class="team">Adam + Chris</span></td>
-          </tr>
-          <tr>
-            <td class="round-num">3</td>
-            <td class="course-num">2</td>
-            <td><span class="team">Alec + Eddie</span><span class="vs">vs</span><span class="team">Alex + Luis</span></td>
-            <td><span class="team">Dave + Matt</span><span class="vs">vs</span><span class="team">Chris + Dillon</span></td>
-            <td><span class="team">Mike + Nathan</span><span class="vs">vs</span><span class="team">John + Adam</span></td>
-          </tr>
-          <tr>
-            <td class="round-num">4</td>
-            <td class="course-num">8</td>
-            <td><span class="team">Alec + Mike</span><span class="vs">vs</span><span class="team">Adam + Luis</span></td>
-            <td><span class="team">Eddie + Matt</span><span class="vs">vs</span><span class="team">John + Chris</span></td>
-            <td><span class="team">Dave + Nathan</span><span class="vs">vs</span><span class="team">Alex + Dillon</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div>
+    <div class="rounds-tabs" id="roundsTabs"></div>
+    <div class="rounds-list" id="roundsList"></div>
   </div>
 </div>
 <div id="tooltip">
@@ -237,12 +216,42 @@ renderPills();buildChart();renderStats();renderRoundsTabs();renderRounds();
 </body>
 </html>"""
 
+# Build matchup table HTML
+matchup_rows = [
+    (1, 10, ("Alec","Nathan","Dillon","Adam"),   ("Eddie","Dave","Alex","Chris"),    ("Mike","Matt","Luis","John")),
+    (2,  4, ("Alec","Dave","Alex","John"),        ("Eddie","Mike","Dillon","Luis"),   ("Nathan","Matt","Adam","Chris")),
+    (3,  2, ("Alec","Eddie","Alex","Luis"),       ("Dave","Matt","Chris","Dillon"),   ("Mike","Nathan","John","Adam")),
+    (4,  8, ("Alec","Mike","Adam","Luis"),        ("Eddie","Matt","John","Chris"),    ("Dave","Nathan","Alex","Dillon")),
+]
+rows_html = ""
+for rnd, course, f1, f2, f3 in matchup_rows:
+    rows_html += f"""<tr>
+      <td class="round-num">{rnd}</td>
+      <td class="course-num">{course}</td>
+      <td>{match(*f1)}</td>
+      <td>{match(*f2)}</td>
+      <td>{match(*f3)}</td>
+    </tr>"""
+
+matchup_table = f"""<div class="matchup-wrap">
+    <div class="matchup-scroll">
+      <table class="matchup-table">
+        <thead><tr>
+          <th>Rnd</th><th>Crs</th>
+          <th>Foursome 1</th><th>Foursome 2</th><th>Foursome 3</th>
+        </tr></thead>
+        <tbody>{rows_html}</tbody>
+      </table>
+    </div>
+  </div>"""
+
 # Substitute placeholders
 ghin_order_str = ",".join(f'"{g}"' for g in ORDER)
 HTML = HTML.replace("__GOLFERS__", golfers_js)
 HTML = HTML.replace("__ORDER__", ghin_order_str)
 HTML = HTML.replace("__TODAY__", TODAY)
 HTML = HTML.replace("__TODAY_ISO__", date.today().isoformat())
+HTML = HTML.replace("__MATCHUP_TABLE__", matchup_table)
 
 for fname in ["index.html", "handicap.html"]:
     path = os.path.join(DIR, fname)
