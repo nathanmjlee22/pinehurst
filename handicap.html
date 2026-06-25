@@ -53,6 +53,19 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+.matchup-wrap{padding-bottom:8px}
+.matchup-header{font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
+.matchup-table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+.matchup-table thead tr{background:#f4f6f4}
+.matchup-table th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(0,0,0,0.08)}
+.matchup-table td{padding:11px 14px;border-bottom:1px solid rgba(0,0,0,0.05);vertical-align:middle}
+.matchup-table tbody tr:last-child td{border-bottom:none}
+.matchup-table tbody tr:nth-child(even){background:#fafafa}
+.round-num{font-weight:800;font-size:15px;color:#0d1a10;text-align:center;width:44px}
+.course-num{font-weight:700;font-size:13px;color:var(--dim);text-align:center;width:56px}
+.team{font-weight:600;color:#0d1a10}
+.vs{margin:0 6px;font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.04em}
 #tooltip{position:fixed;background:#ffffff;border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:10px 14px;pointer-events:none;display:none;box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:999;transform:translateX(-50%);white-space:nowrap}
 .tt-date{font-size:11px;color:var(--dim);margin-bottom:2px}
 .tt-hi{font-size:26px;font-weight:800;line-height:1}
@@ -83,6 +96,53 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div>
     <div class="rounds-tabs" id="roundsTabs"></div>
     <div class="rounds-list" id="roundsList"></div>
+  </div>
+
+  <div class="matchup-wrap">
+    <div class="matchup-header">Matchups</div>
+    <div class="matchup-scroll">
+      <table class="matchup-table">
+        <thead>
+          <tr>
+            <th>Round</th>
+            <th>Course</th>
+            <th>Foursome 1</th>
+            <th>Foursome 2</th>
+            <th>Foursome 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="round-num">1</td>
+            <td class="course-num">10</td>
+            <td><span class="team">Alec + Nathan</span><span class="vs">vs</span><span class="team">Dillon + Adam</span></td>
+            <td><span class="team">Eddie + Dave</span><span class="vs">vs</span><span class="team">Alex + Chris</span></td>
+            <td><span class="team">Mike + Matt</span><span class="vs">vs</span><span class="team">Luis + John</span></td>
+          </tr>
+          <tr>
+            <td class="round-num">2</td>
+            <td class="course-num">4</td>
+            <td><span class="team">Alec + Dave</span><span class="vs">vs</span><span class="team">Alex + John</span></td>
+            <td><span class="team">Eddie + Mike</span><span class="vs">vs</span><span class="team">Dillon + Luis</span></td>
+            <td><span class="team">Nathan + Matt</span><span class="vs">vs</span><span class="team">Adam + Chris</span></td>
+          </tr>
+          <tr>
+            <td class="round-num">3</td>
+            <td class="course-num">2</td>
+            <td><span class="team">Alec + Eddie</span><span class="vs">vs</span><span class="team">Alex + Luis</span></td>
+            <td><span class="team">Dave + Matt</span><span class="vs">vs</span><span class="team">Chris + Dillon</span></td>
+            <td><span class="team">Mike + Nathan</span><span class="vs">vs</span><span class="team">John + Adam</span></td>
+          </tr>
+          <tr>
+            <td class="round-num">4</td>
+            <td class="course-num">8</td>
+            <td><span class="team">Alec + Mike</span><span class="vs">vs</span><span class="team">Adam + Luis</span></td>
+            <td><span class="team">Eddie + Matt</span><span class="vs">vs</span><span class="team">John + Chris</span></td>
+            <td><span class="team">Dave + Nathan</span><span class="vs">vs</span><span class="team">Alex + Dillon</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <div id="tooltip">
