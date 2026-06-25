@@ -108,7 +108,9 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .matchup-table tbody tr:last-child td{border-bottom:none}
 .matchup-table tbody tr:nth-child(even){background:#fafafa}
 .round-num{font-weight:800;font-size:14px;color:#0d1a10;text-align:center;width:36px}
-.course-num{font-weight:700;font-size:12px;color:var(--dim);text-align:center;width:48px}
+.course-num{font-weight:700;font-size:12px;color:var(--dim);text-align:center;width:60px}
+.course-link{font-weight:700;font-size:12px;color:#0a3318;text-decoration:none;border-bottom:1px solid rgba(10,51,24,0.3);white-space:nowrap}
+.course-link:hover{border-bottom-color:#0a3318}
 .player{display:inline-flex;flex-direction:column;align-items:center;font-weight:600;font-size:12px;color:#0d1a10;line-height:1.2}
 .p-hi{font-size:10px;font-weight:700;color:#0a3318}
 .p-hi.dim{color:var(--dim)}
@@ -217,6 +219,13 @@ renderPills();buildChart();renderStats();renderRoundsTabs();renderRounds();
 </html>"""
 
 # Build matchup table HTML
+COURSE_URLS = {
+    2:  "https://www.pinehurst.com/golf/courses/no-2/",
+    4:  "https://www.pinehurst.com/golf/courses/no-4/",
+    8:  "https://www.pinehurst.com/golf/courses/no-8/",
+    10: "https://www.pinehurst.com/golf/courses/no-10/",
+}
+
 matchup_rows = [
     (1, 10, ("Alec","Nathan","Dillon","Adam"),   ("Eddie","Dave","Alex","Chris"),    ("Mike","Matt","Luis","John")),
     (2,  4, ("Alec","Dave","Alex","John"),        ("Eddie","Mike","Dillon","Luis"),   ("Nathan","Matt","Adam","Chris")),
@@ -225,9 +234,11 @@ matchup_rows = [
 ]
 rows_html = ""
 for rnd, course, f1, f2, f3 in matchup_rows:
+    url = COURSE_URLS.get(course, "#")
+    course_cell = f'<a class="course-link" href="{url}" target="_blank">No.&nbsp;{course}</a>'
     rows_html += f"""<tr>
       <td class="round-num">{rnd}</td>
-      <td class="course-num">{course}</td>
+      <td class="course-num">{course_cell}</td>
       <td>{match(*f1)}</td>
       <td>{match(*f2)}</td>
       <td>{match(*f3)}</td>
