@@ -8,7 +8,7 @@ DIR = "/Users/nathan.lee/pinehurst"
 with open(f"{DIR}/ghin_data.json") as f:
     DATA = json.load(f)
 
-ORDER = ["7866286", "7562830", "11367668", "11634995", "10460818", "3031631"]
+ORDER = ["7866286", "7562830", "11367668", "11634995", "10460818", "3031631", "8676617", "11466889", "4990445"]
 TODAY = date.today().strftime("%b %Y")
 
 def js(v):
@@ -99,18 +99,39 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+/* ── Overall Scoreboard ── */
+.overall-sb{background:#0a3318;border-radius:var(--radius);padding:16px 14px;color:#fff}
+.ot-wrap{display:flex;align-items:center;gap:8px}
+.ot-side{flex:1;text-align:center}
+.ot-players{font-size:10px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:6px;letter-spacing:.01em}
+.ot-score{font-size:52px;font-weight:900;line-height:1;color:#fff;letter-spacing:-2px}
+.ot-divider{font-size:14px;font-weight:800;color:rgba(255,255,255,.35);flex-shrink:0}
+.ot-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.15);margin-top:14px}
+.ot-bar-l{background:#d4af37;transition:width .4s ease}
+.ot-bar-r{background:rgba(255,255,255,.55);transition:width .4s ease}
+.ot-matches{text-align:center;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px}
+/* ── Round Scoreboard ── */
 .scoreboard{display:flex;flex-direction:column;gap:8px}
-.sb-round-tabs{display:flex;gap:6px;margin-bottom:4px}
+.sb-round-tabs{display:flex;gap:6px;margin-bottom:2px}
 .sb-rtab{flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid rgba(0,0,0,.08);background:var(--surface);font-family:inherit;font-size:13px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;text-align:center}
 .sb-rtab.on{background:#0a3318;color:#fff;border-color:#0a3318}
-.foursome-row{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;border:1.5px solid rgba(0,0,0,.07);background:#fff}
-.team-btn{flex:1;padding:12px 10px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:center;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:3px}
-.team-btn:active{background:rgba(10,51,24,.06)}
-.team-btn.selected{background:rgba(10,51,24,.07);outline:none}
-.team-btn.selected .t-names{color:#0a3318}
-.t-names{font-size:13px;font-weight:700;color:#0d1a10;line-height:1.3}
-.t-hi{font-size:11px;font-weight:600;color:var(--dim)}
-.sb-vs{display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:10px;font-weight:800;color:var(--dim);letter-spacing:.06em;background:var(--surface);flex-shrink:0;width:28px}
+.foursome-card{border-radius:12px;overflow:hidden;border:1.5px solid rgba(0,0,0,.08);background:#fff;margin-bottom:8px}
+.foursome-teams{display:flex;align-items:stretch}
+.team-btn{flex:1;padding:11px 8px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:center;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.team-btn.won{background:rgba(10,51,24,.07)}
+.team-btn.won .t-names{color:#0a3318;font-weight:800}
+.team-btn.gsel{background:rgba(10,51,24,.04)}
+.t-names{font-size:12px;font-weight:700;color:#0d1a10;line-height:1.4;word-break:break-word}
+.t-hi{font-size:10px;font-weight:600;color:var(--dim)}
+.sb-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;background:var(--surface);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);flex-shrink:0;width:72px}
+.win-btns{display:flex;gap:2px}
+.win-btn{width:20px;height:22px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:11px;font-weight:800;color:var(--dim);cursor:pointer;transition:all .12s;padding:0;display:flex;align-items:center;justify-content:center}
+.win-btn.active-l{background:#0a3318;border-color:#0a3318;color:#fff}
+.win-btn.active-r{background:#0a3318;border-color:#0a3318;color:#fff}
+.win-btn.active-h{background:#d4af37;border-color:#d4af37;color:#fff}
+.result-input{width:62px;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:11px;text-align:center;background:#fff;color:#0d1a10;outline:none}
+.result-input:focus{border-color:#0a3318}
+.result-input::placeholder{color:rgba(0,0,0,.3)}
 .matchup-wrap{padding-bottom:4px}
 .matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
 .matchup-table{width:100%;border-collapse:collapse;white-space:nowrap}
@@ -143,11 +164,28 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="pills" id="pills"></div>
 </header>
 <div class="content">
-  __MATCHUP_TABLE__
+  <!-- Overall Scoreboard -->
+  <div class="overall-sb">
+    <div class="ot-wrap">
+      <div class="ot-side">
+        <div class="ot-players">Alec &middot; Eddie &middot; Dave<br>Nathan &middot; Mike &middot; Matt</div>
+        <div class="ot-score" id="ot-score-l">0</div>
+      </div>
+      <div class="ot-divider">vs</div>
+      <div class="ot-side">
+        <div class="ot-score" id="ot-score-r">0</div>
+        <div class="ot-players">Dillon &middot; Adam &middot; Alex<br>Chris &middot; Luis &middot; John</div>
+      </div>
+    </div>
+    <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
+    <div class="ot-matches" id="ot-matches">0 of 12 matches played</div>
+  </div>
+  <!-- Round Scoreboard -->
   <div class="scoreboard">
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
   </div>
+  <!-- Graph -->
   <div class="range-tabs">
     <button class="rtab on" data-r="1">1Y</button>
     <button class="rtab" data-r="2">2Y</button>
@@ -157,18 +195,13 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="chart-card">
     <div class="chart-wrap"><canvas id="hiChart"></canvas></div>
   </div>
-  <div>
-    <div class="stats-grid" id="statsGrid"></div>
-  </div>
+  <div><div class="stats-grid" id="statsGrid"></div></div>
   <div>
     <div class="rounds-tabs" id="roundsTabs"></div>
     <div class="rounds-list" id="roundsList"></div>
   </div>
-
-  <div>
-    <div class="rounds-tabs" id="roundsTabs"></div>
-    <div class="rounds-list" id="roundsList"></div>
-  </div>
+  <!-- Matchup Reference -->
+  __MATCHUP_TABLE__
 </div>
 <div id="tooltip">
   <div class="tt-date" id="ttDate"></div>
@@ -229,45 +262,117 @@ function renderRounds(){
   el.innerHTML=display.map((s,i)=>`<div class="round"><div class="round-idx">${i+1}</div><div class="round-date">${fmtShort(s.date)}</div><div class="round-course">${s.course}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
 }
 document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));t.classList.add('on');range=t.dataset.r;buildChart();renderStats();}));
+// ── Scoreboard ──────────────────────────────────────
 const MATCHUPS={
   1:[{left:['Alec','Nathan'],right:['Dillon','Adam']},{left:['Eddie','Dave'],right:['Alex','Chris']},{left:['Mike','Matt'],right:['Luis','John']}],
   2:[{left:['Alec','Dave'],right:['Alex','John']},{left:['Eddie','Mike'],right:['Dillon','Luis']},{left:['Nathan','Matt'],right:['Adam','Chris']}],
   3:[{left:['Alec','Eddie'],right:['Alex','Luis']},{left:['Dave','Matt'],right:['Chris','Dillon']},{left:['Mike','Nathan'],right:['John','Adam']}],
   4:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['Dave','Nathan'],right:['Alex','Dillon']}],
 };
-const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','Dave':'11367668','Adam':'11634995','John':'10460818'};
+const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','Dave':'11367668','Adam':'11634995','John':'10460818','Dillon':'8676617','Mike':'11466889','Alex':'4990445'};
+const STORE='pinehurst2026';
 let sbRound=1,sbSel=null;
+
+function loadRes(){try{return JSON.parse(localStorage.getItem(STORE)||'{}');}catch(e){return {};}}
+function saveRes(r){localStorage.setItem(STORE,JSON.stringify(r));}
+function matchKey(round,idx){return `${round}-${idx}`;}
+
+function calcScores(){
+  const res=loadRes();let l=0,r=0,played=0;
+  Object.values(res).forEach(v=>{
+    if(!v.winner)return;played++;
+    if(v.winner==='l')l+=1;else if(v.winner==='r')r+=1;else{l+=0.5;r+=0.5;}
+  });
+  return{l,r,played};
+}
+
+function fmtPts(n){return n===Math.floor(n)?String(n):n.toFixed(1);}
+
+function updateOverall(){
+  const{l,r,played}=calcScores();
+  document.getElementById('ot-score-l').textContent=fmtPts(l);
+  document.getElementById('ot-score-r').textContent=fmtPts(r);
+  const total=12,pct=total>0?(l/total)*100:50;
+  document.getElementById('ot-bar-l').style.width=pct+'%';
+  document.getElementById('ot-bar-r').style.width=(100-pct)+'%';
+  document.getElementById('ot-matches').textContent=`${played} of ${total} matches played`;
+}
+
 function ghinsFor(names){return names.map(n=>NAME_GHIN[n]).filter(Boolean);}
-function teamHI(names){const vals=names.map(n=>{const g=Object.values(G).find(x=>x.name.split(' ')[0]===n);return g?parseFloat(g.current):null;}).filter(x=>x!==null);return vals.length?vals.reduce((a,b)=>a+b,0).toFixed(1):'—';}
-function renderSB(){
+function teamHI(names){
+  const vals=names.map(n=>{const g=Object.values(G).find(x=>x.name.split(' ')[0]===n);return g?parseFloat(g.current):null;}).filter(x=>x!==null);
+  return vals.length?vals.reduce((a,b)=>a+b,0).toFixed(1):'—';
+}
+
+function renderSBTabs(){
   const tabs=document.getElementById('sbTabs');
   tabs.innerHTML=[1,2,3,4].map(r=>`<button class="sb-rtab${r===sbRound?' on':''}" data-r="${r}">Round ${r}</button>`).join('');
-  tabs.querySelectorAll('.sb-rtab').forEach(b=>b.addEventListener('click',()=>{sbRound=+b.dataset.r;sbSel=null;active=new Set(ORDER);renderPills();buildChart();renderStats();renderRoundsTabs();renderSB();}));
-  const rows=document.getElementById('sbRows');
-  rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
-    const lk=`${sbRound}-${i}-l`,rk=`${sbRound}-${i}-r`;
-    const lhi=teamHI(m.left),rhi=teamHI(m.right);
-    const lsel=sbSel===lk,rsel=sbSel===rk;
-    return `<div class="foursome-row">
-      <button class="team-btn${lsel?' selected':''}" data-k="${lk}" data-names="${m.left.join(',')}">
-        <div class="t-names">${m.left.join(' + ')}</div>
-        <div class="t-hi">HI ${lhi}</div>
-      </button>
-      <div class="sb-vs">vs</div>
-      <button class="team-btn${rsel?' selected':''}" data-k="${rk}" data-names="${m.right.join(',')}">
-        <div class="t-names">${m.right.join(' + ')}</div>
-        <div class="t-hi">HI ${rhi}</div>
-      </button>
-    </div>`;
-  }).join('');
-  rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
-    const k=b.dataset.k,names=b.dataset.names.split(','),ghins=ghinsFor(names);
-    if(sbSel===k){sbSel=null;active=new Set(ORDER);}
-    else{sbSel=k;active=ghins.length?new Set(ghins):new Set(ORDER);}
-    renderPills();buildChart();renderStats();renderRoundsTabs();renderSB();
+  tabs.querySelectorAll('.sb-rtab').forEach(b=>b.addEventListener('click',()=>{
+    sbRound=+b.dataset.r;sbSel=null;active=new Set(ORDER);
+    renderPills();buildChart();renderStats();renderRoundsTabs();renderSBTabs();renderSBRows();
   }));
 }
-renderPills();renderSB();buildChart();renderStats();renderRoundsTabs();renderRounds();
+
+function renderSBRows(){
+  const res=loadRes();
+  const rows=document.getElementById('sbRows');
+  rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
+    const key=matchKey(sbRound,i);
+    const saved=res[key]||{};
+    const winner=saved.winner||'';
+    const resultVal=saved.result||'';
+    const lsel=sbSel===key+'-l',rsel=sbSel===key+'-r';
+    const lhi=teamHI(m.left),rhi=teamHI(m.right);
+    return `<div class="foursome-card" data-key="${key}">
+      <div class="foursome-teams">
+        <button class="team-btn${winner==='l'?' won':''}${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
+          <div class="t-names">${m.left[0]}<br>${m.left[1]}</div>
+          <div class="t-hi">HI ${lhi}</div>
+        </button>
+        <div class="sb-center">
+          <div class="win-btns">
+            <button class="win-btn${winner==='l'?' active-l':''}" data-key="${key}" data-w="l" title="Left wins">◀</button>
+            <button class="win-btn${winner==='h'?' active-h':''}" data-key="${key}" data-w="h" title="Halved">½</button>
+            <button class="win-btn${winner==='r'?' active-r':''}" data-key="${key}" data-w="r" title="Right wins">▶</button>
+          </div>
+          <input class="result-input" data-key="${key}" placeholder="e.g. 2&1" value="${resultVal}">
+        </div>
+        <button class="team-btn${winner==='r'?' won':''}${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
+          <div class="t-names">${m.right[0]}<br>${m.right[1]}</div>
+          <div class="t-hi">HI ${rhi}</div>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Team buttons → filter graph
+  rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.key+'-'+b.dataset.side,names=b.dataset.names.split(','),ghins=ghinsFor(names);
+    if(sbSel===k){sbSel=null;active=new Set(ORDER);}
+    else{sbSel=k;active=ghins.length?new Set(ghins):new Set(ORDER);}
+    renderPills();buildChart();renderStats();renderRoundsTabs();renderSBRows();
+  }));
+
+  // Winner buttons → record result
+  rows.querySelectorAll('.win-btn').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const res=loadRes();const key=b.dataset.key;
+    const cur=(res[key]||{}).winner;
+    if(!res[key])res[key]={};
+    res[key].winner=cur===b.dataset.w?'':b.dataset.w; // toggle off if same
+    saveRes(res);updateOverall();renderSBRows();
+  }));
+
+  // Result text input → save on change
+  rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',e=>{
+    const res=loadRes();const key=inp.dataset.key;
+    if(!res[key])res[key]={};
+    res[key].result=inp.value.trim();
+    saveRes(res);
+  }));
+}
+
+renderPills();renderSBTabs();renderSBRows();updateOverall();buildChart();renderStats();renderRoundsTabs();renderRounds();
 </script>
 </body>
 </html>"""

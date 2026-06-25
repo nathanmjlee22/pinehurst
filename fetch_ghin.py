@@ -20,6 +20,9 @@ GOLFERS = {
     "11634995": {"name": "Adam Hawk",        "club": "AZ Under30",         "color": "#7c3aed"},
     "10460818": {"name": "John McGinley",    "club": "EClub Monterey Bay", "color": "#be123c"},
     "3031631":  {"name": "Alec Negri",       "club": "USGA/SCGA GC",       "color": "#0e7490"},
+    "8676617":  {"name": "Dillon Staples",   "club": "NCGA NEXT",          "color": "#d97706"},
+    "11466889": {"name": "Mike Gronstal",    "club": "USGA/SCGA GC",       "color": "#059669"},
+    "4990445":  {"name": "Alex Newman",      "club": "Preserve GC",        "color": "#dc2626"},
 }
 
 def login():
