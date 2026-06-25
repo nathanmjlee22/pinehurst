@@ -143,8 +143,6 @@ function buildChart(){
     const filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));
     const pts=filtered.map(r=>({x:r.date,y:r.hi,name:d.name,series:'revisions'}));
     datasets.push({label:d.name,data:pts,borderColor:d.color,backgroundColor:'transparent',borderWidth:2.5,fill:false,tension:0.3,pointRadius:0,pointHoverRadius:4,pointBackgroundColor:d.color,pointBorderColor:'#ffffff',pointBorderWidth:2,pointHoverBackgroundColor:'#ffffff',pointHoverBorderColor:d.color,pointHoverBorderWidth:2});
-    const rpts=d.rounds.map(r=>({x:r.date,y:r.hi,name:d.name,course:r.course,score:r.score,series:'rounds'}));
-    datasets.push({label:d.name+' (rounds)',data:rpts,borderColor:d.color,backgroundColor:'transparent',borderWidth:1.5,borderDash:[5,4],fill:false,tension:0.3,pointRadius:0,pointHoverRadius:4,pointBackgroundColor:d.color+'bb',pointBorderColor:'#ffffff',pointBorderWidth:1,pointHoverBackgroundColor:'#ffffff',pointHoverBorderColor:d.color,pointHoverBorderWidth:2});
   });
   if(chart)chart.destroy();
   chart=new Chart(ctx,{type:'line',data:{datasets},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',intersect:false,axis:'x'},plugins:{legend:{display:false},tooltip:{enabled:false,external:extTT}},scales:{x:{type:'time',time:{unit:range==='1'?'month':range==='2'?'month':'year',tooltipFormat:'MMM d, yyyy'},grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#5a7a60',font:{size:11},maxTicksLimit:6},border:{display:false}},y:{reverse:true,grid:{color:'rgba(0,0,0,0.06)'},ticks:{color:'#5a7a60',font:{size:11},maxTicksLimit:6,callback:v=>v.toFixed(1)},border:{display:false}}}}});
