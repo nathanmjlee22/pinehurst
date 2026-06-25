@@ -99,6 +99,18 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+.scoreboard{display:flex;flex-direction:column;gap:8px}
+.sb-round-tabs{display:flex;gap:6px;margin-bottom:4px}
+.sb-rtab{flex:1;padding:8px 4px;border-radius:8px;border:1.5px solid rgba(0,0,0,.08);background:var(--surface);font-family:inherit;font-size:13px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;text-align:center}
+.sb-rtab.on{background:#0a3318;color:#fff;border-color:#0a3318}
+.foursome-row{display:flex;align-items:stretch;border-radius:12px;overflow:hidden;border:1.5px solid rgba(0,0,0,.07);background:#fff}
+.team-btn{flex:1;padding:12px 10px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:center;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.team-btn:active{background:rgba(10,51,24,.06)}
+.team-btn.selected{background:rgba(10,51,24,.07);outline:none}
+.team-btn.selected .t-names{color:#0a3318}
+.t-names{font-size:13px;font-weight:700;color:#0d1a10;line-height:1.3}
+.t-hi{font-size:11px;font-weight:600;color:var(--dim)}
+.sb-vs{display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:10px;font-weight:800;color:var(--dim);letter-spacing:.06em;background:var(--surface);flex-shrink:0;width:28px}
 .matchup-wrap{padding-bottom:4px}
 .matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
 .matchup-table{width:100%;border-collapse:collapse;white-space:nowrap}
@@ -132,6 +144,10 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 </header>
 <div class="content">
   __MATCHUP_TABLE__
+  <div class="scoreboard">
+    <div class="sb-round-tabs" id="sbTabs"></div>
+    <div id="sbRows"></div>
+  </div>
   <div class="range-tabs">
     <button class="rtab on" data-r="1">1Y</button>
     <button class="rtab" data-r="2">2Y</button>
@@ -213,7 +229,45 @@ function renderRounds(){
   el.innerHTML=display.map((s,i)=>`<div class="round"><div class="round-idx">${i+1}</div><div class="round-date">${fmtShort(s.date)}</div><div class="round-course">${s.course}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
 }
 document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));t.classList.add('on');range=t.dataset.r;buildChart();renderStats();}));
-renderPills();buildChart();renderStats();renderRoundsTabs();renderRounds();
+const MATCHUPS={
+  1:[{left:['Alec','Nathan'],right:['Dillon','Adam']},{left:['Eddie','Dave'],right:['Alex','Chris']},{left:['Mike','Matt'],right:['Luis','John']}],
+  2:[{left:['Alec','Dave'],right:['Alex','John']},{left:['Eddie','Mike'],right:['Dillon','Luis']},{left:['Nathan','Matt'],right:['Adam','Chris']}],
+  3:[{left:['Alec','Eddie'],right:['Alex','Luis']},{left:['Dave','Matt'],right:['Chris','Dillon']},{left:['Mike','Nathan'],right:['John','Adam']}],
+  4:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['Dave','Nathan'],right:['Alex','Dillon']}],
+};
+const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','Dave':'11367668','Adam':'11634995','John':'10460818'};
+let sbRound=1,sbSel=null;
+function ghinsFor(names){return names.map(n=>NAME_GHIN[n]).filter(Boolean);}
+function teamHI(names){const vals=names.map(n=>{const g=Object.values(G).find(x=>x.name.split(' ')[0]===n);return g?parseFloat(g.current):null;}).filter(x=>x!==null);return vals.length?vals.reduce((a,b)=>a+b,0).toFixed(1):'—';}
+function renderSB(){
+  const tabs=document.getElementById('sbTabs');
+  tabs.innerHTML=[1,2,3,4].map(r=>`<button class="sb-rtab${r===sbRound?' on':''}" data-r="${r}">Round ${r}</button>`).join('');
+  tabs.querySelectorAll('.sb-rtab').forEach(b=>b.addEventListener('click',()=>{sbRound=+b.dataset.r;sbSel=null;active=new Set(ORDER);renderPills();buildChart();renderStats();renderRoundsTabs();renderSB();}));
+  const rows=document.getElementById('sbRows');
+  rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
+    const lk=`${sbRound}-${i}-l`,rk=`${sbRound}-${i}-r`;
+    const lhi=teamHI(m.left),rhi=teamHI(m.right);
+    const lsel=sbSel===lk,rsel=sbSel===rk;
+    return `<div class="foursome-row">
+      <button class="team-btn${lsel?' selected':''}" data-k="${lk}" data-names="${m.left.join(',')}">
+        <div class="t-names">${m.left.join(' + ')}</div>
+        <div class="t-hi">HI ${lhi}</div>
+      </button>
+      <div class="sb-vs">vs</div>
+      <button class="team-btn${rsel?' selected':''}" data-k="${rk}" data-names="${m.right.join(',')}">
+        <div class="t-names">${m.right.join(' + ')}</div>
+        <div class="t-hi">HI ${rhi}</div>
+      </button>
+    </div>`;
+  }).join('');
+  rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.k,names=b.dataset.names.split(','),ghins=ghinsFor(names);
+    if(sbSel===k){sbSel=null;active=new Set(ORDER);}
+    else{sbSel=k;active=ghins.length?new Set(ghins):new Set(ORDER);}
+    renderPills();buildChart();renderStats();renderRoundsTabs();renderSB();
+  }));
+}
+renderPills();renderSB();buildChart();renderStats();renderRoundsTabs();renderRounds();
 </script>
 </body>
 </html>"""
