@@ -144,6 +144,15 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .win-btn.active-l{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-r{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-h{background:#d4af37;border-color:#d4af37;color:#fff}
+.tee-row{display:flex;align-items:center;gap:4px;margin-top:3px;margin-bottom:5px;flex-wrap:wrap}
+.tee-btn{padding:2px 6px;border-radius:5px;border:1.5px solid;font-family:inherit;font-size:10px;font-weight:800;cursor:pointer;transition:all .12s;line-height:1.4}
+.tee-b{border-color:rgba(29,78,216,.3);color:rgba(29,78,216,.5);background:transparent}
+.tee-b.tb-on{border-color:#1d4ed8;color:#1d4ed8;background:rgba(29,78,216,.08)}
+.tee-w{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.35);background:transparent}
+.tee-w.tb-on{border-color:#374151;color:#374151;background:rgba(0,0,0,.06)}
+.ch-badge{font-size:10px;font-weight:700;color:var(--dim);padding:1px 4px;background:rgba(0,0,0,.05);border-radius:4px}
+.stk-badge{font-size:10px;font-weight:800;color:#fff;background:#0a3318;border-radius:4px;padding:1px 5px}
+.stk-badge.scratch{background:var(--dim);color:#fff}
 .result-input{width:62px;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:11px;text-align:center;background:#fff;color:#0d1a10;outline:none}
 .result-input:focus{border-color:#0a3318}
 .result-input::placeholder{color:rgba(0,0,0,.3)}
@@ -454,11 +463,21 @@ const MATCHUPS={
 };
 const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','David':'11367668','Adam':'11634995','John':'10460818','Dillon':'8676617','Mike':'11466889','Alex':'4990445'};
 const STORE='pinehurst2026';
+const TEE_STORE='pinehurst2026_tees';
+const ROUND_TEES={
+  1:{blue:{rating:74.1,slope:142,par:70},white:{rating:71.5,slope:137,par:70}},
+  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72}},
+  4:{blue:{rating:72.9,slope:131,par:72},white:{rating:70.5,slope:127,par:72}},
+};
 let sbRound=1,sbSel=null;
 
 function loadRes(){try{return JSON.parse(localStorage.getItem(STORE)||'{}');}catch(e){return {};}}
 function saveRes(r){localStorage.setItem(STORE,JSON.stringify(r));}
+function loadTees(){try{return JSON.parse(localStorage.getItem(TEE_STORE)||'{}');}catch(e){return {};}}
+function saveTees(t){localStorage.setItem(TEE_STORE,JSON.stringify(t));}
 function matchKey(round,idx){return `${round}-${idx}`;}
+function teeKey(round,name){return `${round}-${name}`;}
 
 function calcScores(){
   const res=loadRes();let l=0,r=0,played=0;
@@ -482,10 +501,32 @@ function updateOverall(){
 }
 
 function ghinsFor(names){return names.map(n=>NAME_GHIN[n]).filter(Boolean);}
-function playerHI(name){const g=Object.values(G).find(x=>x.name.split(' ')[0]===name);return g?parseFloat(g.current).toFixed(1):'—';}
-function teamHI(names){
-  const vals=names.map(n=>{const g=Object.values(G).find(x=>x.name.split(' ')[0]===n);return g?parseFloat(g.current):null;}).filter(x=>x!==null);
-  return vals.length?vals.reduce((a,b)=>a+b,0).toFixed(1):'—';
+function playerHI(name){const g=Object.values(G).find(x=>x.name.split(' ')[0]===name);return g?parseFloat(g.current):null;}
+function playerHIStr(name){const h=playerHI(name);return h!==null?h.toFixed(1):'—';}
+
+function calcCH(name,round,tee){
+  const hi=playerHI(name);if(hi===null)return null;
+  const t=ROUND_TEES[round][tee];
+  return Math.round(hi*(t.slope/113)+(t.rating-t.par));
+}
+
+function getMatchStrokes(allNames,round){
+  // Returns {name: strokes} if all players with HI data have tees selected, else null
+  const tees=loadTees();
+  const chs={};
+  for(const name of allNames){
+    if(playerHI(name)===null) continue; // skip players with no HI data
+    const tee=tees[teeKey(round,name)];
+    if(!tee) return null; // not all selected yet
+    const ch=calcCH(name,round,tee);
+    if(ch===null) return null;
+    chs[name]=ch;
+  }
+  if(!Object.keys(chs).length) return null;
+  const minCH=Math.min(...Object.values(chs));
+  const strokes={};
+  for(const[name,ch] of Object.entries(chs)) strokes[name]=ch-minCH;
+  return strokes;
 }
 
 function renderSBTabs(){
@@ -499,36 +540,60 @@ function renderSBTabs(){
 
 function renderSBRows(){
   const res=loadRes();
+  const tees=loadTees();
   const rows=document.getElementById('sbRows');
+
   rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
     const key=matchKey(sbRound,i);
     const saved=res[key]||{};
     const winner=saved.winner||'';
     const resultVal=saved.result||'';
     const lsel=sbSel===key+'-l',rsel=sbSel===key+'-r';
-    const lPlayers=m.left.map(n=>`<div class="t-player"><span class="t-pname">${n}</span><span class="t-phi">${playerHI(n)}</span></div>`).join('');
-    const rPlayers=m.right.map(n=>`<div class="t-player"><span class="t-pname">${n}</span><span class="t-phi">${playerHI(n)}</span></div>`).join('');
+    const allNames=[...m.left,...m.right];
+    const strokes=getMatchStrokes(allNames,sbRound);
+
+    function playerHTML(name){
+      const hi=playerHI(name);
+      const tee=tees[teeKey(sbRound,name)]||null;
+      const ch=tee&&hi!==null?calcCH(name,sbRound,tee):null;
+      const stk=strokes&&strokes[name]!==undefined?strokes[name]:null;
+      const chStr=ch!==null?`<span class="ch-badge">CH ${ch}</span>`:'';
+      const stkStr=stk!==null?(stk===0?'<span class="stk-badge scratch">scratch</span>':`<span class="stk-badge">+${stk}</span>`):'';
+      return `<div class="t-player">
+        <span class="t-pname">${name}</span>
+        <span class="t-phi">${hi!==null?hi.toFixed(1):'—'}</span>
+      </div>
+      <div class="tee-row" data-player="${name}" data-round="${sbRound}">
+        <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">Blue</button>
+        <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">White</button>
+        ${chStr}${stkStr}
+      </div>`;
+    }
+
+    const lHTML=m.left.map(playerHTML).join('');
+    const rHTML=m.right.map(playerHTML).join('');
+
     return `<div class="foursome-card" data-key="${key}">
       <div class="foursome-teams">
         <button class="team-btn${winner==='l'?' won':''}${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
-          ${lPlayers}
+          ${lHTML}
         </button>
         <div class="sb-center">
           <div class="win-btns">
-            <button class="win-btn${winner==='l'?' active-l':''}" data-key="${key}" data-w="l" title="Left wins">◀</button>
-            <button class="win-btn${winner==='h'?' active-h':''}" data-key="${key}" data-w="h" title="Halved">½</button>
-            <button class="win-btn${winner==='r'?' active-r':''}" data-key="${key}" data-w="r" title="Right wins">▶</button>
+            <button class="win-btn${winner==='l'?' active-l':''}" data-key="${key}" data-w="l">◀</button>
+            <button class="win-btn${winner==='h'?' active-h':''}" data-key="${key}" data-w="h">½</button>
+            <button class="win-btn${winner==='r'?' active-r':''}" data-key="${key}" data-w="r">▶</button>
           </div>
           <input class="result-input" data-key="${key}" placeholder="e.g. 2&1" value="${resultVal}">
         </div>
         <button class="team-btn${winner==='r'?' won':''}${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
-          ${rPlayers}
+          ${rHTML}
         </button>
       </div>
     </div>`;
   }).join('');
 
-  // Team buttons → filter graph
+  // Team buttons → filter graph (ignore clicks on tee buttons inside)
   rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.key+'-'+b.dataset.side,names=b.dataset.names.split(','),ghins=ghinsFor(names);
     if(sbSel===k){sbSel=null;active=new Set(ORDER);}
@@ -536,22 +601,28 @@ function renderSBRows(){
     renderPills();buildChart();renderStats();renderRoundsTabs();renderSBRows();
   }));
 
-  // Winner buttons → record result
+  // Tee buttons → save tee and re-render
+  rows.querySelectorAll('.tee-btn').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const t=loadTees();const k=teeKey(+b.dataset.r,b.dataset.p);
+    t[k]=b.dataset.t;saveTees(t);renderSBRows();
+  }));
+
+  // Winner buttons
   rows.querySelectorAll('.win-btn').forEach(b=>b.addEventListener('click',e=>{
     e.stopPropagation();
     const res=loadRes();const key=b.dataset.key;
     const cur=(res[key]||{}).winner;
     if(!res[key])res[key]={};
-    res[key].winner=cur===b.dataset.w?'':b.dataset.w; // toggle off if same
+    res[key].winner=cur===b.dataset.w?'':b.dataset.w;
     saveRes(res);updateOverall();renderSBRows();
   }));
 
-  // Result text input → save on change
-  rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',e=>{
+  // Result input
+  rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',()=>{
     const res=loadRes();const key=inp.dataset.key;
     if(!res[key])res[key]={};
-    res[key].result=inp.value.trim();
-    saveRes(res);
+    res[key].result=inp.value.trim();saveRes(res);
   }));
 }
 
