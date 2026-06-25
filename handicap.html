@@ -127,32 +127,31 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .sb-rtab.on{background:#0a3318;color:#fff;border-color:#0a3318}
 .foursome-card{border-radius:12px;overflow:hidden;border:1.5px solid rgba(0,0,0,.08);background:#fff;margin-bottom:8px}
 .foursome-teams{display:flex;align-items:stretch}
-.team-btn{flex:1;padding:11px 8px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:center;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.team-btn{flex:1;min-width:0;padding:10px 7px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:left;transition:background .15s;display:flex;flex-direction:column;gap:3px;overflow:hidden}
 .team-btn.won{background:rgba(10,51,24,.07)}
 .team-btn.won .t-names{color:#0a3318;font-weight:800}
 .team-btn.gsel{background:rgba(10,51,24,.04)}
 .t-names{font-size:12px;font-weight:700;color:#0d1a10;line-height:1.4;word-break:break-word}
 .t-hi{font-size:10px;font-weight:600;color:var(--dim)}
-.t-player{display:flex;justify-content:space-between;align-items:center;gap:5px;width:100%;padding:2px 0}
-.t-player+.t-player{border-top:1px solid rgba(0,0,0,.05)}
-.t-pname{font-size:12px;font-weight:700;color:#0d1a10}
+.t-player{display:flex;align-items:center;gap:4px;width:100%;padding:2px 0;flex-wrap:nowrap;overflow:hidden}
+.t-player+.t-player{border-top:1px solid rgba(0,0,0,.05);margin-top:2px;padding-top:4px}
+.t-pname{font-size:12px;font-weight:700;color:#0d1a10;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .team-btn.won .t-pname{color:#0a3318}
-.t-phi{font-size:11px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 5px;flex-shrink:0}
+.t-phi{font-size:10px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 4px;flex-shrink:0;white-space:nowrap}
 .sb-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;background:var(--surface);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);flex-shrink:0;width:72px}
 .win-btns{display:flex;gap:2px}
 .win-btn{width:20px;height:22px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:11px;font-weight:800;color:var(--dim);cursor:pointer;transition:all .12s;padding:0;display:flex;align-items:center;justify-content:center}
 .win-btn.active-l{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-r{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-h{background:#d4af37;border-color:#d4af37;color:#fff}
-.tee-row{display:flex;align-items:center;gap:4px;margin-top:3px;margin-bottom:5px;flex-wrap:wrap}
-.tee-btn{padding:2px 6px;border-radius:5px;border:1.5px solid;font-family:inherit;font-size:10px;font-weight:800;cursor:pointer;transition:all .12s;line-height:1.4}
-.tee-b{border-color:rgba(29,78,216,.3);color:rgba(29,78,216,.5);background:transparent}
+.tee-btn{padding:1px 5px;border-radius:4px;border:1.5px solid;font-family:inherit;font-size:9px;font-weight:800;cursor:pointer;transition:all .12s;line-height:1.5;flex-shrink:0}
+.tee-b{border-color:rgba(29,78,216,.3);color:rgba(29,78,216,.45);background:transparent}
 .tee-b.tb-on{border-color:#1d4ed8;color:#1d4ed8;background:rgba(29,78,216,.08)}
-.tee-w{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.35);background:transparent}
+.tee-w{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.3);background:transparent}
 .tee-w.tb-on{border-color:#374151;color:#374151;background:rgba(0,0,0,.06)}
-.ch-badge{font-size:10px;font-weight:700;color:var(--dim);padding:1px 4px;background:rgba(0,0,0,.05);border-radius:4px}
-.stk-badge{font-size:10px;font-weight:800;color:#fff;background:#0a3318;border-radius:4px;padding:1px 5px}
-.stk-badge.scratch{background:var(--dim);color:#fff}
+.ch-badge{font-size:9px;font-weight:700;color:var(--dim);flex-shrink:0}
+.stk-badge{font-size:9px;font-weight:800;color:#fff;background:#0a3318;border-radius:4px;padding:0 4px;flex-shrink:0}
+.stk-badge.scratch{background:var(--dim)}
 .result-input{width:62px;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:11px;text-align:center;background:#fff;color:#0d1a10;outline:none}
 .result-input:focus{border-color:#0a3318}
 .result-input::placeholder{color:rgba(0,0,0,.3)}
@@ -556,15 +555,13 @@ function renderSBRows(){
       const tee=tees[teeKey(sbRound,name)]||null;
       const ch=tee&&hi!==null?calcCH(name,sbRound,tee):null;
       const stk=strokes&&strokes[name]!==undefined?strokes[name]:null;
-      const chStr=ch!==null?`<span class="ch-badge">CH ${ch}</span>`:'';
-      const stkStr=stk!==null?(stk===0?'<span class="stk-badge scratch">scratch</span>':`<span class="stk-badge">+${stk}</span>`):'';
+      const chStr=ch!==null?`<span class="ch-badge">CH${ch}</span>`:'';
+      const stkStr=stk!==null?(stk===0?`<span class="stk-badge scratch">—</span>`:`<span class="stk-badge">+${stk}</span>`):'';
       return `<div class="t-player">
         <span class="t-pname">${name}</span>
         <span class="t-phi">${hi!==null?hi.toFixed(1):'—'}</span>
-      </div>
-      <div class="tee-row" data-player="${name}" data-round="${sbRound}">
-        <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">Blue</button>
-        <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">White</button>
+        <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">B</button>
+        <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">W</button>
         ${chStr}${stkStr}
       </div>`;
     }
