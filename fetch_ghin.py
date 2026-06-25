@@ -14,12 +14,12 @@ S.headers.update({
 })
 
 GOLFERS = {
-    "7866286": {"name": "Eddie Mclaughlin", "club": "Costa Mesa GC",      "color": "#ffffff"},
-    "7562830": {"name": "Nathan Lee",        "club": "Maderas GC",         "color": "#d4af37"},
-    "11367668": {"name": "David Ryu",        "club": "Costa Mesa GC",      "color": "#6dbf82"},
-    "11634995": {"name": "Adam Hawk",        "club": "AZ Under30",         "color": "#a8d5b5"},
-    "10460818": {"name": "John McGinley",    "club": "EClub Monterey Bay", "color": "#e8c84a"},
-    "3031631":  {"name": "Alec Negri",       "club": "USGA/SCGA GC",       "color": "#b5d99c"},
+    "7866286": {"name": "Eddie Mclaughlin", "club": "Costa Mesa GC",      "color": "#1a5c35"},
+    "7562830": {"name": "Nathan Lee",        "club": "Maderas GC",         "color": "#b45309"},
+    "11367668": {"name": "David Ryu",        "club": "Costa Mesa GC",      "color": "#1d4ed8"},
+    "11634995": {"name": "Adam Hawk",        "club": "AZ Under30",         "color": "#7c3aed"},
+    "10460818": {"name": "John McGinley",    "club": "EClub Monterey Bay", "color": "#be123c"},
+    "3031631":  {"name": "Alec Negri",       "club": "USGA/SCGA GC",       "color": "#0e7490"},
 }
 
 def login():
