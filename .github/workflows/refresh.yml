@@ -1,0 +1,34 @@
+name: Refresh GHIN Data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch GHIN data and rebuild page
+        env:
+          USER: ${{ secrets.GHIN_USER }}
+          PASSWORD: ${{ secrets.GHIN_PASSWORD }}
+        run: python fetch_ghin.py && python build_page.py
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.email "ghin-refresh@pinehurst.local"
+          git config user.name "GHIN Refresh"
+          git add index.html handicap.html ghin_data.json
+          git diff --cached --quiet && echo "No changes" || \
+            (git commit -m "Auto-refresh GHIN data $(date -u +%Y-%m-%d)" && git push)

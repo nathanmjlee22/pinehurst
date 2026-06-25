@@ -16,8 +16,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;padding-top:var(--safe-top);padding-bottom:calc(var(--safe-bot)+24px);-webkit-font-smoothing:antialiased}
-header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,0,0,0.08)}
-.header-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,0,0,0.08)}
+.header-row{display:flex;align-items:center;gap:10px}
+.refresh-btn{margin-left:auto;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.refresh-btn:hover{border-color:#0a3318;color:#0a3318}
+.refresh-btn.running{color:#b45309;border-color:#b45309}
+.refresh-btn.done{color:#1a5c35;border-color:#1a5c35}
+.refresh-btn.err{color:#be123c;border-color:#be123c}
 .logo{height:52px;width:auto;flex-shrink:0;display:block}
 .header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#0d1a10}
 .header-sub{font-size:12px;color:#5a7a60;margin-top:1px}
@@ -163,6 +168,7 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="header-row">
     <img class="logo" src="putterboy.png" alt="Pinehurst">
     <div><div class="header-title">Pinehurst 2026</div></div>
+    <button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh</button>
   </div>
 </header>
 <div class="content">
@@ -541,6 +547,37 @@ function renderSBRows(){
 }
 
 renderPills();renderSBTabs();renderSBRows();updateOverall();buildChart();renderStats();renderRoundsTabs();renderRounds();
+
+async function triggerRefresh(){
+  const btn=document.getElementById('refreshBtn');
+  let token=localStorage.getItem('gh_pat');
+  if(!token){
+    token=prompt('Enter a GitHub PAT with "workflow" scope. Stored only on this device.');
+    if(!token)return;
+    localStorage.setItem('gh_pat',token.trim());
+  }
+  btn.textContent='⏳ Running...';btn.className='refresh-btn running';btn.disabled=true;
+  try{
+    const res=await fetch('https://api.github.com/repos/nathanmjlee22/pinehurst/actions/workflows/refresh.yml/dispatches',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify({ref:'master'}),
+    });
+    if(res.status===204){
+      btn.textContent='✓ Refreshing — reload in ~2 min';btn.className='refresh-btn done';
+      setTimeout(()=>{btn.textContent='↻ Refresh';btn.className='refresh-btn';btn.disabled=false;},120000);
+    } else if(res.status===401||res.status===403){
+      localStorage.removeItem('gh_pat');
+      btn.textContent='✗ Bad token — tap to retry';btn.className='refresh-btn err';btn.disabled=false;
+    } else {
+      btn.textContent='✗ Error '+res.status;btn.className='refresh-btn err';
+      setTimeout(()=>{btn.textContent='↻ Refresh';btn.className='refresh-btn';btn.disabled=false;},4000);
+    }
+  }catch(e){
+    btn.textContent='✗ Network error';btn.className='refresh-btn err';
+    setTimeout(()=>{btn.textContent='↻ Refresh';btn.className='refresh-btn';btn.disabled=false;},4000);
+  }
+}
 </script>
 </body>
 </html>
