@@ -67,13 +67,21 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .logo{height:52px;width:auto;flex-shrink:0;display:block}
 .header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#0d1a10}
 .header-sub{font-size:12px;color:#5a7a60;margin-top:1px}
-.pills{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pill{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:12px;border:1.5px solid rgba(0,0,0,0.1);background:#f4f6f4;color:#5a7a60;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;text-align:left}
-.pill .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;opacity:.4;transition:opacity .18s}
-.pill .pname{font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
-.pill .phi{font-size:20px;font-weight:800;line-height:1;flex-shrink:0}
-.pill.on{background:#ffffff;border-color:var(--c);color:#0d1a10}
-.pill.on .dot{opacity:1}
+.team-filter{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team-col{background:var(--surface);border-radius:12px;padding:10px}
+.team-col-hdr{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;padding-bottom:7px;border-bottom:2px solid}
+.left-hdr{color:#1a5c35;border-color:#1a5c35}
+.right-hdr{color:#be123c;border-color:#be123c}
+.tpill{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:8px;border:1.5px solid rgba(0,0,0,.07);background:#fff;margin-bottom:5px;cursor:pointer;font-family:inherit;text-align:left;width:100%;transition:all .15s}
+.tpill:last-child{margin-bottom:0}
+.tpill .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;opacity:.3;transition:opacity .15s}
+.tpill .pname{font-size:12px;font-weight:600;color:var(--dim);flex:1;min-width:0}
+.tpill .phi{font-size:13px;font-weight:800;color:var(--dim);flex-shrink:0}
+.tpill.on{border-color:var(--c)}
+.tpill.on .dot{opacity:1}
+.tpill.on .pname{color:#0d1a10}
+.tpill.on .phi{color:var(--c)}
+.tpill.no-data{cursor:default;opacity:.45}
 .content{padding:14px;display:flex;flex-direction:column;gap:14px}
 .range-tabs{display:flex;background:var(--surface);border-radius:10px;padding:3px;gap:2px}
 .rtab{flex:1;text-align:center;padding:8px 4px;border-radius:7px;font-size:13px;font-weight:600;color:var(--dim);cursor:pointer;border:none;background:transparent;font-family:inherit;transition:all .15s}
@@ -180,7 +188,6 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
     <img class="logo" src="putterboy.png" alt="Pinehurst">
     <div><div class="header-title">Pinehurst 2026</div><div class="header-sub">SCGA &middot; GHIN &middot; Updated __TODAY__</div></div>
   </div>
-  <div class="pills" id="pills"></div>
 </header>
 <div class="content">
   <!-- Course Info -->
@@ -206,6 +213,15 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
   </div>
+  <!-- Team player filter -->
+  <div class="team-filter">
+    <div class="team-col" id="teamLeft">
+      <div class="team-col-hdr left-hdr">Left Team</div>
+    </div>
+    <div class="team-col" id="teamRight">
+      <div class="team-col-hdr right-hdr">Right Team</div>
+    </div>
+  </div>
   <!-- Graph -->
   <div class="range-tabs">
     <button class="rtab on" data-r="1">1Y</button>
@@ -221,8 +237,6 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
     <div class="rounds-tabs" id="roundsTabs"></div>
     <div class="rounds-list" id="roundsList"></div>
   </div>
-  <!-- Matchup Reference -->
-  __MATCHUP_TABLE__
 </div>
 <div id="tooltip">
   <div class="tt-date" id="ttDate"></div>
@@ -237,10 +251,27 @@ let active=new Set(ORDER),range='1',activeRounds=ORDER[0],chart=null;
 function cutoff(r){if(r==='all')return new Date('2000-01-01');const d=new Date(NOW);d.setFullYear(d.getFullYear()-parseInt(r));return d;}
 function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
 function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+const LEFT_TEAM=[{n:'Alec',g:'3031631'},{n:'Eddie',g:'7866286'},{n:'Dave',g:'11367668'},{n:'Nathan',g:'7562830'},{n:'Mike',g:'11466889'},{n:'Matt',g:null}];
+const RIGHT_TEAM=[{n:'Dillon',g:'8676617'},{n:'Adam',g:'11634995'},{n:'Alex',g:'4990445'},{n:'Chris',g:null},{n:'Luis',g:null},{n:'John',g:'10460818'}];
+
+function pillHTML(p){
+  if(!p.g){return`<button class="tpill no-data"><div class="dot" style="background:#ccc"></div><div class="pname">${p.n}</div><div class="phi" style="color:var(--dim)">—</div></button>`;}
+  const d=G[p.g],on=active.has(p.g);
+  return`<button class="tpill${on?' on':''}" data-g="${p.g}" style="--c:${d.color}"><div class="dot" style="background:${d.color}"></div><div class="pname">${p.n}</div><div class="phi">${d.current}</div></button>`;
+}
+
 function renderPills(){
-  const c=document.getElementById('pills');
-  c.innerHTML=ORDER.map(g=>{const d=G[g],on=active.has(g);return`<button class="pill${on?' on':''}" data-g="${g}" style="--c:${d.color}"><div class="dot" style="background:${d.color}"></div><div class="pname" style="color:${on?d.color:'var(--dim)'}">${d.name}</div><div class="phi" style="color:${on?d.color:'var(--dim)'}">${d.current}</div></button>`;}).join('');
-  document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>{const g=p.dataset.g;if(active.size===1&&active.has(g)){active=new Set(ORDER)}else if(active.size===1&&!active.has(g)){active.add(g)}else{active=new Set([g])}renderPills();buildChart();renderStats();renderRoundsTabs();}));
+  const leftEl=document.getElementById('teamLeft');
+  const rightEl=document.getElementById('teamRight');
+  leftEl.innerHTML='<div class="team-col-hdr left-hdr">Left Team</div>'+LEFT_TEAM.map(pillHTML).join('');
+  rightEl.innerHTML='<div class="team-col-hdr right-hdr">Right Team</div>'+RIGHT_TEAM.map(pillHTML).join('');
+  document.querySelectorAll('.tpill:not(.no-data)').forEach(p=>p.addEventListener('click',()=>{
+    const g=p.dataset.g;
+    if(active.size===1&&active.has(g)){active=new Set(ORDER)}
+    else if(active.size===1&&!active.has(g)){active.add(g)}
+    else{active=new Set([g])}
+    renderPills();buildChart();renderStats();renderRoundsTabs();
+  }));
 }
 function renderStats(){
   const el=document.getElementById('statsGrid');const cards=[];
