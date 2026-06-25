@@ -127,31 +127,39 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .sb-rtab.on{background:#0a3318;color:#fff;border-color:#0a3318}
 .foursome-card{border-radius:12px;overflow:hidden;border:1.5px solid rgba(0,0,0,.08);background:#fff;margin-bottom:8px}
 .foursome-teams{display:flex;align-items:stretch}
-.team-btn{flex:1;min-width:0;padding:10px 7px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:left;transition:background .15s;display:flex;flex-direction:column;gap:3px;overflow:hidden}
+.team-btn{flex:1;padding:11px 10px;background:transparent;border:none;font-family:inherit;cursor:pointer;text-align:center;transition:background .15s;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
 .team-btn.won{background:rgba(10,51,24,.07)}
 .team-btn.won .t-names{color:#0a3318;font-weight:800}
 .team-btn.gsel{background:rgba(10,51,24,.04)}
 .t-names{font-size:12px;font-weight:700;color:#0d1a10;line-height:1.4;word-break:break-word}
 .t-hi{font-size:10px;font-weight:600;color:var(--dim)}
-.t-player{display:flex;align-items:center;gap:4px;width:100%;padding:2px 0;flex-wrap:nowrap;overflow:hidden}
-.t-player+.t-player{border-top:1px solid rgba(0,0,0,.05);margin-top:2px;padding-top:4px}
-.t-pname{font-size:12px;font-weight:700;color:#0d1a10;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.team-btn.won .t-pname{color:#0a3318}
-.t-phi{font-size:10px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 4px;flex-shrink:0;white-space:nowrap}
+.t-player{display:flex;justify-content:space-between;align-items:center;gap:6px;width:100%;padding:2px 0}
+.t-player+.t-player{border-top:1px solid rgba(0,0,0,.05);padding-top:5px;margin-top:3px}
+.t-pname{font-size:12px;font-weight:700;color:#0d1a10}
+.team-btn.won .t-pname{color:#0a3318;font-weight:800}
+.t-phi{font-size:10px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 5px;flex-shrink:0}
 .sb-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;background:var(--surface);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);flex-shrink:0;width:72px}
 .win-btns{display:flex;gap:2px}
 .win-btn{width:20px;height:22px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:11px;font-weight:800;color:var(--dim);cursor:pointer;transition:all .12s;padding:0;display:flex;align-items:center;justify-content:center}
 .win-btn.active-l{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-r{background:#0a3318;border-color:#0a3318;color:#fff}
 .win-btn.active-h{background:#d4af37;border-color:#d4af37;color:#fff}
-.tee-btn{padding:1px 5px;border-radius:4px;border:1.5px solid;font-family:inherit;font-size:9px;font-weight:800;cursor:pointer;transition:all .12s;line-height:1.5;flex-shrink:0}
-.tee-b{border-color:rgba(29,78,216,.3);color:rgba(29,78,216,.45);background:transparent}
+.hcp-section{border-top:1px solid rgba(0,0,0,.07);padding:10px 10px 6px}
+.hcp-table{width:100%;border-collapse:collapse;font-size:12px}
+.hcp-table th{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;padding:0 8px 6px;text-align:left}
+.hcp-table td{padding:5px 8px;border-top:1px solid rgba(0,0,0,.04)}
+.hcp-name{font-weight:700;color:#0d1a10}
+.hcp-hi{color:var(--dim);font-weight:600}
+.hcp-tee{white-space:nowrap}
+.hcp-ch{font-weight:700;color:#0d1a10;text-align:center}
+.hcp-stk{font-weight:800;color:#0a3318;text-align:center}
+.hcp-stk.scratch{color:var(--dim);font-weight:600}
+.hcp-stk.dim,.hcp-ch.dim{color:rgba(0,0,0,.2);text-align:center}
+.tee-btn{padding:2px 8px;border-radius:5px;border:1.5px solid;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer;transition:all .12s;margin-right:3px}
+.tee-b{border-color:rgba(29,78,216,.3);color:rgba(29,78,216,.5);background:transparent}
 .tee-b.tb-on{border-color:#1d4ed8;color:#1d4ed8;background:rgba(29,78,216,.08)}
-.tee-w{border-color:rgba(0,0,0,.15);color:rgba(0,0,0,.3);background:transparent}
+.tee-w{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.35);background:transparent}
 .tee-w.tb-on{border-color:#374151;color:#374151;background:rgba(0,0,0,.06)}
-.ch-badge{font-size:9px;font-weight:700;color:var(--dim);flex-shrink:0}
-.stk-badge{font-size:9px;font-weight:800;color:#fff;background:#0a3318;border-radius:4px;padding:0 4px;flex-shrink:0}
-.stk-badge.scratch{background:var(--dim)}
 .result-input{width:62px;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:11px;text-align:center;background:#fff;color:#0d1a10;outline:none}
 .result-input:focus{border-color:#0a3318}
 .result-input::placeholder{color:rgba(0,0,0,.3)}
@@ -550,29 +558,41 @@ function renderSBRows(){
     const allNames=[...m.left,...m.right];
     const strokes=getMatchStrokes(allNames,sbRound);
 
-    function playerHTML(name){
+    // Simple player name+HI for the scoring row (no tee stuff here)
+    function scorePlayerHTML(name){
+      const hi=playerHI(name);
+      return `<div class="t-player">
+        <span class="t-pname">${name}</span>
+        <span class="t-phi">${hi!==null?hi.toFixed(1):'—'}</span>
+      </div>`;
+    }
+
+    // Separate handicap table row
+    function hcpRowHTML(name){
       const hi=playerHI(name);
       const tee=tees[teeKey(sbRound,name)]||null;
       const ch=tee&&hi!==null?calcCH(name,sbRound,tee):null;
       const stk=strokes&&strokes[name]!==undefined?strokes[name]:null;
-      const chStr=ch!==null?`<span class="ch-badge">CH${ch}</span>`:'';
-      const stkStr=stk!==null?(stk===0?`<span class="stk-badge scratch">—</span>`:`<span class="stk-badge">+${stk}</span>`):'';
-      return `<div class="t-player">
-        <span class="t-pname">${name}</span>
-        <span class="t-phi">${hi!==null?hi.toFixed(1):'—'}</span>
-        <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">B</button>
-        <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">W</button>
-        ${chStr}${stkStr}
-      </div>`;
+      const chCell=ch!==null?`<td class="hcp-ch">${ch}</td>`:'<td class="hcp-ch dim">—</td>';
+      const stkCell=stk!==null?(stk===0
+        ?'<td class="hcp-stk scratch">scratch</td>'
+        :`<td class="hcp-stk">+${stk}</td>`)
+        :'<td class="hcp-stk dim">—</td>';
+      return `<tr>
+        <td class="hcp-name">${name}</td>
+        <td class="hcp-hi">${hi!==null?hi.toFixed(1):'—'}</td>
+        <td class="hcp-tee">
+          <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">Blue</button>
+          <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">White</button>
+        </td>
+        ${chCell}${stkCell}
+      </tr>`;
     }
-
-    const lHTML=m.left.map(playerHTML).join('');
-    const rHTML=m.right.map(playerHTML).join('');
 
     return `<div class="foursome-card" data-key="${key}">
       <div class="foursome-teams">
         <button class="team-btn${winner==='l'?' won':''}${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
-          ${lHTML}
+          ${m.left.map(scorePlayerHTML).join('')}
         </button>
         <div class="sb-center">
           <div class="win-btns">
@@ -583,13 +603,18 @@ function renderSBRows(){
           <input class="result-input" data-key="${key}" placeholder="e.g. 2&1" value="${resultVal}">
         </div>
         <button class="team-btn${winner==='r'?' won':''}${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
-          ${rHTML}
+          ${m.right.map(scorePlayerHTML).join('')}
         </button>
+      </div>
+      <div class="hcp-section">
+        <table class="hcp-table">
+          <thead><tr><th>Player</th><th>HI</th><th>Tee</th><th>CH</th><th>Strokes</th></tr></thead>
+          <tbody>${allNames.map(hcpRowHTML).join('')}</tbody>
+        </table>
       </div>
     </div>`;
   }).join('');
 
-  // Team buttons → filter graph (ignore clicks on tee buttons inside)
   rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
     const k=b.dataset.key+'-'+b.dataset.side,names=b.dataset.names.split(','),ghins=ghinsFor(names);
     if(sbSel===k){sbSel=null;active=new Set(ORDER);}
@@ -597,14 +622,12 @@ function renderSBRows(){
     renderPills();buildChart();renderStats();renderRoundsTabs();renderSBRows();
   }));
 
-  // Tee buttons → save tee and re-render
   rows.querySelectorAll('.tee-btn').forEach(b=>b.addEventListener('click',e=>{
     e.stopPropagation();
-    const t=loadTees();const k=teeKey(+b.dataset.r,b.dataset.p);
-    t[k]=b.dataset.t;saveTees(t);renderSBRows();
+    const t=loadTees();t[teeKey(+b.dataset.r,b.dataset.p)]=b.dataset.t;
+    saveTees(t);renderSBRows();
   }));
 
-  // Winner buttons
   rows.querySelectorAll('.win-btn').forEach(b=>b.addEventListener('click',e=>{
     e.stopPropagation();
     const res=loadRes();const key=b.dataset.key;
@@ -614,7 +637,6 @@ function renderSBRows(){
     saveRes(res);updateOverall();renderSBRows();
   }));
 
-  // Result input
   rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',()=>{
     const res=loadRes();const key=inp.dataset.key;
     if(!res[key])res[key]={};
