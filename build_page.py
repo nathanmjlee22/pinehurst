@@ -158,6 +158,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ot-wrap{display:flex;align-items:center;gap:8px}
 .ot-side{flex:1;text-align:center}
 .ot-players{font-size:10px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:6px;letter-spacing:.01em}
+.ot-team-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.8);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
 .ot-score{font-size:52px;font-weight:900;line-height:1;color:#fff;letter-spacing:-2px}
 .ot-divider{font-size:14px;font-weight:800;color:rgba(255,255,255,.35);flex-shrink:0}
 .ot-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.15);margin-top:14px}
@@ -229,15 +230,13 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="overall-sb">
     <div class="ot-wrap">
       <div class="ot-side">
-        <div class="ot-players" style="font-size:12px;font-weight:800;letter-spacing:.02em;margin-bottom:4px">Team Expand</div>
-        <div class="ot-players">Alec &middot; Eddie &middot; Dave<br>Nathan &middot; Mike &middot; Matt</div>
+        <div class="ot-team-name">Team Expand</div>
         <div class="ot-score" id="ot-score-l">0</div>
       </div>
       <div class="ot-divider">vs</div>
       <div class="ot-side">
+        <div class="ot-team-name">Team Shrink</div>
         <div class="ot-score" id="ot-score-r">0</div>
-        <div class="ot-players">Dillon &middot; Adam &middot; Alex<br>Chris &middot; Luis &middot; John</div>
-        <div class="ot-players" style="font-size:12px;font-weight:800;letter-spacing:.02em;margin-top:4px">Team Shrink</div>
       </div>
     </div>
     <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
