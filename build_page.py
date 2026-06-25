@@ -39,15 +39,15 @@ HTML = """<!DOCTYPE html>
 <style>
 :root{
   --bg:#0d1a10;--surface:#132016;--surface2:#1a2e1e;--green-dark:#0a3318;
-  --text:#f0f7f2;--dim:#7a9b82;--radius:16px;
+  --text:#ffffff;--dim:#8aaa8f;--radius:16px;
   --safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
-  --c1:#d4af37;--c2:#f0f7f2;--c3:#6dbf82;--c4:#a8d5b5;--c5:#e8c84a;--c6:#b5d99c;
+  --c1:#ffffff;--c2:#d4af37;--c3:#6dbf82;--c4:#a8d5b5;--c5:#e8c84a;--c6:#b5d99c;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;padding-top:var(--safe-top);padding-bottom:calc(var(--safe-bot)+24px);-webkit-font-smoothing:antialiased}
-header{background:linear-gradient(160deg,#0a3318 0%,#0d1a10 100%);padding:18px 16px 14px;border-bottom:1px solid rgba(212,175,55,0.15)}
+header{background:linear-gradient(160deg,#0a3318 0%,#0d1a10 100%);padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,0.1)}
 .header-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.logo{width:34px;height:34px;background:var(--c1);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#0a3318;flex-shrink:0;letter-spacing:-0.5px}
+.logo{width:34px;height:34px;background:#ffffff;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#0a3318;flex-shrink:0;letter-spacing:-0.5px}
 .header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px}
 .header-sub{font-size:12px;color:var(--dim);margin-top:1px}
 .pills{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -60,7 +60,7 @@ header{background:linear-gradient(160deg,#0a3318 0%,#0d1a10 100%);padding:18px 1
 .content{padding:14px;display:flex;flex-direction:column;gap:14px}
 .range-tabs{display:flex;background:var(--surface);border-radius:10px;padding:3px;gap:2px}
 .rtab{flex:1;text-align:center;padding:8px 4px;border-radius:7px;font-size:13px;font-weight:600;color:var(--dim);cursor:pointer;border:none;background:transparent;font-family:inherit;transition:all .15s}
-.rtab.on{background:#0a3318;color:#d4af37}
+.rtab.on{background:#ffffff;color:#0a3318}
 .chart-card{background:var(--surface);border-radius:var(--radius);padding:16px}
 .chart-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
 .chart-label{font-size:12px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
@@ -142,7 +142,7 @@ function renderPills(){
 }
 function renderStats(){
   const el=document.getElementById('statsGrid');const cards=[];
-  active.forEach(g=>{const d=G[g];const filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));if(!filtered.length)return;const his=filtered.map(r=>r.hi);const mx=Math.max(...his);const delta=(filtered[filtered.length-1].hi-filtered[0].hi).toFixed(1);const isDown=parseFloat(delta)<0;cards.push(`<div class="stat" style="border-left:3px solid ${d.color}"><div class="stat-val" style="color:${d.color}">${d.current}</div><div class="stat-lbl">${d.name.split(' ')[0]}</div><div style="font-size:11px;color:var(--dim);margin-top:4px">Low ${d.low} &middot; Hi ${mx}</div><div style="font-size:12px;font-weight:700;margin-top:3px;color:${isDown?'#d4af37':'#c0392b'}">${isDown?'▼':'▲'} ${Math.abs(delta)}</div></div>`);});
+  active.forEach(g=>{const d=G[g];const filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));if(!filtered.length)return;const his=filtered.map(r=>r.hi);const mx=Math.max(...his);const delta=(filtered[filtered.length-1].hi-filtered[0].hi).toFixed(1);const isDown=parseFloat(delta)<0;cards.push(`<div class="stat" style="border-left:3px solid ${d.color}"><div class="stat-val" style="color:${d.color}">${d.current}</div><div class="stat-lbl">${d.name.split(' ')[0]}</div><div style="font-size:11px;color:var(--dim);margin-top:4px">Low ${d.low} &middot; Hi ${mx}</div><div style="font-size:12px;font-weight:700;margin-top:3px;color:${isDown?'#ffffff':'#d4af37'}">${isDown?'▼':'▲'} ${Math.abs(delta)}</div></div>`);});
   el.style.gridTemplateColumns=`repeat(${Math.min(cards.length,3)},1fr)`;el.innerHTML=cards.join('');
 }
 function buildChart(){

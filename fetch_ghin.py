@@ -14,8 +14,8 @@ S.headers.update({
 })
 
 GOLFERS = {
-    "7866286": {"name": "Eddie Mclaughlin", "club": "Costa Mesa GC",      "color": "#d4af37"},
-    "7562830": {"name": "Nathan Lee",        "club": "Maderas GC",         "color": "#f0f7f2"},
+    "7866286": {"name": "Eddie Mclaughlin", "club": "Costa Mesa GC",      "color": "#ffffff"},
+    "7562830": {"name": "Nathan Lee",        "club": "Maderas GC",         "color": "#d4af37"},
     "11367668": {"name": "David Ryu",        "club": "Costa Mesa GC",      "color": "#6dbf82"},
     "11634995": {"name": "Adam Hawk",        "club": "AZ Under30",         "color": "#a8d5b5"},
     "10460818": {"name": "John McGinley",    "club": "EClub Monterey Bay", "color": "#e8c84a"},
