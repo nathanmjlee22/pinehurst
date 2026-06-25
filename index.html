@@ -53,6 +53,25 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+/* ── Course Info Table ── */
+.ci-wrap{padding-bottom:2px}
+.ci-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,.08)}
+.ci-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:13px}
+.ci-table thead tr{background:#0a3318}
+.ci-table th{padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em}
+.ci-table td{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.05)}
+.ci-table .white-row td{padding-top:4px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.08)}
+.ci-table tbody tr:not(.white-row){padding-top:9px}
+.ci-rnd{font-weight:800;font-size:14px;color:#0d1a10;width:32px;vertical-align:top;padding-top:10px}
+.ci-course{vertical-align:top;padding-top:8px}
+.ci-designer{font-size:10px;color:var(--dim);margin-top:2px}
+.ci-tee{font-weight:700;font-size:11px;width:44px;vertical-align:middle}
+.blue-tee{color:#1d4ed8}
+.white-tee{color:#5a7a60}
+.ci-yards{font-weight:600;font-size:13px;color:#0d1a10}
+.ci-par{color:var(--dim);font-weight:600;text-align:center}
+.ci-rating{font-weight:700;color:#0d1a10;text-align:center}
+.ci-slope{font-weight:800;color:#0a3318;text-align:center}
 /* ── Overall Scoreboard ── */
 .overall-sb{background:#0a3318;border-radius:var(--radius);padding:16px 14px;color:#fff}
 .ot-wrap{display:flex;align-items:center;gap:8px}
@@ -118,6 +137,82 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="pills" id="pills"></div>
 </header>
 <div class="content">
+  <!-- Course Info -->
+  <div class="ci-wrap">
+    <div class="ci-scroll">
+      <table class="ci-table">
+        <thead><tr>
+          <th>Rnd</th><th>Course</th><th>Tee</th>
+          <th>Yards</th><th>Par</th><th>Rating</th><th>Slope</th>
+        </tr></thead>
+        <tbody><tr>
+      <td class="ci-rnd">1</td>
+      <td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-10/" target="_blank" class="course-link">No.&nbsp;10</a><div class="ci-designer">Tom Doak</div></td>
+      <td class="ci-tee blue-tee">Blue</td>
+      <td class="ci-yards">7,020</td>
+      <td class="ci-par">70</td>
+      <td class="ci-rating">74.1</td>
+      <td class="ci-slope">142</td>
+    </tr>
+    <tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee white-tee">White</td>
+      <td class="ci-yards">6,439</td>
+      <td class="ci-par">70</td>
+      <td class="ci-rating">71.5</td>
+      <td class="ci-slope">137</td>
+    </tr><tr>
+      <td class="ci-rnd">2</td>
+      <td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-4/" target="_blank" class="course-link">No.&nbsp;4</a><div class="ci-designer">Gil Hanse</div></td>
+      <td class="ci-tee blue-tee">Blue</td>
+      <td class="ci-yards">6,961</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">73.7</td>
+      <td class="ci-slope">135</td>
+    </tr>
+    <tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee white-tee">White</td>
+      <td class="ci-yards">6,428</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">70.8</td>
+      <td class="ci-slope">131</td>
+    </tr><tr>
+      <td class="ci-rnd">3</td>
+      <td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-2/" target="_blank" class="course-link">No.&nbsp;2</a><div class="ci-designer">Donald Ross</div></td>
+      <td class="ci-tee blue-tee">Blue</td>
+      <td class="ci-yards">6,961</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">75.4</td>
+      <td class="ci-slope">143</td>
+    </tr>
+    <tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee white-tee">White</td>
+      <td class="ci-yards">6,307</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">72.0</td>
+      <td class="ci-slope">139</td>
+    </tr><tr>
+      <td class="ci-rnd">4</td>
+      <td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-8/" target="_blank" class="course-link">No.&nbsp;8</a><div class="ci-designer">Tom Fazio</div></td>
+      <td class="ci-tee blue-tee">Blue</td>
+      <td class="ci-yards">6,694</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">72.9</td>
+      <td class="ci-slope">131</td>
+    </tr>
+    <tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee white-tee">White</td>
+      <td class="ci-yards">6,311</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">70.5</td>
+      <td class="ci-slope">127</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
   <!-- Overall Scoreboard -->
   <div class="overall-sb">
     <div class="ot-wrap">

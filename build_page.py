@@ -99,6 +99,25 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
 .round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
+/* ── Course Info Table ── */
+.ci-wrap{padding-bottom:2px}
+.ci-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,.08)}
+.ci-table{width:100%;border-collapse:collapse;white-space:nowrap;font-size:13px}
+.ci-table thead tr{background:#0a3318}
+.ci-table th{padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em}
+.ci-table td{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.05)}
+.ci-table .white-row td{padding-top:4px;padding-bottom:9px;border-bottom:1px solid rgba(0,0,0,.08)}
+.ci-table tbody tr:not(.white-row){padding-top:9px}
+.ci-rnd{font-weight:800;font-size:14px;color:#0d1a10;width:32px;vertical-align:top;padding-top:10px}
+.ci-course{vertical-align:top;padding-top:8px}
+.ci-designer{font-size:10px;color:var(--dim);margin-top:2px}
+.ci-tee{font-weight:700;font-size:11px;width:44px;vertical-align:middle}
+.blue-tee{color:#1d4ed8}
+.white-tee{color:#5a7a60}
+.ci-yards{font-weight:600;font-size:13px;color:#0d1a10}
+.ci-par{color:var(--dim);font-weight:600;text-align:center}
+.ci-rating{font-weight:700;color:#0d1a10;text-align:center}
+.ci-slope{font-weight:800;color:#0a3318;text-align:center}
 /* ── Overall Scoreboard ── */
 .overall-sb{background:#0a3318;border-radius:var(--radius);padding:16px 14px;color:#fff}
 .ot-wrap{display:flex;align-items:center;gap:8px}
@@ -164,6 +183,8 @@ header{background:#ffffff;padding:18px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="pills" id="pills"></div>
 </header>
 <div class="content">
+  <!-- Course Info -->
+  __COURSE_INFO_TABLE__
   <!-- Overall Scoreboard -->
   <div class="overall-sb">
     <div class="ot-wrap">
@@ -385,6 +406,55 @@ COURSE_URLS = {
     10: "https://www.pinehurst.com/golf/courses/no-10/",
 }
 
+COURSE_INFO = {
+    10: {"url": "https://www.pinehurst.com/golf/courses/no-10/", "designer": "Tom Doak", "par": 70,
+         "blue": {"yards": 7020, "rating": 74.1, "slope": 142},
+         "white": {"yards": 6439, "rating": 71.5, "slope": 137}},
+    4:  {"url": "https://www.pinehurst.com/golf/courses/no-4/", "designer": "Gil Hanse", "par": 72,
+         "blue": {"yards": 6961, "rating": 73.7, "slope": 135},
+         "white": {"yards": 6428, "rating": 70.8, "slope": 131}},
+    2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
+         "blue": {"yards": 6961, "rating": 75.4, "slope": 143},
+         "white": {"yards": 6307, "rating": 72.0, "slope": 139}},
+    8:  {"url": "https://www.pinehurst.com/golf/courses/no-8/", "designer": "Tom Fazio", "par": 72,
+         "blue": {"yards": 6694, "rating": 72.9, "slope": 131},
+         "white": {"yards": 6311, "rating": 70.5, "slope": 127}},
+}
+
+course_rounds = [(1, 10), (2, 4), (3, 2), (4, 8)]
+ci_rows = ""
+for rnd, cnum in course_rounds:
+    ci = COURSE_INFO[cnum]
+    ci_rows += f"""<tr>
+      <td class="ci-rnd">{rnd}</td>
+      <td class="ci-course"><a href="{ci['url']}" target="_blank" class="course-link">No.&nbsp;{cnum}</a><div class="ci-designer">{ci['designer']}</div></td>
+      <td class="ci-tee blue-tee">Blue</td>
+      <td class="ci-yards">{ci['blue']['yards']:,}</td>
+      <td class="ci-par">{ci['par']}</td>
+      <td class="ci-rating">{ci['blue']['rating']}</td>
+      <td class="ci-slope">{ci['blue']['slope']}</td>
+    </tr>
+    <tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee white-tee">White</td>
+      <td class="ci-yards">{ci['white']['yards']:,}</td>
+      <td class="ci-par">{ci['par']}</td>
+      <td class="ci-rating">{ci['white']['rating']}</td>
+      <td class="ci-slope">{ci['white']['slope']}</td>
+    </tr>"""
+
+course_info_table = f"""<div class="ci-wrap">
+    <div class="ci-scroll">
+      <table class="ci-table">
+        <thead><tr>
+          <th>Rnd</th><th>Course</th><th>Tee</th>
+          <th>Yards</th><th>Par</th><th>Rating</th><th>Slope</th>
+        </tr></thead>
+        <tbody>{ci_rows}</tbody>
+      </table>
+    </div>
+  </div>"""
+
 matchup_rows = [
     (1, 10, ("Alec","Nathan","Dillon","Adam"),   ("Eddie","Dave","Alex","Chris"),    ("Mike","Matt","Luis","John")),
     (2,  4, ("Alec","Dave","Alex","John"),        ("Eddie","Mike","Dillon","Luis"),   ("Nathan","Matt","Adam","Chris")),
@@ -422,6 +492,7 @@ HTML = HTML.replace("__ORDER__", ghin_order_str)
 HTML = HTML.replace("__TODAY__", TODAY)
 HTML = HTML.replace("__TODAY_ISO__", date.today().isoformat())
 HTML = HTML.replace("__MATCHUP_TABLE__", matchup_table)
+HTML = HTML.replace("__COURSE_INFO_TABLE__", course_info_table)
 
 for fname in ["index.html", "handicap.html"]:
     path = os.path.join(DIR, fname)
