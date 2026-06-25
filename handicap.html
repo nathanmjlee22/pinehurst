@@ -248,6 +248,27 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       </table>
     </div>
   </div>
+  <!-- Overall Scoreboard -->
+  <div class="overall-sb">
+    <div class="ot-wrap">
+      <div class="ot-side">
+        <div class="ot-players">Alec &middot; Eddie &middot; Dave<br>Nathan &middot; Mike &middot; Matt</div>
+        <div class="ot-score" id="ot-score-l">0</div>
+      </div>
+      <div class="ot-divider">vs</div>
+      <div class="ot-side">
+        <div class="ot-score" id="ot-score-r">0</div>
+        <div class="ot-players">Dillon &middot; Adam &middot; Alex<br>Chris &middot; Luis &middot; John</div>
+      </div>
+    </div>
+    <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
+    <div class="ot-matches" id="ot-matches">0 of 12 matches played</div>
+  </div>
+  <!-- Round Scoreboard -->
+  <div class="scoreboard">
+    <div class="sb-round-tabs" id="sbTabs"></div>
+    <div id="sbRows"></div>
+  </div>
   <!-- Individual Scores -->
   <div class="scores-wrap">
     <div class="scores-scroll">
@@ -303,27 +324,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
         </tr></tbody>
       </table>
     </div>
-  </div>
-  <!-- Overall Scoreboard -->
-  <div class="overall-sb">
-    <div class="ot-wrap">
-      <div class="ot-side">
-        <div class="ot-players">Alec &middot; Eddie &middot; Dave<br>Nathan &middot; Mike &middot; Matt</div>
-        <div class="ot-score" id="ot-score-l">0</div>
-      </div>
-      <div class="ot-divider">vs</div>
-      <div class="ot-side">
-        <div class="ot-score" id="ot-score-r">0</div>
-        <div class="ot-players">Dillon &middot; Adam &middot; Alex<br>Chris &middot; Luis &middot; John</div>
-      </div>
-    </div>
-    <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
-    <div class="ot-matches" id="ot-matches">0 of 12 matches played</div>
-  </div>
-  <!-- Round Scoreboard -->
-  <div class="scoreboard">
-    <div class="sb-round-tabs" id="sbTabs"></div>
-    <div id="sbRows"></div>
   </div>
   <!-- Team player filter -->
   <div class="team-filter">

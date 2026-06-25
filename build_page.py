@@ -220,8 +220,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 <div class="content">
   <!-- Course Info -->
   __COURSE_INFO_TABLE__
-  <!-- Individual Scores -->
-  __SCORES_TABLE__
   <!-- Overall Scoreboard -->
   <div class="overall-sb">
     <div class="ot-wrap">
@@ -243,6 +241,8 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
   </div>
+  <!-- Individual Scores -->
+  __SCORES_TABLE__
   <!-- Team player filter -->
   <div class="team-filter">
     <div class="team-col" id="teamLeft">
