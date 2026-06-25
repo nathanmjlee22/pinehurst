@@ -138,7 +138,7 @@ function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{
 function renderPills(){
   const c=document.getElementById('pills');
   c.innerHTML=ORDER.map(g=>{const d=G[g],on=active.has(g);return`<button class="pill${on?' on':''}" data-g="${g}" style="--c:${d.color}"><div class="dot" style="background:${d.color}"></div><div class="pname" style="color:${on?d.color:'var(--dim)'}">${d.name}</div><div class="phi" style="color:${on?d.color:'var(--dim)'}">${d.current}</div></button>`;}).join('');
-  document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>{const g=p.dataset.g;if(active.has(g)&&active.size>1){active.delete(g)}else{active.add(g)}renderPills();buildChart();renderStats();renderRoundsTabs();})));
+  document.querySelectorAll('.pill').forEach(p=>p.addEventListener('click',()=>{const g=p.dataset.g;if(active.has(g)&&active.size>1){active.delete(g)}else{active.add(g)}renderPills();buildChart();renderStats();renderRoundsTabs();}));
 }
 function renderStats(){
   const el=document.getElementById('statsGrid');const cards=[];
