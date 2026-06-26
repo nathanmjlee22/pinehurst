@@ -132,6 +132,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .scores-table tbody tr.team-divider td{border-top:2px solid rgba(0,0,0,.1);background:#f9fafb}
 .sc-name{font-weight:700;font-size:13px;color:#0d1a10}
 .sc-hi{font-size:10px;color:var(--dim);font-weight:500}
+.sc-rank{font-size:11px;font-weight:700;color:var(--dim);margin-right:2px}
 .sc-gross{font-weight:700;font-size:14px;color:#0d1a10}
 .sc-net{font-size:11px;color:var(--dim);font-weight:600;margin-top:1px}
 .sc-pending{color:rgba(0,0,0,.2);font-size:18px}
@@ -636,6 +637,31 @@ async function triggerRefresh(){
     setTimeout(()=>{btn.textContent='↻ Refresh';btn.className='refresh-btn';btn.disabled=false;},4000);
   }
 }
+function sortScoresTable(){
+  const tbody=document.querySelector('.scores-table tbody');
+  if(!tbody)return;
+  const rows=Array.from(tbody.querySelectorAll('tr[data-gross]'));
+  rows.sort((a,b)=>parseInt(a.dataset.gross)-parseInt(b.dataset.gross));
+  rows.forEach((r,i)=>{
+    r.style.background='';
+    tbody.appendChild(r);
+  });
+  // Add rank numbers as first-cell prefix
+  let rank=1;
+  rows.forEach(r=>{
+    if(parseInt(r.dataset.gross)<9999){
+      const cell=r.querySelector('td:first-child');
+      if(cell&&!cell.querySelector('.sc-rank')){
+        const span=document.createElement('span');
+        span.className='sc-rank';
+        span.textContent=rank+'. ';
+        cell.insertBefore(span,cell.firstChild);
+      }
+      rank++;
+    }
+  });
+}
+sortScoresTable();
 </script>
 </body>
 </html>"""
@@ -736,12 +762,7 @@ def fmt_par(diff):
 
 def build_scores_table():
     score_rows = ""
-    prev_team = None
     for name, ghin, team in ALL_PLAYERS:
-        if prev_team == "left" and team == "right":
-            # divider row between teams
-            score_rows += '<tr class="team-divider"><td colspan="9"></td></tr>'
-        prev_team = team
 
         g = DATA.get(ghin, {}) if ghin else {}
         hi = g.get("current", "—")
@@ -779,7 +800,8 @@ def build_scores_table():
             par_cell = '<td><span class="sc-pending">—</span></td>'
             net_par_cell = '<td><span class="sc-pending">—</span></td>'
 
-        score_rows += f'''<tr>
+        gross_attr = total_gross if has_any else 9999
+        score_rows += f'''<tr data-gross="{gross_attr}">
           <td><div class="sc-name">{name}</div><div class="sc-hi">HI {hi}</div></td>
           {cells}{total_cell}{net_cell}{par_cell}{net_par_cell}
         </tr>'''
