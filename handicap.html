@@ -116,17 +116,11 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ci-rating{font-weight:700;color:#0d1a10;text-align:center}
 .ci-slope{font-weight:800;color:#0a3318;text-align:center}
 /* ── Overall Scoreboard ── */
-.overall-sb{background:#0a3318;border-radius:var(--radius);padding:16px 14px;color:#fff}
-.ot-wrap{display:flex;align-items:center;gap:8px}
-.ot-side{flex:1;text-align:center}
-.ot-players{font-size:10px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:6px;letter-spacing:.01em}
-.ot-team-name{font-size:13px;font-weight:800;color:rgba(255,255,255,.8);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
-.ot-score{font-size:52px;font-weight:900;line-height:1;color:#fff;letter-spacing:-2px}
-.ot-divider{font-size:14px;font-weight:800;color:rgba(255,255,255,.35);flex-shrink:0}
-.ot-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:rgba(255,255,255,.15);margin-top:14px}
-.ot-bar-l{background:#d4af37;transition:width .4s ease}
-.ot-bar-r{background:rgba(255,255,255,.55);transition:width .4s ease}
-.ot-matches{text-align:center;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px}
+.ms-score-hdr th{background:#0a3318;padding:14px 10px}
+.ms-th-inner{display:flex;align-items:center;gap:10px}
+.ms-th-inner-r{justify-content:flex-end}
+.ms-th-team{font-size:10px;font-weight:800;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.ms-th-pts{font-size:36px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px}
 /* ── Match Summary ── */
 .match-summary-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
 .match-summary-table{width:100%;border-collapse:collapse;table-layout:fixed}
@@ -143,7 +137,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ms-expand.win .ms-name{font-weight:700;color:#0a3318}
 .ms-shrink.win .ms-name{font-weight:700;color:#7f0f2e}
 .ms-inner-area{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
-.ms-mid{text-align:center;padding:4px 2px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
+.ms-mid{width:20%;text-align:center;padding:4px 2px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
 .ms-mid:active{opacity:.7}
 .ms-mid.as{background:rgba(26,92,53,.08)}
 .ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
@@ -293,25 +287,26 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       </table>
     </div>
   </div>
-  <!-- Overall Scoreboard -->
-  <div class="overall-sb">
-    <div class="ot-wrap">
-      <div class="ot-side">
-        <div class="ot-team-name">Team Expand</div>
-        <div class="ot-score" id="ot-score-l">0</div>
-      </div>
-      <div class="ot-divider">vs</div>
-      <div class="ot-side">
-        <div class="ot-team-name">Team Shrink</div>
-        <div class="ot-score" id="ot-score-r">0</div>
-      </div>
-    </div>
-    <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
-    <div class="ot-matches" id="ot-matches">0 of 12 matches played</div>
-  </div>
-  <!-- Match Summary -->
+  <!-- Overall Scoreboard + Match Summary -->
   <div class="match-summary-wrap">
     <table class="match-summary-table" id="matchSummaryTable">
+      <thead>
+        <tr class="ms-score-hdr">
+          <th class="ms-th-expand">
+            <div class="ms-th-inner">
+              <span class="ms-th-team">Team Expand</span>
+              <span class="ms-th-pts" id="ot-score-l">0</span>
+            </div>
+          </th>
+          <th class="ms-th-mid"></th>
+          <th class="ms-th-shrink">
+            <div class="ms-th-inner ms-th-inner-r">
+              <span class="ms-th-pts" id="ot-score-r">0</span>
+              <span class="ms-th-team">Team Shrink</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
       <tbody id="matchSummaryBody"></tbody>
     </table>
   </div>
@@ -651,13 +646,9 @@ function renderMatchSummary(){
   });
 }
 function updateOverall(){
-  const{l,r,played}=calcScores();
+  const{l,r}=calcScores();
   document.getElementById('ot-score-l').textContent=fmtPts(l);
   document.getElementById('ot-score-r').textContent=fmtPts(r);
-  const total=12,pct=total>0?(l/total)*100:50;
-  document.getElementById('ot-bar-l').style.width=pct+'%';
-  document.getElementById('ot-bar-r').style.width=(100-pct)+'%';
-  document.getElementById('ot-matches').textContent=`${played} of ${total} matches played`;
 }
 
 function ghinsFor(names){return names.map(n=>NAME_GHIN[n]).filter(Boolean);}
