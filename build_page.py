@@ -263,6 +263,11 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <!-- Course Info -->
   __COURSE_INFO_TABLE__
   __SCOREBOARD__
+  <!-- Handicap Calculator -->
+  <div class="scoreboard">
+    <div class="sb-round-tabs" id="sbTabs"></div>
+    <div id="sbRows"></div>
+  </div>
   <!-- Individual Scores -->
   __SCORES_TABLE__
   <!-- Team player filter -->
@@ -893,10 +898,6 @@ scoreboard_html = """  <button class="save-scores-btn" id="saveScoresBtn" style=
       </thead>
       <tbody id="matchSummaryBody"></tbody>
     </table>
-  </div>
-  <div class="scoreboard">
-    <div class="sb-round-tabs" id="sbTabs"></div>
-    <div id="sbRows"></div>
   </div>""" if SHOW_SCOREBOARD else ""
 HTML = HTML.replace("__SCOREBOARD__", scoreboard_html)
 HTML = HTML.replace("__REFRESH_BTN__", refresh_btn_html)
