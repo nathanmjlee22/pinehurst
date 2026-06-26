@@ -634,7 +634,7 @@ function renderSBRows(){
     return `<div class="foursome-card" data-key="${key}">
       <div class="hcp-section">
         <table class="hcp-table">
-          <thead><tr><th>Player</th><th>HI</th><th>Tee</th><th>CH</th><th>Strokes</th></tr></thead>
+          <thead><tr><th>Player</th><th>HI</th><th>Tees</th><th>CH</th><th>Strokes</th></tr></thead>
           <tbody>${allNames.map(hcpRowHTML).join('')}</tbody>
         </table>
       </div>
@@ -762,7 +762,7 @@ course_info_table = f"""<div class="ci-wrap">
     <div class="ci-scroll">
       <table class="ci-table">
         <thead><tr>
-          <th>Rnd</th><th>Course</th><th>Tee</th>
+          <th>Rnd</th><th>Course</th><th>Tees</th>
           <th>Yards</th><th>Par</th><th>Rating</th><th>Slope</th>
         </tr></thead>
         <tbody>{ci_rows}</tbody>
