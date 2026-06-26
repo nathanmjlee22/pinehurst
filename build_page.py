@@ -3,6 +3,8 @@
 import json, os
 from datetime import date
 
+SHOW_REFRESH_BTN = False  # set True to show the Refresh GHIN button in the header
+
 DIR = os.path.dirname(os.path.abspath(__file__))
 
 with open(f"{DIR}/ghin_data.json") as f:
@@ -68,10 +70,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .save-status.saving{color:var(--dim)}
 .save-status.ok{color:#1a5c35}
 .save-status.err,.save-status.token{color:#be123c}
-.gear-btn{margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:var(--dim);padding:4px;opacity:.5;transition:opacity .15s;flex-shrink:0}
-.gear-btn:hover{opacity:1}
-.dev-menu{display:none;align-items:center;gap:10px;padding:8px 16px 10px;border-top:1px solid rgba(0,0,0,.06);background:#f9fafb}
-.dev-menu.open{display:flex}
 .refresh-btn{padding:7px 14px;border-radius:20px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
 .refresh-btn:hover{border-color:#0a3318;color:#0a3318}
 .refresh-btn.running{color:#b45309;border-color:#b45309}
@@ -248,11 +246,8 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="header-row">
     <img class="logo" src="putterboy.png" alt="Pinehurst">
     <div><div class="header-title">Pinehurst 2026</div></div>
-    <button class="gear-btn" id="gearBtn" onclick="toggleDevMenu()" title="Developer tools">⚙</button>
-  </div>
-  <div class="dev-menu" id="devMenu">
     <span class="save-status" id="saveStatus"></span>
-    <button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh GHIN</button>
+    __REFRESH_BTN__
   </div>
 </header>
 <div class="content">
@@ -460,10 +455,6 @@ async function saveScores(){
   await pushScores();
   btn.textContent='✓ Saved';
   setTimeout(()=>{btn.style.display='none';btn.textContent='💾 Save Scores';btn.disabled=false;},1500);
-}
-function toggleDevMenu(){
-  const m=document.getElementById('devMenu');
-  m.classList.toggle('open');
 }
 function matchKey(round,idx){return `${round}-${idx}`;}
 function teeKey(round,name){return `${round}-${name}`;}
@@ -885,6 +876,8 @@ matchup_table = f"""<div class="matchup-wrap">
 
 # Substitute placeholders
 ghin_order_str = ",".join(f'"{g}"' for g in ORDER)
+refresh_btn_html = '<button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh GHIN</button>' if SHOW_REFRESH_BTN else ''
+HTML = HTML.replace("__REFRESH_BTN__", refresh_btn_html)
 HTML = HTML.replace("__GOLFERS__", golfers_js)
 HTML = HTML.replace("__ORDER__", ghin_order_str)
 HTML = HTML.replace("__TODAY__", TODAY)
