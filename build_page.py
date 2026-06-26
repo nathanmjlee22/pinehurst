@@ -4,8 +4,8 @@ import json, os
 from datetime import date
 
 SHOW_REFRESH_BTN = False  # set True to show the Refresh GHIN button in the header
-# SHOW_SCOREBOARD = date.today() >= date(2026, 7, 1)  # auto-enables July 1 2026
-SHOW_SCOREBOARD = True
+SHOW_SCOREBOARD = date.today() >= date(2026, 7, 1)  # auto-enables July 1 2026
+# SHOW_SCOREBOARD = True
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 
