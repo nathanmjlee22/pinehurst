@@ -695,19 +695,10 @@ function renderSBRows(){
 
   rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
     const key=matchKey(sbRound,i);
-    const lsel=sbSel===key+'-l',rsel=sbSel===key+'-r';
     const allNames=[...m.left,...m.right];
     const strokes=getMatchStrokes(allNames,sbRound);
 
-    // Simple player name+HI for the scoring row (no tee stuff here)
-    function scorePlayerHTML(name){
-      const hi=playerHI(name);
-      return `<div class="t-player">
-        <span class="t-phi">${hi!==null?hi.toFixed(1):'—'}</span>
-      </div>`;
-    }
-
-    // Separate handicap table row
+    // Handicap table row
     function hcpRowHTML(name){
       const hi=playerHI(name);
       const tee=tees[teeKey(sbRound,name)]||null;
@@ -730,14 +721,6 @@ function renderSBRows(){
     }
 
     return `<div class="foursome-card" data-key="${key}">
-      <div class="foursome-teams">
-        <button class="team-btn${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
-          ${m.left.map(scorePlayerHTML).join('')}
-        </button>
-        <button class="team-btn${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
-          ${m.right.map(scorePlayerHTML).join('')}
-        </button>
-      </div>
       <div class="hcp-section">
         <table class="hcp-table">
           <thead><tr><th>Player</th><th>HI</th><th>Tee</th><th>CH</th><th>Strokes</th></tr></thead>
@@ -746,13 +729,6 @@ function renderSBRows(){
       </div>
     </div>`;
   }).join('');
-
-  rows.querySelectorAll('.team-btn').forEach(b=>b.addEventListener('click',()=>{
-    const k=b.dataset.key+'-'+b.dataset.side,names=b.dataset.names.split(','),ghins=ghinsFor(names);
-    if(sbSel===k){sbSel=null;active=new Set(ORDER);}
-    else{sbSel=k;active=ghins.length?new Set(ghins):new Set(ORDER);}
-    renderPills();buildChart();renderStats();renderRoundsTabs();renderSBRows();
-  }));
 
   rows.querySelectorAll('.tee-btn').forEach(b=>b.addEventListener('click',e=>{
     e.stopPropagation();
