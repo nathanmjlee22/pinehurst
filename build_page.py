@@ -187,7 +187,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ms-inner-area{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
 .ms-mid{width:20%;text-align:center;padding:4px 2px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
 .ms-mid:active{opacity:.7}
-.ms-mid.as{background:rgba(26,92,53,.08)}
+.ms-mid.as{background:#fff}
 .ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
 .ms-as-label{font-size:11px;font-weight:800;color:#1a5c35;display:block;margin-top:2px}
 .ms-result-inp{width:90%;border:1px solid rgba(0,0,0,.15);border-radius:6px;font-family:inherit;font-size:12px;font-weight:700;text-align:center;padding:5px 4px;background:rgba(255,255,255,.9);color:#0d1a10}
