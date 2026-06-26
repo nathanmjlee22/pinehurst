@@ -3,7 +3,7 @@
 import json, os
 from datetime import date
 
-DIR = "/Users/nathan.lee/pinehurst"
+DIR = os.path.dirname(os.path.abspath(__file__))
 
 with open(f"{DIR}/ghin_data.json") as f:
     DATA = json.load(f)
@@ -656,11 +656,11 @@ COURSE_INFO = {
          "blue": {"yards": 6961, "rating": 73.7, "slope": 135},
          "white": {"yards": 6428, "rating": 70.8, "slope": 131}},
     2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
-         "blue": {"yards": 6961, "rating": 75.4, "slope": 143},
-         "white": {"yards": 6307, "rating": 72.0, "slope": 139}},
+         "blue": {"yards": 6961, "rating": 73.7, "slope": 133},
+         "white": {"yards": 6307, "rating": 70.7, "slope": 126}},
     8:  {"url": "https://www.pinehurst.com/golf/courses/no-8/", "designer": "Tom Fazio", "par": 72,
-         "blue": {"yards": 6694, "rating": 72.9, "slope": 131},
-         "white": {"yards": 6311, "rating": 70.5, "slope": 127}},
+         "blue": {"yards": 6694, "rating": 72.3, "slope": 131},
+         "white": {"yards": 6311, "rating": 70.3, "slope": 128}},
 }
 
 course_rounds = [(1, 10), (2, 4), (3, 2), (4, 8)]
