@@ -287,71 +287,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       </table>
     </div>
   </div>
-    <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">&#128190; Save Scores</button>
-  <div class="match-summary-wrap">
-    <table class="match-summary-table" id="matchSummaryTable">
-      <thead><tr class="ms-score-hdr">
-        <th class="ms-th-expand"><div class="ms-th-inner"><span class="ms-th-team">Team Expand</span><span class="ms-th-pts" id="ot-score-l">0</span></div></th>
-        <th class="ms-th-mid"></th>
-        <th class="ms-th-shrink"><div class="ms-th-inner ms-th-inner-r"><span class="ms-th-pts" id="ot-score-r">0</span><span class="ms-th-team">Team Shrink</span></div></th>
-      </tr></thead>
-      <tbody id="matchSummaryBody"></tbody>
-    </table>
-  </div>
-<div class="scores-wrap">
-    <div class="scores-scroll">
-      <table class="scores-table">
-        <thead>
-          <tr>
-            <th rowspan="2">Player</th>
-            <th>R1 · 9/4</th><th>R2 · 9/5</th><th>R3 · 9/5</th><th>R4 · 9/6</th>
-            <th>Gross</th><th>Net</th><th>+/- Gross</th><th>+/- Net</th>
-          </tr>
-          <tr class="sub-head">
-            <th>No.10</th><th>No.4</th><th>No.2</th><th>No.8</th>
-            <th colspan="4"></th>
-          </tr>
-        </thead>
-        <tbody><tr data-gross="9999">
-          <td><div class="sc-name">Alec</div><div class="sc-hi">HI 10.2</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Eddie</div><div class="sc-hi">HI 4.0</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">David</div><div class="sc-hi">HI 13.1</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Nathan</div><div class="sc-hi">HI 8.2</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Mike</div><div class="sc-hi">HI 13.4</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Matt</div><div class="sc-hi">HI —</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Dillon</div><div class="sc-hi">HI 8.7</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Adam</div><div class="sc-hi">HI 6.4</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Alex</div><div class="sc-hi">HI 2.7</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Chris</div><div class="sc-hi">HI —</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">Luis</div><div class="sc-hi">HI —</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr><tr data-gross="9999">
-          <td><div class="sc-name">John</div><div class="sc-hi">HI 4.4</div></td>
-          <td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td><td><span class="sc-pending">—</span></td>
-        </tr></tbody>
-      </table>
-    </div>
-  </div>
+  
   <!-- Handicap Calculator -->
   <div class="scoreboard">
     <div class="sb-round-tabs" id="sbTabs"></div>
