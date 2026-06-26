@@ -4101,13 +4101,6 @@
     ],
     "rounds": [
       {
-        "date": "2026-01-10",
-        "hi": 10.8,
-        "course": "Stone Eagle Golf Club",
-        "score": 86,
-        "holes": 18
-      },
-      {
         "date": "2026-01-11",
         "hi": 10.6,
         "course": "The Plantation",
@@ -4238,6 +4231,13 @@
         "hi": 10.0,
         "course": "Ocean North",
         "score": 86,
+        "holes": 18
+      },
+      {
+        "date": "2026-06-25",
+        "hi": 10.2,
+        "course": "Oak Creek Golf Club",
+        "score": 80,
         "holes": 18
       }
     ],
