@@ -177,28 +177,27 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ot-matches{text-align:center;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px}
 /* ── Match Summary ── */
 .match-summary-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
-.match-summary-table{width:100%;border-collapse:collapse;font-size:13px}
-.match-summary-table thead tr{background:#0a3318}
-.ms-th-expand,.ms-th-shrink{padding:8px 12px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;width:40%}
-.ms-th-expand{text-align:left}.ms-th-shrink{text-align:right}
-.ms-th-mid{width:20%;text-align:center;color:rgba(255,255,255,.4);font-size:9px;font-weight:700;text-transform:uppercase;padding:8px 4px}
-.match-summary-table tbody tr{border-bottom:1px solid rgba(0,0,0,.05)}
+.match-summary-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.match-summary-table tbody tr{border-bottom:1px solid rgba(0,0,0,.05);height:52px}
 .match-summary-table tbody tr:last-child{border-bottom:none}
-.ms-expand,.ms-shrink{padding:10px 12px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
-.ms-expand{text-align:left}.ms-shrink{text-align:right}
+.ms-expand,.ms-shrink{padding:0;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s;overflow:hidden}
 .ms-expand:active,.ms-shrink:active{opacity:.75}
-.ms-expand.win{background:rgba(26,92,53,.14)}
-.ms-shrink.win{background:rgba(190,18,60,.1)}
-.ms-mid{text-align:center;padding:8px 4px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
+.ms-expand.win{background:rgba(26,92,53,.13)}
+.ms-shrink.win{background:rgba(190,18,60,.09)}
+.ms-cell-l,.ms-cell-r{display:flex;align-items:center;height:52px;padding:6px 10px;gap:8px}
+.ms-cell-r{flex-direction:row-reverse}
+.ms-names-col{display:flex;flex-direction:column;gap:3px;flex-shrink:0}
+.ms-name{font-size:12px;font-weight:600;color:#0d1a10;white-space:nowrap;display:block;line-height:1.2}
+.ms-expand.win .ms-name{font-weight:700;color:#0a3318}
+.ms-shrink.win .ms-name{font-weight:700;color:#7f0f2e}
+.ms-inner-area{flex:1;display:flex;align-items:center;justify-content:center;min-width:0}
+.ms-mid{text-align:center;padding:4px 2px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
 .ms-mid:active{opacity:.7}
 .ms-mid.as{background:rgba(26,92,53,.08)}
 .ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
-.ms-as-label{font-size:12px;font-weight:800;color:#1a5c35;display:block;margin-top:2px}
-.ms-result-inp{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:6px;font-family:inherit;font-size:11px;text-align:center;padding:4px;background:rgba(255,255,255,.8);color:#0d1a10;margin-top:4px}
+.ms-as-label{font-size:11px;font-weight:800;color:#1a5c35;display:block;margin-top:2px}
+.ms-result-inp{width:90%;border:1px solid rgba(0,0,0,.15);border-radius:6px;font-family:inherit;font-size:12px;font-weight:700;text-align:center;padding:5px 4px;background:rgba(255,255,255,.9);color:#0d1a10}
 .ms-result-inp:focus{outline:none;border-color:#0a3318}
-.ms-names{font-weight:600;color:#0d1a10;display:block;font-size:12px}
-.ms-score{font-size:11px;font-weight:800;margin-top:3px;display:block}
-.ms-score.l{color:#1a5c35}.ms-score.r{color:#be123c}
 /* ── Round Scoreboard ── */
 .scoreboard{display:flex;flex-direction:column;gap:8px}
 .sb-round-tabs{display:flex;gap:6px;margin-bottom:2px}
@@ -516,18 +515,28 @@ function renderMatchSummary(){
     const result=saved.result||'';
     const num=i+1;
     const expandWin=winner==='l', shrinkWin=winner==='r', as=winner==='h';
+    const hasWinner=expandWin||shrinkWin;
+    const lw=expandWin?'52%':shrinkWin?'34%':'40%';
+    const mw=hasWinner?'12%':'20%';
+    const rw=shrinkWin?'52%':expandWin?'34%':'40%';
+    const expandInner=expandWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
+    const shrinkInner=shrinkWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
     return `<tr>
-      <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}">
-        <span class="ms-names">${m.expand.join(' + ')}</span>
-        ${expandWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:''}
+      <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}" style="width:${lw}">
+        <div class="ms-cell-l">
+          <div class="ms-names-col">${m.expand.map(n=>`<span class="ms-name">${n}</span>`).join('')}</div>
+          <div class="ms-inner-area">${expandInner}</div>
+        </div>
       </td>
-      <td class="ms-mid${as?' as':''}" data-key="${key}">
+      <td class="ms-mid${as?' as':''}" data-key="${key}" style="width:${mw}">
         <span class="ms-num">M${num}</span>
         ${as?'<span class="ms-as-label">AS</span>':''}
       </td>
-      <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}">
-        <span class="ms-names">${m.shrink.join(' + ')}</span>
-        ${shrinkWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:''}
+      <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}" style="width:${rw}">
+        <div class="ms-cell-r">
+          <div class="ms-inner-area">${shrinkInner}</div>
+          <div class="ms-names-col">${m.shrink.map(n=>`<span class="ms-name">${n}</span>`).join('')}</div>
+        </div>
       </td>
     </tr>`;
   }).join('');
