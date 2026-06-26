@@ -173,7 +173,8 @@ def main():
         played = list(tourney.keys())
         print(f"  {len(revs)} revisions, {len(rounds)} rounds, HI={data[ghin]['current']}, tourney rounds: {played or 'none yet'}")
 
-    with open("/Users/nathan.lee/pinehurst/ghin_data.json", "w") as f:
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ghin_data.json")
+    with open(out, "w") as f:
         json.dump(data, f, indent=2)
     print("\nSaved to ghin_data.json")
 
