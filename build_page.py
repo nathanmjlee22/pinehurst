@@ -269,8 +269,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
   </div>
-  <!-- Individual Scores -->
-  __SCORES_TABLE__
   <!-- Team player filter -->
   <div class="team-filter">
     <div class="team-col" id="teamLeft">
@@ -887,19 +885,23 @@ matchup_table = f"""<div class="matchup-wrap">
 # Substitute placeholders
 ghin_order_str = ",".join(f'"{g}"' for g in ORDER)
 refresh_btn_html = '<button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh GHIN</button>' if SHOW_REFRESH_BTN else ''
-scoreboard_html = """  <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">&#128190; Save Scores</button>
-  <div class="match-summary-wrap">
-    <table class="match-summary-table" id="matchSummaryTable">
-      <thead>
-        <tr class="ms-score-hdr">
-          <th class="ms-th-expand"><div class="ms-th-inner"><span class="ms-th-team">Team Expand</span><span class="ms-th-pts" id="ot-score-l">0</span></div></th>
-          <th class="ms-th-mid"></th>
-          <th class="ms-th-shrink"><div class="ms-th-inner ms-th-inner-r"><span class="ms-th-pts" id="ot-score-r">0</span><span class="ms-th-team">Team Shrink</span></div></th>
-        </tr>
-      </thead>
-      <tbody id="matchSummaryBody"></tbody>
-    </table>
-  </div>""" if SHOW_SCOREBOARD else ""
+if SHOW_SCOREBOARD:
+    scoreboard_html = (
+        '  <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">&#128190; Save Scores</button>\n'
+        '  <div class="match-summary-wrap">\n'
+        '    <table class="match-summary-table" id="matchSummaryTable">\n'
+        '      <thead><tr class="ms-score-hdr">\n'
+        '        <th class="ms-th-expand"><div class="ms-th-inner"><span class="ms-th-team">Team Expand</span><span class="ms-th-pts" id="ot-score-l">0</span></div></th>\n'
+        '        <th class="ms-th-mid"></th>\n'
+        '        <th class="ms-th-shrink"><div class="ms-th-inner ms-th-inner-r"><span class="ms-th-pts" id="ot-score-r">0</span><span class="ms-th-team">Team Shrink</span></div></th>\n'
+        '      </tr></thead>\n'
+        '      <tbody id="matchSummaryBody"></tbody>\n'
+        '    </table>\n'
+        '  </div>\n'
+        + scores_table_html
+    )
+else:
+    scoreboard_html = ""
 HTML = HTML.replace("__SCOREBOARD__", scoreboard_html)
 HTML = HTML.replace("__REFRESH_BTN__", refresh_btn_html)
 HTML = HTML.replace("__GOLFERS__", golfers_js)
@@ -908,7 +910,6 @@ HTML = HTML.replace("__TODAY__", TODAY)
 HTML = HTML.replace("__TODAY_ISO__", date.today().isoformat())
 HTML = HTML.replace("__MATCHUP_TABLE__", matchup_table)
 HTML = HTML.replace("__COURSE_INFO_TABLE__", course_info_table)
-HTML = HTML.replace("__SCORES_TABLE__", scores_table_html)
 
 for fname in ["index.html", "handicap.html"]:
     path = os.path.join(DIR, fname)
