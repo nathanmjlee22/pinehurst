@@ -3,7 +3,7 @@ name: Refresh GHIN Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'  # 8 AM PST (UTC-8) / 8 AM PDT becomes 15:00 UTC in summer
+    - cron: '0 11 * * *'  # 3 AM PST (UTC-8) / 4 AM PDT (UTC-7) in summer
 
 permissions:
   contents: write
