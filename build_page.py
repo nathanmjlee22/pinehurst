@@ -261,6 +261,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 <div class="content">
   <!-- Course Info -->
   __COURSE_INFO_TABLE__
+  <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">💾 Save Scores</button>
   <!-- Overall Scoreboard + Match Summary -->
   <div class="match-summary-wrap">
     <table class="match-summary-table" id="matchSummaryTable">
@@ -288,7 +289,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="scoreboard">
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
-    <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">💾 Save Scores</button>
   </div>
   <!-- Individual Scores -->
   __SCORES_TABLE__
@@ -631,8 +631,6 @@ function renderSBRows(){
         :`<td class="hcp-stk">+${stk}</td>`)
         :'<td class="hcp-stk dim">—</td>';
       return `<tr>
-        <td class="hcp-name">${name}</td>
-        <td class="hcp-hi">${hi!==null?hi.toFixed(1):'—'}</td>
         <td class="hcp-tee">
           <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">Blue</button>
           <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">White</button>
@@ -652,7 +650,7 @@ function renderSBRows(){
       </div>
       <div class="hcp-section">
         <table class="hcp-table">
-          <thead><tr><th>Player</th><th>HI</th><th>Tee</th><th>CH</th><th>Strokes</th></tr></thead>
+          <thead><tr><th>Tee</th><th>CH</th><th>Strokes</th></tr></thead>
           <tbody>${allNames.map(hcpRowHTML).join('')}</tbody>
         </table>
       </div>
