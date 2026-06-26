@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Scratch / debug output
+revisions_*.json
+scores_*.json
+ghin_*.json
+recent_*.json
+timeline_*.json
+
+# OS
+.DS_Store
