@@ -175,6 +175,27 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ot-bar-l{background:#d4af37;transition:width .4s ease}
 .ot-bar-r{background:rgba(255,255,255,.55);transition:width .4s ease}
 .ot-matches{text-align:center;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px}
+/* ── Match Summary ── */
+.match-summary-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
+.match-summary-table{width:100%;border-collapse:collapse;font-size:13px}
+.match-summary-table thead tr{background:#0a3318}
+.ms-th-expand,.ms-th-shrink{padding:8px 12px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;width:43%}
+.ms-th-expand{text-align:left}.ms-th-shrink{text-align:right}
+.ms-th-mid{width:14%;text-align:center}
+.match-summary-table tbody tr{border-bottom:1px solid rgba(0,0,0,.05)}
+.match-summary-table tbody tr:last-child{border-bottom:none}
+.ms-expand,.ms-shrink{padding:10px 12px;vertical-align:middle;transition:background .2s}
+.ms-expand{text-align:left}.ms-shrink{text-align:right}
+.ms-expand.win{background:rgba(26,92,53,.12)}
+.ms-shrink.win{background:rgba(190,18,60,.12)}
+.ms-mid{text-align:center;padding:10px 4px;vertical-align:middle}
+.ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
+.ms-result{font-size:12px;font-weight:800;color:#0d1a10;display:block;margin-top:1px}
+.ms-as{font-size:12px;font-weight:800;color:#1a5c35;display:block;margin-top:1px}
+.ms-names{font-weight:600;color:#0d1a10;display:block}
+.ms-names.dim{color:var(--dim)}
+.ms-score{font-size:11px;font-weight:800;margin-top:1px;display:block}
+.ms-score.l{color:#1a5c35}.ms-score.r{color:#be123c}
 /* ── Round Scoreboard ── */
 .scoreboard{display:flex;flex-direction:column;gap:8px}
 .sb-round-tabs{display:flex;gap:6px;margin-bottom:2px}
@@ -268,6 +289,17 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
     </div>
     <div class="ot-bar"><div class="ot-bar-l" id="ot-bar-l" style="width:50%"></div><div class="ot-bar-r" id="ot-bar-r" style="width:50%"></div></div>
     <div class="ot-matches" id="ot-matches">0 of 12 matches played</div>
+  </div>
+  <!-- Match Summary -->
+  <div class="match-summary-wrap">
+    <table class="match-summary-table" id="matchSummaryTable">
+      <thead><tr>
+        <th class="ms-th-expand">Team Expand</th>
+        <th class="ms-th-mid"></th>
+        <th class="ms-th-shrink">Team Shrink</th>
+      </tr></thead>
+      <tbody id="matchSummaryBody"></tbody>
+    </table>
   </div>
   <!-- Round Scoreboard -->
   <div class="scoreboard">
@@ -470,6 +502,54 @@ function calcScores(){
 
 function fmtPts(n){return n===Math.floor(n)?String(n):n.toFixed(1);}
 
+const MATCH_LIST=[
+  {rnd:1,idx:0,expand:['Alec','Nathan'],shrink:['Dillon','Adam']},
+  {rnd:1,idx:1,expand:['Eddie','David'],shrink:['Alex','Chris']},
+  {rnd:1,idx:2,expand:['Mike','Matt'],  shrink:['Luis','John']},
+  {rnd:2,idx:0,expand:['Alec','David'], shrink:['Alex','John']},
+  {rnd:2,idx:1,expand:['Eddie','Mike'], shrink:['Dillon','Luis']},
+  {rnd:2,idx:2,expand:['Nathan','Matt'],shrink:['Adam','Chris']},
+  {rnd:3,idx:0,expand:['Alec','Eddie'], shrink:['Alex','Luis']},
+  {rnd:3,idx:1,expand:['David','Matt'], shrink:['Chris','Dillon']},
+  {rnd:3,idx:2,expand:['Mike','Nathan'],shrink:['John','Adam']},
+  {rnd:4,idx:0,expand:['Alec','Mike'],  shrink:['Adam','Luis']},
+  {rnd:4,idx:1,expand:['Eddie','Matt'], shrink:['John','Chris']},
+  {rnd:4,idx:2,expand:['David','Nathan'],shrink:['Alex','Dillon']},
+];
+function renderMatchSummary(){
+  const res=loadRes();
+  const tbody=document.getElementById('matchSummaryBody');
+  if(!tbody)return;
+  tbody.innerHTML=MATCH_LIST.map((m,i)=>{
+    const key=matchKey(m.rnd,m.idx);
+    const saved=res[key]||{};
+    const winner=saved.winner||'';
+    const result=saved.result||'';
+    const num=i+1;
+    const expandNames=m.expand.join(' + ');
+    const shrinkNames=m.shrink.join(' + ');
+    const expandWin=winner==='l';
+    const shrinkWin=winner==='r';
+    const as=winner==='h';
+    const expandScore=expandWin?`<span class="ms-score l">${result}</span>`:'';
+    const shrinkScore=shrinkWin?`<span class="ms-score r">${result}</span>`:'';
+    const midResult=as?`<span class="ms-as">AS</span>`:(!winner&&result?`<span class="ms-result">${result}</span>`:'');
+    return `<tr>
+      <td class="ms-expand${expandWin?' win':''}">
+        <span class="ms-names${!winner?' dim':''}">${expandNames}</span>
+        ${expandScore}
+      </td>
+      <td class="ms-mid">
+        <span class="ms-num">M${num}</span>
+        ${midResult}
+      </td>
+      <td class="ms-shrink${shrinkWin?' win':''}">
+        <span class="ms-names${!winner?' dim':''}">${shrinkNames}</span>
+        ${shrinkScore}
+      </td>
+    </tr>`;
+  }).join('');
+}
 function updateOverall(){
   const{l,r,played}=calcScores();
   document.getElementById('ot-score-l').textContent=fmtPts(l);
@@ -608,7 +688,7 @@ function renderSBRows(){
     const cur=(res[key]||{}).winner;
     if(!res[key])res[key]={};
     res[key].winner=cur===b.dataset.w?'':b.dataset.w;
-    saveRes(res);updateOverall();renderSBRows();
+    saveRes(res);updateOverall();renderMatchSummary();renderSBRows();
   }));
 
   rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',()=>{
@@ -619,7 +699,7 @@ function renderSBRows(){
 }
 
 fetchScores().then(()=>{
-  renderPills();renderSBTabs();renderSBRows();updateOverall();
+  renderPills();renderSBTabs();renderSBRows();updateOverall();renderMatchSummary();
   buildChart();renderStats();renderRoundsTabs();renderRounds();
 });
 
