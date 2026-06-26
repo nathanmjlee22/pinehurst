@@ -3171,7 +3171,7 @@
     "name": "Alec Negri",
     "club": "USGA/SCGA GC",
     "color": "#0e7490",
-    "current": "10.2",
+    "current": "10.1",
     "low": "9.6",
     "revs": [
       {
@@ -4097,6 +4097,10 @@
       {
         "date": "2026-06-13",
         "hi": 10.2
+      },
+      {
+        "date": "2026-06-26",
+        "hi": 10.1
       }
     ],
     "rounds": [
