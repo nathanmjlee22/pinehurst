@@ -179,22 +179,24 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .match-summary-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,.08)}
 .match-summary-table{width:100%;border-collapse:collapse;font-size:13px}
 .match-summary-table thead tr{background:#0a3318}
-.ms-th-expand,.ms-th-shrink{padding:8px 12px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;width:43%}
+.ms-th-expand,.ms-th-shrink{padding:8px 12px;font-size:10px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em;width:40%}
 .ms-th-expand{text-align:left}.ms-th-shrink{text-align:right}
-.ms-th-mid{width:14%;text-align:center}
+.ms-th-mid{width:20%;text-align:center;color:rgba(255,255,255,.4);font-size:9px;font-weight:700;text-transform:uppercase;padding:8px 4px}
 .match-summary-table tbody tr{border-bottom:1px solid rgba(0,0,0,.05)}
 .match-summary-table tbody tr:last-child{border-bottom:none}
-.ms-expand,.ms-shrink{padding:10px 12px;vertical-align:middle;transition:background .2s}
+.ms-expand,.ms-shrink{padding:10px 12px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
 .ms-expand{text-align:left}.ms-shrink{text-align:right}
-.ms-expand.win{background:rgba(26,92,53,.12)}
-.ms-shrink.win{background:rgba(190,18,60,.12)}
-.ms-mid{text-align:center;padding:10px 4px;vertical-align:middle}
-.ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
-.ms-result{font-size:12px;font-weight:800;color:#0d1a10;display:block;margin-top:1px}
-.ms-as{font-size:12px;font-weight:800;color:#1a5c35;display:block;margin-top:1px}
-.ms-names{font-weight:600;color:#0d1a10;display:block}
-.ms-names.dim{color:var(--dim)}
-.ms-score{font-size:11px;font-weight:800;margin-top:1px;display:block}
+.ms-expand:active,.ms-shrink:active{opacity:.75}
+.ms-expand.win{background:rgba(26,92,53,.14)}
+.ms-shrink.win{background:rgba(190,18,60,.1)}
+.ms-mid{text-align:center;padding:8px 4px;vertical-align:middle}
+.ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block;margin-bottom:4px}
+.ms-as-btn{background:none;border:1.5px solid rgba(0,0,0,.15);border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;color:var(--dim);padding:3px 7px;cursor:pointer;display:block;margin:0 auto 4px;transition:all .15s}
+.ms-as-btn.on{background:#0a3318;border-color:#0a3318;color:#fff}
+.ms-result-inp{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:6px;font-family:inherit;font-size:11px;text-align:center;padding:3px 4px;background:#fff;color:#0d1a10}
+.ms-result-inp:focus{outline:none;border-color:#0a3318}
+.ms-names{font-weight:600;color:#0d1a10;display:block;font-size:12px}
+.ms-score{font-size:11px;font-weight:800;margin-top:3px;display:block}
 .ms-score.l{color:#1a5c35}.ms-score.r{color:#be123c}
 /* ── Round Scoreboard ── */
 .scoreboard{display:flex;flex-direction:column;gap:8px}
@@ -214,12 +216,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .t-pname{font-size:12px;font-weight:700;color:#0d1a10}
 .team-btn.won .t-pname{color:#0a3318;font-weight:800}
 .t-phi{font-size:10px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 5px;flex-shrink:0}
-.sb-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 6px;background:var(--surface);border-left:1px solid rgba(0,0,0,.06);border-right:1px solid rgba(0,0,0,.06);flex-shrink:0;width:72px}
-.win-btns{display:flex;gap:2px}
-.win-btn{width:20px;height:22px;border-radius:5px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:11px;font-weight:800;color:var(--dim);cursor:pointer;transition:all .12s;padding:0;display:flex;align-items:center;justify-content:center}
-.win-btn.active-l{background:#0a3318;border-color:#0a3318;color:#fff}
-.win-btn.active-r{background:#0a3318;border-color:#0a3318;color:#fff}
-.win-btn.active-h{background:#d4af37;border-color:#d4af37;color:#fff}
 .hcp-section{border-top:1px solid rgba(0,0,0,.07);padding:10px 10px 6px}
 .hcp-table{width:100%;border-collapse:collapse;font-size:12px}
 .hcp-table th{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;padding:0 8px 6px;text-align:left}
@@ -236,9 +232,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .tee-b.tb-on{border-color:#1d4ed8;color:#1d4ed8;background:rgba(29,78,216,.08)}
 .tee-w{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.35);background:transparent}
 .tee-w.tb-on{border-color:#374151;color:#374151;background:rgba(0,0,0,.06)}
-.result-input{width:62px;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 5px;font-family:inherit;font-size:11px;text-align:center;background:#fff;color:#0d1a10;outline:none}
-.result-input:focus{border-color:#0a3318}
-.result-input::placeholder{color:rgba(0,0,0,.3)}
 .matchup-wrap{padding-bottom:4px}
 .matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
 .matchup-table{width:100%;border-collapse:collapse;white-space:nowrap}
@@ -526,29 +519,48 @@ function renderMatchSummary(){
     const winner=saved.winner||'';
     const result=saved.result||'';
     const num=i+1;
-    const expandNames=m.expand.join(' + ');
-    const shrinkNames=m.shrink.join(' + ');
-    const expandWin=winner==='l';
-    const shrinkWin=winner==='r';
-    const as=winner==='h';
-    const expandScore=expandWin?`<span class="ms-score l">${result}</span>`:'';
-    const shrinkScore=shrinkWin?`<span class="ms-score r">${result}</span>`:'';
-    const midResult=as?`<span class="ms-as">AS</span>`:(!winner&&result?`<span class="ms-result">${result}</span>`:'');
+    const expandWin=winner==='l', shrinkWin=winner==='r', as=winner==='h';
     return `<tr>
-      <td class="ms-expand${expandWin?' win':''}">
-        <span class="ms-names${!winner?' dim':''}">${expandNames}</span>
-        ${expandScore}
+      <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}">
+        <span class="ms-names">${m.expand.join(' + ')}</span>
+        ${expandWin&&result?`<span class="ms-score l">${result}</span>`:''}
       </td>
       <td class="ms-mid">
         <span class="ms-num">M${num}</span>
-        ${midResult}
+        <button class="ms-as-btn${as?' on':''}" data-key="${key}">½</button>
+        <input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">
       </td>
-      <td class="ms-shrink${shrinkWin?' win':''}">
-        <span class="ms-names${!winner?' dim':''}">${shrinkNames}</span>
-        ${shrinkScore}
+      <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}">
+        <span class="ms-names">${m.shrink.join(' + ')}</span>
+        ${shrinkWin&&result?`<span class="ms-score r">${result}</span>`:''}
       </td>
     </tr>`;
   }).join('');
+
+  tbody.querySelectorAll('td[data-side]').forEach(td=>td.addEventListener('click',()=>{
+    const r=loadRes(),key=td.dataset.key,side=td.dataset.side;
+    if(!r[key])r[key]={};
+    r[key].winner=r[key].winner===side?'':side;
+    saveRes(r);updateOverall();renderMatchSummary();
+  }));
+
+  tbody.querySelectorAll('.ms-as-btn').forEach(btn=>btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const r=loadRes(),key=btn.dataset.key;
+    if(!r[key])r[key]={};
+    r[key].winner=r[key].winner==='h'?'':'h';
+    saveRes(r);updateOverall();renderMatchSummary();
+  }));
+
+  tbody.querySelectorAll('.ms-result-inp').forEach(inp=>{
+    inp.addEventListener('click',e=>e.stopPropagation());
+    inp.addEventListener('change',()=>{
+      const r=loadRes(),key=inp.dataset.key;
+      if(!r[key])r[key]={};
+      r[key].result=inp.value.trim();
+      saveRes(r);renderMatchSummary();
+    });
+  });
 }
 function updateOverall(){
   const{l,r,played}=calcScores();
@@ -599,15 +611,11 @@ function renderSBTabs(){
 }
 
 function renderSBRows(){
-  const res=loadRes();
   const tees=loadTees();
   const rows=document.getElementById('sbRows');
 
   rows.innerHTML=MATCHUPS[sbRound].map((m,i)=>{
     const key=matchKey(sbRound,i);
-    const saved=res[key]||{};
-    const winner=saved.winner||'';
-    const resultVal=saved.result||'';
     const lsel=sbSel===key+'-l',rsel=sbSel===key+'-r';
     const allNames=[...m.left,...m.right];
     const strokes=getMatchStrokes(allNames,sbRound);
@@ -645,18 +653,10 @@ function renderSBRows(){
 
     return `<div class="foursome-card" data-key="${key}">
       <div class="foursome-teams">
-        <button class="team-btn${winner==='l'?' won':''}${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
+        <button class="team-btn${lsel?' gsel':''}" data-side="l" data-key="${key}" data-names="${m.left.join(',')}">
           ${m.left.map(scorePlayerHTML).join('')}
         </button>
-        <div class="sb-center">
-          <div class="win-btns">
-            <button class="win-btn${winner==='l'?' active-l':''}" data-key="${key}" data-w="l">◀</button>
-            <button class="win-btn${winner==='h'?' active-h':''}" data-key="${key}" data-w="h">½</button>
-            <button class="win-btn${winner==='r'?' active-r':''}" data-key="${key}" data-w="r">▶</button>
-          </div>
-          <input class="result-input" data-key="${key}" placeholder="e.g. 2&1" value="${resultVal}">
-        </div>
-        <button class="team-btn${winner==='r'?' won':''}${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
+        <button class="team-btn${rsel?' gsel':''}" data-side="r" data-key="${key}" data-names="${m.right.join(',')}">
           ${m.right.map(scorePlayerHTML).join('')}
         </button>
       </div>
@@ -682,20 +682,6 @@ function renderSBRows(){
     saveTees(t);renderSBRows();
   }));
 
-  rows.querySelectorAll('.win-btn').forEach(b=>b.addEventListener('click',e=>{
-    e.stopPropagation();
-    const res=loadRes();const key=b.dataset.key;
-    const cur=(res[key]||{}).winner;
-    if(!res[key])res[key]={};
-    res[key].winner=cur===b.dataset.w?'':b.dataset.w;
-    saveRes(res);updateOverall();renderMatchSummary();renderSBRows();
-  }));
-
-  rows.querySelectorAll('.result-input').forEach(inp=>inp.addEventListener('change',()=>{
-    const res=loadRes();const key=inp.dataset.key;
-    if(!res[key])res[key]={};
-    res[key].result=inp.value.trim();saveRes(res);
-  }));
 }
 
 fetchScores().then(()=>{
