@@ -1,13 +1,15 @@
 {
   "results": {
     "1-0": {
-      "winner": ""
+      "winner": "h"
     },
     "1-1": {
-      "winner": "l"
+      "winner": "l",
+      "result": "1UP"
     },
     "1-2": {
-      "winner": "h"
+      "winner": "r",
+      "result": "2&1"
     }
   },
   "tees": {}
