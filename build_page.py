@@ -68,11 +68,17 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .save-status.saving{color:var(--dim)}
 .save-status.ok{color:#1a5c35}
 .save-status.err,.save-status.token{color:#be123c}
+.gear-btn{margin-left:auto;background:none;border:none;font-size:18px;cursor:pointer;color:var(--dim);padding:4px;opacity:.5;transition:opacity .15s;flex-shrink:0}
+.gear-btn:hover{opacity:1}
+.dev-menu{display:none;align-items:center;gap:10px;padding:8px 16px 10px;border-top:1px solid rgba(0,0,0,.06);background:#f9fafb}
+.dev-menu.open{display:flex}
 .refresh-btn{padding:7px 14px;border-radius:20px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--dim);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
 .refresh-btn:hover{border-color:#0a3318;color:#0a3318}
 .refresh-btn.running{color:#b45309;border-color:#b45309}
 .refresh-btn.done{color:#1a5c35;border-color:#1a5c35}
 .refresh-btn.err{color:#be123c;border-color:#be123c}
+.save-scores-btn{width:100%;padding:12px;border-radius:12px;border:none;background:#0a3318;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;margin-top:4px}
+.save-scores-btn:active{background:#072610}
 .logo{height:52px;width:auto;flex-shrink:0;display:block}
 .header-title{font-size:18px;font-weight:700;letter-spacing:-0.3px;color:#0d1a10}
 .header-sub{font-size:12px;color:#5a7a60;margin-top:1px}
@@ -242,8 +248,11 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="header-row">
     <img class="logo" src="putterboy.png" alt="Pinehurst">
     <div><div class="header-title">Pinehurst 2026</div></div>
+    <button class="gear-btn" id="gearBtn" onclick="toggleDevMenu()" title="Developer tools">⚙</button>
+  </div>
+  <div class="dev-menu" id="devMenu">
     <span class="save-status" id="saveStatus"></span>
-    <button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh</button>
+    <button class="refresh-btn" id="refreshBtn" onclick="triggerRefresh()">↻ Refresh GHIN</button>
   </div>
 </header>
 <div class="content">
@@ -269,6 +278,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
   <div class="scoreboard">
     <div class="sb-round-tabs" id="sbTabs"></div>
     <div id="sbRows"></div>
+    <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">💾 Save Scores</button>
   </div>
   <!-- Individual Scores -->
   __SCORES_TABLE__
@@ -437,9 +447,24 @@ const ROUND_TEES={
 let sbRound=1,sbSel=null;
 
 function loadRes(){return SCORES.results||{};}
-function saveRes(r){SCORES.results=r;pushScores();}
+function saveRes(r){SCORES.results=r;markDirty();}
 function loadTees(){return SCORES.tees||{};}
-function saveTees(t){SCORES.tees=t;pushScores();}
+function saveTees(t){SCORES.tees=t;markDirty();}
+function markDirty(){
+  const btn=document.getElementById('saveScoresBtn');
+  if(btn)btn.style.display='block';
+}
+async function saveScores(){
+  const btn=document.getElementById('saveScoresBtn');
+  btn.textContent='⏳ Saving…';btn.disabled=true;
+  await pushScores();
+  btn.textContent='✓ Saved';
+  setTimeout(()=>{btn.style.display='none';btn.textContent='💾 Save Scores';btn.disabled=false;},1500);
+}
+function toggleDevMenu(){
+  const m=document.getElementById('devMenu');
+  m.classList.toggle('open');
+}
 function matchKey(round,idx){return `${round}-${idx}`;}
 function teeKey(round,name){return `${round}-${name}`;}
 
