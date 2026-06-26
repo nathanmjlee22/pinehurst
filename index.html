@@ -141,11 +141,12 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ms-expand:active,.ms-shrink:active{opacity:.75}
 .ms-expand.win{background:rgba(26,92,53,.14)}
 .ms-shrink.win{background:rgba(190,18,60,.1)}
-.ms-mid{text-align:center;padding:8px 4px;vertical-align:middle}
-.ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block;margin-bottom:4px}
-.ms-as-btn{background:none;border:1.5px solid rgba(0,0,0,.15);border-radius:6px;font-family:inherit;font-size:11px;font-weight:700;color:var(--dim);padding:3px 7px;cursor:pointer;display:block;margin:0 auto 4px;transition:all .15s}
-.ms-as-btn.on{background:#0a3318;border-color:#0a3318;color:#fff}
-.ms-result-inp{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:6px;font-family:inherit;font-size:11px;text-align:center;padding:3px 4px;background:#fff;color:#0d1a10}
+.ms-mid{text-align:center;padding:8px 4px;vertical-align:middle;cursor:pointer;user-select:none;transition:background .15s}
+.ms-mid:active{opacity:.7}
+.ms-mid.as{background:rgba(26,92,53,.08)}
+.ms-num{font-size:10px;font-weight:700;color:var(--dim);display:block}
+.ms-as-label{font-size:12px;font-weight:800;color:#1a5c35;display:block;margin-top:2px}
+.ms-result-inp{width:100%;border:1px solid rgba(0,0,0,.12);border-radius:6px;font-family:inherit;font-size:11px;text-align:center;padding:4px;background:rgba(255,255,255,.8);color:#0d1a10;margin-top:4px}
 .ms-result-inp:focus{outline:none;border-color:#0a3318}
 .ms-names{font-weight:600;color:#0d1a10;display:block;font-size:12px}
 .ms-score{font-size:11px;font-weight:800;margin-top:3px;display:block}
@@ -607,16 +608,15 @@ function renderMatchSummary(){
     return `<tr>
       <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}">
         <span class="ms-names">${m.expand.join(' + ')}</span>
-        ${expandWin&&result?`<span class="ms-score l">${result}</span>`:''}
+        ${expandWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:''}
       </td>
-      <td class="ms-mid">
+      <td class="ms-mid${as?' as':''}" data-key="${key}">
         <span class="ms-num">M${num}</span>
-        <button class="ms-as-btn${as?' on':''}" data-key="${key}">½</button>
-        <input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">
+        ${as?'<span class="ms-as-label">AS</span>':''}
       </td>
       <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}">
         <span class="ms-names">${m.shrink.join(' + ')}</span>
-        ${shrinkWin&&result?`<span class="ms-score r">${result}</span>`:''}
+        ${shrinkWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:''}
       </td>
     </tr>`;
   }).join('');
@@ -628,9 +628,8 @@ function renderMatchSummary(){
     saveRes(r);updateOverall();renderMatchSummary();
   }));
 
-  tbody.querySelectorAll('.ms-as-btn').forEach(btn=>btn.addEventListener('click',e=>{
-    e.stopPropagation();
-    const r=loadRes(),key=btn.dataset.key;
+  tbody.querySelectorAll('.ms-mid').forEach(td=>td.addEventListener('click',()=>{
+    const r=loadRes(),key=td.dataset.key;
     if(!r[key])r[key]={};
     r[key].winner=r[key].winner==='h'?'':'h';
     saveRes(r);updateOverall();renderMatchSummary();
