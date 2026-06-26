@@ -604,24 +604,20 @@ function renderMatchSummary(){
     const result=saved.result||'';
     const num=i+1;
     const expandWin=winner==='l', shrinkWin=winner==='r', as=winner==='h';
-    const hasWinner=expandWin||shrinkWin;
-    const lw=expandWin?'52%':shrinkWin?'34%':'40%';
-    const mw=hasWinner?'12%':'20%';
-    const rw=shrinkWin?'52%':expandWin?'34%':'40%';
     const expandInner=expandWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
     const shrinkInner=shrinkWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
     return `<tr>
-      <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}" style="width:${lw}">
+      <td class="ms-expand${expandWin?' win':''}" data-side="l" data-key="${key}">
         <div class="ms-cell-l">
           <div class="ms-names-col">${m.expand.map(n=>`<span class="ms-name">${n}</span>`).join('')}</div>
           <div class="ms-inner-area">${expandInner}</div>
         </div>
       </td>
-      <td class="ms-mid${as?' as':''}" data-key="${key}" style="width:${mw}">
+      <td class="ms-mid${as?' as':''}" data-key="${key}">
         <span class="ms-num">M${num}</span>
         ${as?'<span class="ms-as-label">AS</span>':''}
       </td>
-      <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}" style="width:${rw}">
+      <td class="ms-shrink${shrinkWin?' win':''}" data-side="r" data-key="${key}">
         <div class="ms-cell-r">
           <div class="ms-inner-area">${shrinkInner}</div>
           <div class="ms-names-col">${m.shrink.map(n=>`<span class="ms-name">${n}</span>`).join('')}</div>
