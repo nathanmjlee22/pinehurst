@@ -2303,7 +2303,7 @@
     "name": "John McGinley",
     "club": "EClub Monterey Bay",
     "color": "#be123c",
-    "current": "4.4",
+    "current": "4.6",
     "low": "0.9",
     "revs": [
       {
@@ -3021,16 +3021,13 @@
       {
         "date": "2026-06-23",
         "hi": 4.4
+      },
+      {
+        "date": "2026-06-27",
+        "hi": 4.6
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-05",
-        "hi": 1.6,
-        "course": "Corral de Tierra CC",
-        "score": 78,
-        "holes": 18
-      },
       {
         "date": "2026-04-08",
         "hi": 1.7,
@@ -3162,6 +3159,13 @@
         "hi": 4.3,
         "course": "Del Monte GC",
         "score": 79,
+        "holes": 18
+      },
+      {
+        "date": "2026-06-26",
+        "hi": 4.4,
+        "course": "TPC Monterey",
+        "score": 80,
         "holes": 18
       }
     ],
@@ -4853,16 +4857,13 @@
       {
         "date": "2026-06-25",
         "hi": 8.7
+      },
+      {
+        "date": "2026-06-27",
+        "hi": 8.7
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-29",
-        "hi": 10.1,
-        "course": "Del Monte GC",
-        "score": 86,
-        "holes": 18
-      },
       {
         "date": "2026-05-01",
         "hi": 10.5,
@@ -4994,6 +4995,13 @@
         "hi": 8.7,
         "course": "TPC Monterey",
         "score": 85,
+        "holes": 18
+      },
+      {
+        "date": "2026-06-26",
+        "hi": 8.7,
+        "course": "TPC Monterey",
+        "score": 86,
         "holes": 18
       }
     ],
