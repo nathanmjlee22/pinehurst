@@ -139,6 +139,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .sc-name{font-weight:700;font-size:13px;color:#0d1a10}
 .sc-hi{font-size:10px;color:var(--dim);font-weight:500}
 .sc-rank{font-size:11px;font-weight:700;color:var(--dim);margin-right:2px}
+.sc-record{font-size:12px;font-weight:700;text-align:center;white-space:nowrap}
 .sc-gross{font-weight:700;font-size:14px;color:#0d1a10}
 .sc-net{font-size:11px;color:var(--dim);font-weight:600;margin-top:1px}
 .sc-pending{color:rgba(0,0,0,.2);font-size:18px}
@@ -513,14 +514,14 @@ function renderMatchSummary(){
     const r=loadRes(),key=td.dataset.key,side=td.dataset.side;
     if(!r[key])r[key]={};
     r[key].winner=r[key].winner===side?'':side;
-    saveRes(r);updateOverall();renderMatchSummary();
+    saveRes(r);updateOverall();renderMatchSummary();renderMatchRecords();
   }));
 
   tbody.querySelectorAll('.ms-mid').forEach(td=>td.addEventListener('click',()=>{
     const r=loadRes(),key=td.dataset.key;
     if(!r[key])r[key]={};
     r[key].winner=r[key].winner==='h'?'':'h';
-    saveRes(r);updateOverall();renderMatchSummary();
+    saveRes(r);updateOverall();renderMatchSummary();renderMatchRecords();
   }));
 
   tbody.querySelectorAll('.ms-result-inp').forEach(inp=>{
@@ -627,7 +628,7 @@ function renderSBRows(){
 }
 
 fetchScores().then(()=>{
-  renderPills();renderSBTabs();renderSBRows();updateOverall();renderMatchSummary();
+  renderPills();renderSBTabs();renderSBRows();updateOverall();renderMatchSummary();renderMatchRecords();
   buildChart();renderStats();renderRoundsTabs();renderRounds();
 });
 
@@ -660,6 +661,31 @@ async function triggerRefresh(){
     btn.textContent='✗ Network error';btn.className='refresh-btn err';
     setTimeout(()=>{btn.textContent='↻ Refresh';btn.className='refresh-btn';btn.disabled=false;},4000);
   }
+}
+function renderMatchRecords(){
+  const res=loadRes();
+  const rec={};
+  MATCH_LIST.forEach(m=>{
+    const saved=res[matchKey(m.rnd,m.idx)]||{};
+    const w=saved.winner||'';
+    if(!w)return;
+    m.expand.forEach(n=>{
+      if(!rec[n])rec[n]={w:0,l:0,h:0};
+      if(w==='l')rec[n].w++;else if(w==='r')rec[n].l++;else rec[n].h++;
+    });
+    m.shrink.forEach(n=>{
+      if(!rec[n])rec[n]={w:0,l:0,h:0};
+      if(w==='r')rec[n].w++;else if(w==='l')rec[n].l++;else rec[n].h++;
+    });
+  });
+  document.querySelectorAll('td.sc-record').forEach(td=>{
+    const r=rec[td.dataset.player];
+    if(!r){td.textContent='—';td.style.color='';return;}
+    const parts=[r.w+'W',r.l+'L'];
+    if(r.h)parts.push(r.h+'H');
+    td.textContent=parts.join(' · ');
+    td.style.color=r.w>r.l?'#0a3318':r.l>r.w?'#be123c':'';
+  });
 }
 function sortScoresTable(){
   const tbody=document.querySelector('.scores-table tbody');
@@ -825,9 +851,10 @@ def build_scores_table():
             net_par_cell = '<td><span class="sc-pending">—</span></td>'
 
         gross_attr = total_gross if has_any else 9999
-        score_rows += f'''<tr data-gross="{gross_attr}">
+        score_rows += f'''<tr data-gross="{gross_attr}" data-player="{name}">
           <td><div class="sc-name">{name}</div><div class="sc-hi">HI {hi}</div></td>
           {cells}{total_cell}{net_cell}{par_cell}{net_par_cell}
+          <td class="sc-record" data-player="{name}">—</td>
         </tr>'''
 
     scores_table = f'''<div class="scores-wrap">
@@ -838,6 +865,7 @@ def build_scores_table():
             <th rowspan="2">Player</th>
             <th>R1 · 9/4</th><th>R2 · 9/5</th><th>R3 · 9/5</th><th>R4 · 9/6</th>
             <th>Gross</th><th>Net</th><th>+/- Gross</th><th>+/- Net</th>
+            <th rowspan="2">Record</th>
           </tr>
           <tr class="sub-head">
             <th>No.10</th><th>No.4</th><th>No.2</th><th>No.8</th>
