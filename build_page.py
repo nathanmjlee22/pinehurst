@@ -627,9 +627,12 @@ function renderSBRows(){
 
 }
 
+// Render everything that doesn't need saved scores immediately
+renderPills();renderSBTabs();renderSBRows();
+buildChart();renderStats();renderRoundsTabs();renderRounds();
+// Re-render score-dependent sections after scores load from GitHub
 fetchScores().then(()=>{
-  renderPills();renderSBTabs();renderSBRows();updateOverall();renderMatchSummary();renderMatchRecords();
-  buildChart();renderStats();renderRoundsTabs();renderRounds();
+  renderSBRows();updateOverall();renderMatchSummary();renderMatchRecords();
 });
 
 async function triggerRefresh(){
