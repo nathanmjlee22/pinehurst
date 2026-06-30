@@ -4881,16 +4881,13 @@
       {
         "date": "2026-06-29",
         "hi": 8.4
+      },
+      {
+        "date": "2026-06-30",
+        "hi": 8.4
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-04",
-        "hi": 10.5,
-        "course": "Del Monte GC",
-        "score": 84,
-        "holes": 18
-      },
       {
         "date": "2026-05-08",
         "hi": 10.4,
@@ -5022,6 +5019,13 @@
         "hi": 8.7,
         "course": "Preserve Golf Club (The)",
         "score": 81,
+        "holes": 18
+      },
+      {
+        "date": "2026-06-29",
+        "hi": 8.4,
+        "course": "Quail Lodge GC",
+        "score": 84,
         "holes": 18
       }
     ],
