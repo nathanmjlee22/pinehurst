@@ -2161,16 +2161,13 @@
       {
         "date": "2026-06-07",
         "hi": 6.4
+      },
+      {
+        "date": "2026-07-01",
+        "hi": 6.4
       }
     ],
     "rounds": [
-      {
-        "date": "2024-09-29",
-        "hi": 6.4,
-        "course": "The European Club",
-        "score": 86,
-        "holes": 18
-      },
       {
         "date": "2024-11-28",
         "hi": 6.4,
@@ -2303,6 +2300,13 @@
         "course": "Breakfast Hill Golf Club",
         "score": 82,
         "holes": 18
+      },
+      {
+        "date": "2026-06-30",
+        "hi": 6.4,
+        "course": "Blue only",
+        "score": 44,
+        "holes": 9
       }
     ],
     "tourney": {}
