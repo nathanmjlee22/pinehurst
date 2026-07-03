@@ -1187,8 +1187,8 @@
     "name": "David Ryu",
     "club": "Costa Mesa GC",
     "color": "#1d4ed8",
-    "current": "12.5",
-    "low": "12.5",
+    "current": "11.8",
+    "low": "11.8",
     "revs": [
       {
         "date": "2022-05-16",
@@ -1673,16 +1673,13 @@
       {
         "date": "2026-06-29",
         "hi": 12.5
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 11.8
       }
     ],
     "rounds": [
-      {
-        "date": "2025-10-14",
-        "hi": 13.7,
-        "course": "Ocean North",
-        "score": 94,
-        "holes": 18
-      },
       {
         "date": "2025-10-26",
         "hi": 13.7,
@@ -1814,6 +1811,13 @@
         "hi": 13.1,
         "course": "Arrowood Golf Course",
         "score": 83,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-02",
+        "hi": 12.5,
+        "course": "Oak Creek Golf Club",
+        "score": 82,
         "holes": 18
       }
     ],
@@ -3195,7 +3199,7 @@
     "name": "Alec Negri",
     "club": "USGA/SCGA GC",
     "color": "#0e7490",
-    "current": "10.1",
+    "current": "10.2",
     "low": "9.6",
     "revs": [
       {
@@ -4125,16 +4129,13 @@
       {
         "date": "2026-06-26",
         "hi": 10.1
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 10.2
       }
     ],
     "rounds": [
-      {
-        "date": "2026-01-11",
-        "hi": 10.6,
-        "course": "The Plantation",
-        "score": 89,
-        "holes": 18
-      },
       {
         "date": "2026-01-23",
         "hi": 10.6,
@@ -4266,6 +4267,13 @@
         "hi": 10.2,
         "course": "Oak Creek Golf Club",
         "score": 80,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-02",
+        "hi": 10.1,
+        "course": "Oak Creek Golf Club",
+        "score": 84,
         "holes": 18
       }
     ],
@@ -5341,16 +5349,13 @@
       {
         "date": "2026-06-29",
         "hi": 13.4
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 13.4
       }
     ],
     "rounds": [
-      {
-        "date": "2026-02-05",
-        "hi": 12.7,
-        "course": "Oak Creek Golf Club",
-        "score": 88,
-        "holes": 18
-      },
       {
         "date": "2026-02-07",
         "hi": 12.7,
@@ -5482,6 +5487,13 @@
         "hi": 13.4,
         "course": "Arrowood Golf Course",
         "score": 96,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-02",
+        "hi": 13.4,
+        "course": "Oak Creek Golf Club",
+        "score": 87,
         "holes": 18
       }
     ],
