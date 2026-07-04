@@ -567,7 +567,7 @@
     "name": "Nathan Lee",
     "club": "Maderas GC",
     "color": "#b45309",
-    "current": "8.1",
+    "current": "8.0",
     "low": "5.3",
     "revs": [
       {
@@ -1037,16 +1037,13 @@
       {
         "date": "2026-06-29",
         "hi": 8.1
+      },
+      {
+        "date": "2026-07-04",
+        "hi": 8.0
       }
     ],
     "rounds": [
-      {
-        "date": "2025-09-14",
-        "hi": 5.3,
-        "course": "Gold Course",
-        "score": 87,
-        "holes": 18
-      },
       {
         "date": "2025-09-27",
         "hi": 5.4,
@@ -1178,6 +1175,13 @@
         "hi": 8.2,
         "course": "Gold Course",
         "score": 81,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 8.1,
+        "course": "Gold Course",
+        "score": 83,
         "holes": 18
       }
     ],
@@ -1677,16 +1681,13 @@
       {
         "date": "2026-07-03",
         "hi": 11.8
+      },
+      {
+        "date": "2026-07-04",
+        "hi": 11.8
       }
     ],
     "rounds": [
-      {
-        "date": "2025-10-26",
-        "hi": 13.7,
-        "course": "Oak Creek Golf Club",
-        "score": 90,
-        "holes": 18
-      },
       {
         "date": "2025-10-31",
         "hi": 13.7,
@@ -1818,6 +1819,13 @@
         "hi": 12.5,
         "course": "Oak Creek Golf Club",
         "score": 82,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 11.8,
+        "course": "El Niguel Country Club",
+        "score": 90,
         "holes": 18
       }
     ],
@@ -3049,16 +3057,13 @@
       {
         "date": "2026-06-29",
         "hi": 4.6
+      },
+      {
+        "date": "2026-07-04",
+        "hi": 4.6
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-10",
-        "hi": 2.5,
-        "course": "Monument Course",
-        "score": 88,
-        "holes": 18
-      },
       {
         "date": "2026-04-11",
         "hi": 2.5,
@@ -3190,6 +3195,13 @@
         "hi": 4.5,
         "course": "Preserve Golf Club (The)",
         "score": 87,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 4.6,
+        "course": "Corral de Tierra CC",
+        "score": 80,
         "holes": 18
       }
     ],
@@ -4283,8 +4295,8 @@
     "name": "Dillon Staples",
     "club": "NCGA NEXT",
     "color": "#d97706",
-    "current": "8.4",
-    "low": "8.0",
+    "current": "7.7",
+    "low": "7.7",
     "revs": [
       {
         "date": "2023-07-05",
@@ -4901,16 +4913,13 @@
       {
         "date": "2026-07-02",
         "hi": 8.4
+      },
+      {
+        "date": "2026-07-04",
+        "hi": 7.7
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-09",
-        "hi": 10.4,
-        "course": "Del Monte GC",
-        "score": 82,
-        "holes": 18
-      },
       {
         "date": "2026-05-11",
         "hi": 10.1,
@@ -5042,6 +5051,13 @@
         "hi": 8.4,
         "course": "Quail Lodge GC",
         "score": 83,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 8.4,
+        "course": "Corral de Tierra CC",
+        "score": 78,
         "holes": 18
       }
     ],
@@ -5503,7 +5519,7 @@
     "name": "Alex Newman",
     "club": "Preserve GC",
     "color": "#dc2626",
-    "current": "2.8",
+    "current": "2.9",
     "low": "1.3",
     "revs": [
       {
@@ -7469,16 +7485,13 @@
       {
         "date": "2026-06-29",
         "hi": 2.8
+      },
+      {
+        "date": "2026-07-04",
+        "hi": 2.9
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-25",
-        "hi": 3.1,
-        "course": "Preserve Golf Club (The)",
-        "score": 72,
-        "holes": 18
-      },
       {
         "date": "2026-05-11",
         "hi": 2.7,
@@ -7610,6 +7623,13 @@
         "hi": 2.6,
         "course": "Preserve Golf Club (The)",
         "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-03",
+        "hi": 2.8,
+        "course": "Corral de Tierra CC",
+        "score": 76,
         "holes": 18
       }
     ],
