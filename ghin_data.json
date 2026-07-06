@@ -3069,16 +3069,13 @@
       {
         "date": "2026-07-05",
         "hi": 4.5
+      },
+      {
+        "date": "2026-07-06",
+        "hi": 4.5
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-24",
-        "hi": 2.6,
-        "course": "Del Monte GC",
-        "score": 79,
-        "holes": 18
-      },
       {
         "date": "2026-04-25",
         "hi": 2.6,
@@ -3210,6 +3207,13 @@
         "hi": 4.6,
         "course": "Carmel Valley Ranch GC",
         "score": 77,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-05",
+        "hi": 4.5,
+        "course": "Preserve Golf Club (The)",
+        "score": 82,
         "holes": 18
       }
     ],
@@ -7497,6 +7501,10 @@
       {
         "date": "2026-07-04",
         "hi": 2.9
+      },
+      {
+        "date": "2026-07-06",
+        "hi": 2.9
       }
     ],
     "rounds": [
@@ -7504,13 +7512,6 @@
         "date": "2026-05-11",
         "hi": 2.7,
         "course": "Shore",
-        "score": 79,
-        "holes": 18
-      },
-      {
-        "date": "2026-05-11",
-        "hi": 2.7,
-        "course": "Preserve Golf Club (The)",
         "score": 79,
         "holes": 18
       },
@@ -7638,6 +7639,13 @@
         "hi": 2.8,
         "course": "Corral de Tierra CC",
         "score": 76,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-05",
+        "hi": 2.9,
+        "course": "Preserve Golf Club (The)",
+        "score": 84,
         "holes": 18
       }
     ],
