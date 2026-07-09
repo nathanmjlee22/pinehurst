@@ -3073,16 +3073,13 @@
       {
         "date": "2026-07-06",
         "hi": 4.5
+      },
+      {
+        "date": "2026-07-09",
+        "hi": 4.5
       }
     ],
     "rounds": [
-      {
-        "date": "2026-04-25",
-        "hi": 2.6,
-        "course": "Preserve Golf Club (The)",
-        "score": 84,
-        "holes": 18
-      },
       {
         "date": "2026-05-04",
         "hi": 2.6,
@@ -3213,6 +3210,13 @@
         "date": "2026-07-05",
         "hi": 4.5,
         "course": "Preserve Golf Club (The)",
+        "score": 82,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-08",
+        "hi": 4.5,
+        "course": "Quail Lodge GC",
         "score": 82,
         "holes": 18
       }
@@ -4307,7 +4311,7 @@
     "name": "Dillon Staples",
     "club": "NCGA NEXT",
     "color": "#d97706",
-    "current": "7.7",
+    "current": "8.3",
     "low": "7.7",
     "revs": [
       {
@@ -4929,16 +4933,13 @@
       {
         "date": "2026-07-04",
         "hi": 7.7
+      },
+      {
+        "date": "2026-07-09",
+        "hi": 8.3
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-11",
-        "hi": 10.1,
-        "course": "Del Monte GC",
-        "score": 78,
-        "holes": 18
-      },
       {
         "date": "2026-05-15",
         "hi": 9.5,
@@ -5070,6 +5071,13 @@
         "hi": 8.4,
         "course": "Corral de Tierra CC",
         "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-08",
+        "hi": 7.7,
+        "course": "Quail Lodge GC",
+        "score": 84,
         "holes": 18
       }
     ],
