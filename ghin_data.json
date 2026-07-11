@@ -4311,7 +4311,7 @@
     "name": "Dillon Staples",
     "club": "NCGA NEXT",
     "color": "#d97706",
-    "current": "8.3",
+    "current": "8.1",
     "low": "7.7",
     "revs": [
       {
@@ -4937,16 +4937,13 @@
       {
         "date": "2026-07-09",
         "hi": 8.3
+      },
+      {
+        "date": "2026-07-11",
+        "hi": 8.1
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-15",
-        "hi": 9.5,
-        "course": "Spyglass Hill GC",
-        "score": 86,
-        "holes": 18
-      },
       {
         "date": "2026-05-16",
         "hi": 9.4,
@@ -5078,6 +5075,13 @@
         "hi": 7.7,
         "course": "Quail Lodge GC",
         "score": 84,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-10",
+        "hi": 8.3,
+        "course": "Del Monte GC",
+        "score": 81,
         "holes": 18
       }
     ],
