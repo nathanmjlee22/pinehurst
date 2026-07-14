@@ -1191,7 +1191,7 @@
     "name": "David Ryu",
     "club": "Costa Mesa GC",
     "color": "#1d4ed8",
-    "current": "11.8",
+    "current": "12.2",
     "low": "11.8",
     "revs": [
       {
@@ -1685,16 +1685,13 @@
       {
         "date": "2026-07-04",
         "hi": 11.8
+      },
+      {
+        "date": "2026-07-14",
+        "hi": 12.2
       }
     ],
     "rounds": [
-      {
-        "date": "2025-10-31",
-        "hi": 13.7,
-        "course": "MESA LINDA",
-        "score": 76,
-        "holes": 18
-      },
       {
         "date": "2025-12-07",
         "hi": 12.8,
@@ -1826,6 +1823,13 @@
         "hi": 11.8,
         "course": "El Niguel Country Club",
         "score": 90,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-13",
+        "hi": 11.8,
+        "course": "Journey at Pechanga",
+        "score": 85,
         "holes": 18
       }
     ],
@@ -2331,7 +2335,7 @@
     "name": "John McGinley",
     "club": "EClub Monterey Bay",
     "color": "#be123c",
-    "current": "4.3",
+    "current": "4.0",
     "low": "0.9",
     "revs": [
       {
@@ -3081,16 +3085,13 @@
       {
         "date": "2026-07-12",
         "hi": 4.3
+      },
+      {
+        "date": "2026-07-14",
+        "hi": 4.0
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-08",
-        "hi": 2.7,
-        "course": "Del Monte GC",
-        "score": 83,
-        "holes": 18
-      },
       {
         "date": "2026-05-15",
         "hi": 3.0,
@@ -3221,6 +3222,13 @@
         "date": "2026-07-11",
         "hi": 4.5,
         "course": "Corral de Tierra CC",
+        "score": 76,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-13",
+        "hi": 4.3,
+        "course": "Spyglass Hill GC",
         "score": 76,
         "holes": 18
       }
