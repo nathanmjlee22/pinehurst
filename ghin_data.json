@@ -2335,7 +2335,7 @@
     "name": "John McGinley",
     "club": "EClub Monterey Bay",
     "color": "#be123c",
-    "current": "4.0",
+    "current": "3.3",
     "low": "0.9",
     "revs": [
       {
@@ -3089,16 +3089,13 @@
       {
         "date": "2026-07-14",
         "hi": 4.0
+      },
+      {
+        "date": "2026-07-15",
+        "hi": 3.3
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-15",
-        "hi": 3.0,
-        "course": "Spyglass Hill GC",
-        "score": 82,
-        "holes": 18
-      },
       {
         "date": "2026-05-16",
         "hi": 3.5,
@@ -3230,6 +3227,13 @@
         "hi": 4.3,
         "course": "Spyglass Hill GC",
         "score": 76,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-14",
+        "hi": 4.0,
+        "course": "Corral de Tierra CC",
+        "score": 73,
         "holes": 18
       }
     ],
@@ -5559,7 +5563,7 @@
     "name": "Alex Newman",
     "club": "Preserve GC",
     "color": "#dc2626",
-    "current": "2.9",
+    "current": "2.7",
     "low": "1.3",
     "revs": [
       {
@@ -7541,16 +7545,13 @@
       {
         "date": "2026-07-13",
         "hi": 2.9
+      },
+      {
+        "date": "2026-07-14",
+        "hi": 2.7
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-15",
-        "hi": 3.1,
-        "course": "Spyglass Hill GC",
-        "score": 79,
-        "holes": 18
-      },
       {
         "date": "2026-05-23",
         "hi": 3.1,
@@ -7682,6 +7683,13 @@
         "hi": 2.9,
         "course": "Preserve Golf Club (The)",
         "score": 80,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-13",
+        "hi": 2.9,
+        "course": "Spyglass Hill GC",
+        "score": 76,
         "holes": 18
       }
     ],
