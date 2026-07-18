@@ -334,15 +334,18 @@ function renderPills(){
 }
 function renderStats(){
   const el=document.getElementById('statsGrid');const cards=[];
-  active.forEach(g=>{const d=G[g];const filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));if(!filtered.length)return;const his=filtered.map(r=>r.hi);const mx=Math.max(...his);const delta=(filtered[filtered.length-1].hi-filtered[0].hi).toFixed(1);const isDown=parseFloat(delta)<0;cards.push(`<div class="stat" style="border-left:3px solid ${d.color}"><div class="stat-val" style="color:${d.color}">${d.current}</div><div class="stat-lbl">${d.name.split(' ')[0]}</div><div style="font-size:11px;color:var(--dim);margin-top:4px">Low ${d.low} &middot; Hi ${mx}</div><div style="font-size:12px;font-weight:700;margin-top:3px;color:${isDown?'#0a3318':'#b45309'}">${isDown?'▼':'▲'} ${Math.abs(delta)}</div></div>`);});
+  active.forEach(g=>{const d=G[g];let filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));if(!filtered.length&&d.current){filtered=[{date:'',hi:parseFloat(d.current)},{date:'',hi:parseFloat(d.current)}];}if(!filtered.length)return;const his=filtered.map(r=>r.hi);const mx=Math.max(...his);const delta=(filtered[filtered.length-1].hi-filtered[0].hi).toFixed(1);const isDown=parseFloat(delta)<0;cards.push(`<div class="stat" style="border-left:3px solid ${d.color}"><div class="stat-val" style="color:${d.color}">${d.current}</div><div class="stat-lbl">${d.name.split(' ')[0]}</div><div style="font-size:11px;color:var(--dim);margin-top:4px">Low ${d.low} &middot; Hi ${mx}</div><div style="font-size:12px;font-weight:700;margin-top:3px;color:${isDown?'#0a3318':'#b45309'}">${isDown?'▼':'▲'} ${Math.abs(delta)}</div></div>`);});
   el.style.gridTemplateColumns=`repeat(${Math.min(cards.length,3)},1fr)`;el.innerHTML=cards.join('');
 }
 function buildChart(){
   const ctx=document.getElementById('hiChart').getContext('2d');const datasets=[];
   ORDER.forEach(g=>{
     if(!active.has(g))return;const d=G[g];
-    const filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));
+    let filtered=d.revs.filter(r=>new Date(r.date)>=cutoff(range));
+    const todayStr=new Date().toISOString().slice(0,10);
+    if(!filtered.length&&d.current){const cutStr=cutoff(range).toISOString().slice(0,10);filtered=[{date:cutStr,hi:parseFloat(d.current)}];}
     const pts=filtered.map(r=>({x:r.date,y:r.hi,name:d.name,series:'revisions'}));
+    if(d.current&&(!pts.length||pts[pts.length-1].x<todayStr)){pts.push({x:todayStr,y:parseFloat(d.current),name:d.name,series:'revisions'});}
     datasets.push({label:d.name,data:pts,borderColor:d.color,backgroundColor:'transparent',borderWidth:2.5,fill:false,tension:0.3,pointRadius:0,pointHoverRadius:4,pointBackgroundColor:d.color,pointBorderColor:'#ffffff',pointBorderWidth:2,pointHoverBackgroundColor:'#ffffff',pointHoverBorderColor:d.color,pointHoverBorderWidth:2});
   });
   if(chart)chart.destroy();
