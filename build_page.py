@@ -12,7 +12,7 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 with open(f"{DIR}/ghin_data.json") as f:
     DATA = json.load(f)
 
-ORDER = ["7866286", "7562830", "11367668", "11634995", "10460818", "3031631", "8676617", "11466889", "4990445"]
+ORDER = ["7866286", "7562830", "11367668", "11634995", "10460818", "3031631", "8676617", "11466889", "4990445", "11962079", "8716585"]
 TODAY = date.today().strftime("%b %Y")
 
 def js(v):
@@ -308,8 +308,8 @@ let active=new Set(ORDER),range='1',activeRounds=ORDER[0],chart=null;
 function cutoff(r){if(r==='all')return new Date('2000-01-01');const d=new Date(NOW);d.setFullYear(d.getFullYear()-parseInt(r));return d;}
 function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
 function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
-const LEFT_TEAM=[{n:'Alec',g:'3031631'},{n:'Eddie',g:'7866286'},{n:'David',g:'11367668'},{n:'Nathan',g:'7562830'},{n:'Mike',g:'11466889'},{n:'Matt',g:null}];
-const RIGHT_TEAM=[{n:'Dillon',g:'8676617'},{n:'Adam',g:'11634995'},{n:'Alex',g:'4990445'},{n:'Chris',g:null},{n:'Luis',g:null},{n:'John',g:'10460818'}];
+const LEFT_TEAM=[{n:'Alec',g:'3031631'},{n:'Eddie',g:'7866286'},{n:'David',g:'11367668'},{n:'Nathan',g:'7562830'},{n:'Mike',g:'11466889'},{n:'Matt',g:'8716585'}];
+const RIGHT_TEAM=[{n:'Dillon',g:'8676617'},{n:'Adam',g:'11634995'},{n:'Alex',g:'4990445'},{n:'Chris',g:'11962079'},{n:'Luis',g:null},{n:'John',g:'10460818'}];
 
 const GHIN_LINKS={'11367668':'https://www.ghin.com/golfer-lookup/all-golfers'};
 function pillHTML(p){
@@ -795,11 +795,11 @@ ALL_PLAYERS = [
     ("David",  "11367668", "left"),
     ("Nathan", "7562830",  "left"),
     ("Mike",   "11466889", "left"),
-    ("Matt",   None,       "left"),
+    ("Matt",   "8716585",  "left"),
     ("Dillon", "8676617",  "right"),
     ("Adam",   "11634995", "right"),
     ("Alex",   "4990445",  "right"),
-    ("Chris",  None,       "right"),
+    ("Chris",  "11962079", "right"),
     ("Luis",   None,       "right"),
     ("John",   "10460818", "right"),
 ]

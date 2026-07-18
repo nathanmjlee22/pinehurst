@@ -23,6 +23,8 @@ GOLFERS = {
     "8676617":  {"name": "Dillon Staples",   "club": "NCGA NEXT",          "color": "#d97706"},
     "11466889": {"name": "Mike Gronstal",    "club": "USGA/SCGA GC",       "color": "#059669"},
     "4990445":  {"name": "Alex Newman",      "club": "Preserve GC",        "color": "#dc2626"},
+    "11962079": {"name": "Chris Lugg",       "club": "CommonGround GC",    "color": "#0891b2"},
+    "8716585":  {"name": "Matt Donohoe",     "club": "EClub San Francisco","color": "#65a30d"},
 }
 
 # Tournament round definitions
