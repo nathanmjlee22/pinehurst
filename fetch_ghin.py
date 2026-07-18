@@ -25,6 +25,7 @@ GOLFERS = {
     "4990445":  {"name": "Alex Newman",      "club": "Preserve GC",        "color": "#dc2626"},
     "11962079": {"name": "Chris Lugg",       "club": "CommonGround GC",    "color": "#0891b2"},
     "8716585":  {"name": "Matt Donohoe",     "club": "EClub San Francisco","color": "#65a30d"},
+    "6494893":  {"name": "Luis Ruiz",        "club": "The Club at Querencia","color": "#c026d3"},
 }
 
 # Tournament round definitions
