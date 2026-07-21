@@ -7577,16 +7577,13 @@
       {
         "date": "2026-07-20",
         "hi": 2.6
+      },
+      {
+        "date": "2026-07-21",
+        "hi": 2.6
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-25",
-        "hi": 3.2,
-        "course": "Preserve Golf Club (The)",
-        "score": 78,
-        "holes": 18
-      },
       {
         "date": "2026-05-28",
         "hi": 3.2,
@@ -7717,6 +7714,13 @@
         "date": "2026-07-19",
         "hi": 2.7,
         "course": "Shore",
+        "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-20",
+        "hi": 2.6,
+        "course": "Preserve Golf Club (The)",
         "score": 78,
         "holes": 18
       }
