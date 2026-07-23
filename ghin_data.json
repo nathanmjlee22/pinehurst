@@ -1843,7 +1843,7 @@
     "name": "Adam Hawk",
     "club": "AZ Under30",
     "color": "#7c3aed",
-    "current": "6.7",
+    "current": "6.8",
     "low": "6.4",
     "revs": [
       {
@@ -2189,16 +2189,13 @@
       {
         "date": "2026-07-05",
         "hi": 6.7
+      },
+      {
+        "date": "2026-07-23",
+        "hi": 6.8
       }
     ],
     "rounds": [
-      {
-        "date": "2024-11-30",
-        "hi": 6.2,
-        "course": "Saguaro",
-        "score": 83,
-        "holes": 18
-      },
       {
         "date": "2025-05-02",
         "hi": 6.2,
@@ -2331,6 +2328,13 @@
         "course": "Breakfast Hill Golf Club",
         "score": 82,
         "holes": 18
+      },
+      {
+        "date": "2026-07-22",
+        "hi": 6.7,
+        "course": "Breakfast Hill Golf Club",
+        "score": 86,
+        "holes": 18
       }
     ],
     "tourney": {}
@@ -2339,7 +2343,7 @@
     "name": "John McGinley",
     "club": "EClub Monterey Bay",
     "color": "#be123c",
-    "current": "3.2",
+    "current": "3.3",
     "low": "0.9",
     "revs": [
       {
@@ -3101,16 +3105,13 @@
       {
         "date": "2026-07-20",
         "hi": 3.2
+      },
+      {
+        "date": "2026-07-22",
+        "hi": 3.3
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-23",
-        "hi": 3.8,
-        "course": "Corral de Tierra CC",
-        "score": 80,
-        "holes": 18
-      },
       {
         "date": "2026-05-28",
         "hi": 4.0,
@@ -3242,6 +3243,13 @@
         "hi": 3.3,
         "course": "Shore",
         "score": 79,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-21",
+        "hi": 3.2,
+        "course": "Spyglass Hill GC",
+        "score": 82,
         "holes": 18
       }
     ],
@@ -4343,7 +4351,7 @@
     "name": "Dillon Staples",
     "club": "NCGA NEXT",
     "color": "#d97706",
-    "current": "8.5",
+    "current": "8.2",
     "low": "7.7",
     "revs": [
       {
@@ -4985,16 +4993,13 @@
       {
         "date": "2026-07-20",
         "hi": 8.5
+      },
+      {
+        "date": "2026-07-23",
+        "hi": 8.2
       }
     ],
     "rounds": [
-      {
-        "date": "2026-05-30",
-        "hi": 8.9,
-        "course": "Preserve Golf Club (The)",
-        "score": 89,
-        "holes": 18
-      },
       {
         "date": "2026-05-31",
         "hi": 8.9,
@@ -5126,6 +5131,13 @@
         "hi": 8.5,
         "course": "Shore",
         "score": 87,
+        "holes": 18
+      },
+      {
+        "date": "2026-07-22",
+        "hi": 8.5,
+        "course": "Spyglass Hill GC",
+        "score": 83,
         "holes": 18
       }
     ],
