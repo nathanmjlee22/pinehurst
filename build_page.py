@@ -26,7 +26,8 @@ for ghin in ORDER:
     golfers_js += f'  "{ghin}":{{'
     golfers_js += f'name:{js(g["name"])},club:{js(g["club"])},current:{current},low:{low},color:{js(g["color"])},'
     golfers_js += f'revs:{js(g["revs"])},'
-    golfers_js += f'rounds:{js(g["rounds"])}'
+    golfers_js += f'rounds:{js(g["rounds"])},'
+    golfers_js += f'tourney:{js(g.get("tourney", {}))}'
     golfers_js += '},\n'
 golfers_js += "}"
 
@@ -141,7 +142,15 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .sc-rank{font-size:11px;font-weight:700;color:var(--dim);margin-right:2px}
 .sc-record{font-size:12px;font-weight:700;text-align:center;white-space:nowrap}
 .sc-gross{font-weight:700;font-size:14px;color:#0d1a10}
+.sc-gross-inp{width:32px;border:none;border-bottom:1px solid transparent;background:transparent;font-family:inherit;font-weight:700;font-size:14px;color:#0d1a10;text-align:center;padding:0 0 1px}
+.sc-gross-inp:hover{border-bottom-color:rgba(0,0,0,.15)}
+.sc-gross-inp:focus{outline:none;border-bottom-color:#0a3318}
+.sc-gross-inp::placeholder{color:rgba(0,0,0,.2);font-weight:400}
+.sc-gross-inp::-webkit-outer-spin-button,.sc-gross-inp::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sc-gross-inp{-moz-appearance:textfield}
 .sc-net{font-size:11px;color:var(--dim);font-weight:600;margin-top:1px}
+.sc-net-tee{cursor:pointer}
+.sc-net-tee:hover{color:#0a3318}
 .sc-pending{color:rgba(0,0,0,.2);font-size:18px}
 .sc-total{font-weight:800;font-size:14px;color:#0d1a10}
 .sc-par.under{color:#1a5c35;font-weight:800}
@@ -306,8 +315,8 @@ const ORDER=[__ORDER__];
 const NOW=new Date('__TODAY_ISO__');
 let active=new Set(ORDER),range='1',activeRounds=ORDER[0],chart=null;
 function cutoff(r){if(r==='all')return new Date('2000-01-01');const d=new Date(NOW);d.setFullYear(d.getFullYear()-parseInt(r));return d;}
-function fmtDate(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
-function fmtShort(s){return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+function fmtDate(s){if(/^\d{4}-\d{2}$/.test(s))return new Date(s+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+function fmtShort(s){if(/^\d{4}-\d{2}$/.test(s))return new Date(s+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'2-digit'});return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
 const LEFT_TEAM=[{n:'Alec',g:'3031631'},{n:'Eddie',g:'7866286'},{n:'David',g:'11367668'},{n:'Nathan',g:'7562830'},{n:'Mike',g:'11466889'},{n:'Matt',g:'8716585'}];
 const RIGHT_TEAM=[{n:'Dillon',g:'8676617'},{n:'Adam',g:'11634995'},{n:'Alex',g:'4990445'},{n:'Chris',g:'11962079'},{n:'Luis',g:'6494893'},{n:'John',g:'10460818'}];
 
@@ -373,7 +382,7 @@ function renderRoundsTabs(){
 function renderRounds(){
   const d=G[activeRounds];const el=document.getElementById('roundsList');
   const display=[...d.rounds].reverse();
-  el.innerHTML=display.map(s=>`<div class="round"><div class="round-date">${fmtShort(s.date)}</div><div class="round-course">${s.course}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
+  el.innerHTML=display.map(s=>`<div class="round"><div class="round-date">${fmtShort(s.date)}</div><div class="round-course">${s.course||'—'}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
 }
 document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));t.classList.add('on');range=t.dataset.r;buildChart();renderStats();}));
 // ── Scoreboard ──────────────────────────────────────
@@ -384,11 +393,14 @@ const MATCHUPS={
   4:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['David','Nathan'],right:['Alex','Dillon']}],
 };
 const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','David':'11367668','Adam':'11634995','John':'10460818','Dillon':'8676617','Mike':'11466889','Alex':'4990445'};
+const ALL_PLAYERS=__ALL_PLAYERS__;
+const ROUND_PAR={1:70,2:72,3:72,4:72};
+const TOTAL_PAR=__TOTAL_PAR__;
 const REPO='nathanmjlee22/pinehurst';
 const SCORES_FILE='scores.json';
 const RAW_URL=`https://raw.githubusercontent.com/${REPO}/master/${SCORES_FILE}`;
 const API_URL=`https://api.github.com/repos/${REPO}/contents/${SCORES_FILE}`;
-let SCORES={results:{},tees:{}};
+let SCORES={results:{},tees:{},manual:{}};
 let _savePending=false;
 
 async function fetchScores(){
@@ -441,6 +453,8 @@ function loadRes(){return SCORES.results||{};}
 function saveRes(r){SCORES.results=r;markDirty();}
 function loadTees(){return SCORES.tees||{};}
 function saveTees(t){SCORES.tees=t;markDirty();}
+function loadManual(){return SCORES.manual||{};}
+function saveManual(m){SCORES.manual=m;markDirty();}
 function markDirty(){
   const btn=document.getElementById('saveScoresBtn');
   if(btn)btn.style.display='block';
@@ -633,9 +647,10 @@ function renderSBRows(){
 // Render everything that doesn't need saved scores immediately
 renderPills();renderSBTabs();renderSBRows();
 buildChart();renderStats();renderRoundsTabs();renderRounds();
+refreshScoresTable();
 // Re-render score-dependent sections after scores load from GitHub
 fetchScores().then(()=>{
-  renderSBRows();updateOverall();renderMatchSummary();renderMatchRecords();
+  renderSBRows();updateOverall();renderMatchSummary();refreshScoresTable();
 });
 
 async function triggerRefresh(){
@@ -693,6 +708,83 @@ function renderMatchRecords(){
     td.style.color=r.w>r.l?'#0a3318':r.l>r.w?'#be123c':'';
   });
 }
+function fmtPar(diff){
+  if(diff===null||diff===undefined)return '<span class="sc-pending">—</span>';
+  if(diff===0)return '<span class="sc-par even">E</span>';
+  const sign=diff>0?'+':'';
+  const cls=diff>0?'over':'under';
+  return `<span class="sc-par ${cls}">${sign}${diff}</span>`;
+}
+function cycleTee(t){return t==='blue'?'white':t==='white'?null:'blue';}
+function manualScore(name,rnd){
+  const v=loadManual()[name]?.[rnd];
+  return(v===undefined||v===null||v==='')?null:parseInt(v,10);
+}
+function ghinScore(ghin,rnd){
+  const g=ghin&&G[ghin];
+  const rd=g&&g.tourney&&(g.tourney[rnd]||g.tourney[String(rnd)]);
+  return(rd&&rd.gross)?rd.gross:null;
+}
+function renderScoresTable(){
+  const tbody=document.getElementById('scoresBody');
+  if(!tbody)return;
+  const tees=loadTees();
+  tbody.innerHTML=ALL_PLAYERS.map(([name,ghin])=>{
+    const hi=ghin&&G[ghin]?G[ghin].current:'—';
+    let totalGross=0,totalNet=0,hasAny=false,allNet=true;
+    const cells=[1,2,3,4].map(rnd=>{
+      const manual=manualScore(name,rnd);
+      const gross=manual!==null?manual:ghinScore(ghin,rnd);
+      const inp=`<input type="number" class="sc-gross-inp" data-name="${name}" data-r="${rnd}" placeholder="—" value="${gross!==null?gross:''}">`;
+      if(gross===null)return `<td>${inp}</td>`;
+      hasAny=true;totalGross+=gross;
+      const tee=tees[teeKey(rnd,name)]||null;
+      const ch=tee?calcCH(name,rnd,tee):null;
+      const net=ch!==null?gross-ch:null;
+      if(net!==null)totalNet+=net;else allNet=false;
+      const teeLabel=tee?(tee==='blue'?'B':'W'):'–';
+      return `<td>${inp}<div class="sc-net sc-net-tee" data-p="${name}" data-r="${rnd}" title="Click to set tee">${teeLabel} · Net ${net!==null?net:'—'}</div></td>`;
+    }).join('');
+    const netResolved=hasAny&&allNet;
+    const totalCell=hasAny?`<td class="sc-total">${totalGross}</td>`:'<td><span class="sc-pending">—</span></td>';
+    const netCell=netResolved?`<td class="sc-total">${totalNet}</td>`:'<td><span class="sc-pending">—</span></td>';
+    const parCell=`<td>${fmtPar(hasAny?totalGross-TOTAL_PAR:null)}</td>`;
+    const netParCell=`<td>${fmtPar(netResolved?totalNet-TOTAL_PAR:null)}</td>`;
+    return `<tr data-gross="${hasAny?totalGross:9999}" data-player="${name}">
+      <td><div class="sc-name">${name}</div><div class="sc-hi">HI ${hi}</div></td>
+      ${cells}${totalCell}${netCell}${parCell}${netParCell}
+      <td class="sc-record" data-player="${name}">—</td>
+    </tr>`;
+  }).join('');
+
+  tbody.querySelectorAll('.sc-gross-inp').forEach(inp=>{
+    inp.addEventListener('click',e=>e.stopPropagation());
+    inp.addEventListener('change',()=>{
+      const m=loadManual(),name=inp.dataset.name,r=inp.dataset.r;
+      const val=inp.value.trim();
+      if(!m[name])m[name]={};
+      if(val===''){delete m[name][r];}
+      else{
+        const n=parseInt(val,10);
+        if(isNaN(n)){refreshScoresTable();return;}
+        m[name][r]=n;
+      }
+      saveManual(m);refreshScoresTable();
+    });
+  });
+  tbody.querySelectorAll('.sc-net-tee').forEach(el=>{
+    el.addEventListener('click',e=>{
+      e.stopPropagation();
+      const tees=loadTees(),p=el.dataset.p,r=el.dataset.r;
+      const next=cycleTee(tees[teeKey(r,p)]||null);
+      if(next)tees[teeKey(r,p)]=next;else delete tees[teeKey(r,p)];
+      saveTees(tees);refreshScoresTable();renderSBRows();
+    });
+  });
+}
+function refreshScoresTable(){
+  renderScoresTable();sortScoresTable();renderMatchRecords();
+}
 function sortScoresTable(){
   const tbody=document.querySelector('.scores-table tbody');
   if(!tbody)return;
@@ -717,7 +809,6 @@ function sortScoresTable(){
     }
   });
 }
-sortScoresTable();
 </script>
 </body>
 </html>"""
@@ -809,61 +900,11 @@ ALL_PLAYERS = [
 
 TOTAL_PAR = sum(r["par"] for r in ROUNDS)  # 70+72+72+72 = 286
 
-def fmt_par(diff):
-    if diff is None: return '<span class="sc-pending">—</span>'
-    if diff == 0: return '<span class="sc-par even">E</span>'
-    sign = "+" if diff > 0 else ""
-    cls = "over" if diff > 0 else "under"
-    return f'<span class="sc-par {cls}">{sign}{diff}</span>'
+# Rows are rendered client-side (renderScoresTable in the JS below) so manually
+# entered scores — stored in scores.json — can override/fill in the GHIN data.
+all_players_js = js([[name, ghin] for name, ghin, team in ALL_PLAYERS])
 
-def build_scores_table():
-    score_rows = ""
-    for name, ghin, team in ALL_PLAYERS:
-
-        g = DATA.get(ghin, {}) if ghin else {}
-        hi = g.get("current", "—")
-        tourney = g.get("tourney", {}) if ghin else {}
-
-        cells = ""
-        total_gross = 0
-        total_net = 0
-        has_any = False
-
-        for rnd in ROUNDS:
-            rnum = rnd["round"]
-            rd = tourney.get(str(rnum)) or tourney.get(rnum)
-            if rd and rd.get("gross"):
-                gross = rd["gross"]
-                net = rd.get("net", "—")
-                total_gross += gross
-                if isinstance(net, int): total_net += net
-                has_any = True
-                net_str = str(net) if isinstance(net, int) else "—"
-                cells += f'<td><div class="sc-gross">{gross}</div><div class="sc-net">Net {net_str}</div></td>'
-            else:
-                cells += '<td><span class="sc-pending">—</span></td>'
-
-        if has_any:
-            gross_par = total_gross - TOTAL_PAR
-            net_par = total_net - TOTAL_PAR
-            total_cell = f'<td class="sc-total">{total_gross}</td>'
-            net_cell = f'<td class="sc-total">{total_net}</td>'
-            par_cell = f'<td>{fmt_par(gross_par)}</td>'
-            net_par_cell = f'<td>{fmt_par(net_par)}</td>'
-        else:
-            total_cell = '<td><span class="sc-pending">—</span></td>'
-            net_cell = '<td><span class="sc-pending">—</span></td>'
-            par_cell = '<td><span class="sc-pending">—</span></td>'
-            net_par_cell = '<td><span class="sc-pending">—</span></td>'
-
-        gross_attr = total_gross if has_any else 9999
-        score_rows += f'''<tr data-gross="{gross_attr}" data-player="{name}">
-          <td><div class="sc-name">{name}</div><div class="sc-hi">HI {hi}</div></td>
-          {cells}{total_cell}{net_cell}{par_cell}{net_par_cell}
-          <td class="sc-record" data-player="{name}">—</td>
-        </tr>'''
-
-    scores_table = f'''<div class="scores-wrap">
+scores_table_html = f'''<div class="scores-wrap">
     <div class="scores-scroll">
       <table class="scores-table">
         <thead>
@@ -878,13 +919,10 @@ def build_scores_table():
             <th colspan="4"></th>
           </tr>
         </thead>
-        <tbody>{score_rows}</tbody>
+        <tbody id="scoresBody"></tbody>
       </table>
     </div>
   </div>'''
-    return scores_table
-
-scores_table_html = build_scores_table()
 
 matchup_rows = [
     (1, 10, ("Alec","Nathan","Dillon","Adam"),   ("Eddie","Dave","Alex","Chris"),    ("Mike","Matt","Luis","John")),
@@ -944,6 +982,8 @@ HTML = HTML.replace("__TODAY__", TODAY)
 HTML = HTML.replace("__TODAY_ISO__", date.today().isoformat())
 HTML = HTML.replace("__MATCHUP_TABLE__", matchup_table)
 HTML = HTML.replace("__COURSE_INFO_TABLE__", course_info_table)
+HTML = HTML.replace("__ALL_PLAYERS__", all_players_js)
+HTML = HTML.replace("__TOTAL_PAR__", str(TOTAL_PAR))
 
 for fname in ["index.html", "handicap.html"]:
     path = os.path.join(DIR, fname)
