@@ -120,8 +120,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .rounds-list{display:flex;flex-direction:column;gap:6px}
 .round{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:11px;padding:10px 12px}
 .round-idx{font-size:11px;color:var(--dim);min-width:18px;text-align:center;font-weight:600}
-.round-date{font-size:11px;color:var(--dim);min-width:60px}
-.round-course{flex:1;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.round-date{flex:1;font-size:11px;color:var(--dim);min-width:60px}
 .round-holes{font-size:10px;color:var(--dim);background:var(--surface2);border-radius:4px;padding:2px 5px;flex-shrink:0}
 .round-score{font-size:15px;font-weight:700;min-width:32px;text-align:right;flex-shrink:0}
 /* ── Scores Table ── */
@@ -382,7 +381,7 @@ function renderRoundsTabs(){
 function renderRounds(){
   const d=G[activeRounds];const el=document.getElementById('roundsList');
   const display=[...d.rounds].reverse();
-  el.innerHTML=display.map(s=>`<div class="round"><div class="round-date">${fmtShort(s.date)}</div><div class="round-course">${s.course||'—'}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
+  el.innerHTML=display.map(s=>`<div class="round"><div class="round-date">${fmtShort(s.date)}</div><div class="round-holes" style="color:${d.color}">${s.holes===9?'9H':'18H'}</div><div class="round-score">${s.score}</div><div style="font-size:13px;font-weight:700;min-width:30px;text-align:right;color:${d.color}">${s.hi.toFixed(1)}</div></div>`).join('');
 }
 document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.rtab').forEach(x=>x.classList.remove('on'));t.classList.add('on');range=t.dataset.r;buildChart();renderStats();}));
 // ── Scoreboard ──────────────────────────────────────
