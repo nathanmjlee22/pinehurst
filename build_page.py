@@ -315,7 +315,7 @@ const NOW=new Date('__TODAY_ISO__');
 let active=new Set(ORDER),range='1',activeRounds=ORDER[0],chart=null;
 function cutoff(r){if(r==='all')return new Date('2000-01-01');const d=new Date(NOW);d.setFullYear(d.getFullYear()-parseInt(r));return d;}
 function fmtDate(s){if(/^\d{4}-\d{2}$/.test(s))return new Date(s+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
-function fmtShort(s){if(/^\d{4}-\d{2}$/.test(s))return new Date(s+'-01T00:00:00').toLocaleDateString('en-US',{month:'short',year:'2-digit'});return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+function fmtShort(s){if(/^\d{4}-\d{2}$/.test(s)){const d=new Date(s+'-01T00:00:00');return d.toLocaleDateString('en-US',{month:'short'})+" '"+String(d.getFullYear()).slice(-2);}return new Date(s+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}
 const LEFT_TEAM=[{n:'Alec',g:'3031631'},{n:'Eddie',g:'7866286'},{n:'David',g:'11367668'},{n:'Nathan',g:'7562830'},{n:'Mike',g:'11466889'},{n:'Matt',g:'8716585'}];
 const RIGHT_TEAM=[{n:'Dillon',g:'8676617'},{n:'Adam',g:'11634995'},{n:'Alex',g:'4990445'},{n:'Chris',g:'11962079'},{n:'Luis',g:'6494893'},{n:'John',g:'10460818'}];
 
