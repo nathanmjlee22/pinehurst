@@ -12,7 +12,10 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
+      # Pinned to the trip branch while GitHub Pages serves it instead of master.
       - uses: actions/checkout@v4
+        with:
+          ref: claude/remote-repo-changes-xar9w4
 
       - uses: actions/setup-python@v5
         with:
