@@ -1049,16 +1049,13 @@
       {
         "date": "2026-07-04",
         "hi": 8.0
+      },
+      {
+        "date": "2026-08-03",
+        "hi": 8.0
       }
     ],
     "rounds": [
-      {
-        "date": "2025-09-27",
-        "hi": 5.4,
-        "course": "River Oaks GC",
-        "score": 90,
-        "holes": 18
-      },
       {
         "date": "2025-11-11",
         "hi": 5.4,
@@ -1190,6 +1187,13 @@
         "hi": 8.1,
         "course": "Gold Course",
         "score": 83,
+        "holes": 18
+      },
+      {
+        "date": "2026-08-02",
+        "hi": 8.0,
+        "course": "Maderas Golf Club",
+        "score": 87,
         "holes": 18
       }
     ],
@@ -2359,7 +2363,7 @@
     "name": "John McGinley",
     "club": "EClub Monterey Bay",
     "color": "#be123c",
-    "current": "2.8",
+    "current": "2.6",
     "low": "0.9",
     "revs": [
       {
@@ -3137,6 +3141,10 @@
       {
         "date": "2026-08-02",
         "hi": 2.8
+      },
+      {
+        "date": "2026-08-03",
+        "hi": 2.6
       }
     ],
     "rounds": [
@@ -3187,13 +3195,6 @@
         "hi": 4.2,
         "course": "",
         "score": 80,
-        "holes": 18
-      },
-      {
-        "date": "2026-06",
-        "hi": 3.6,
-        "course": "",
-        "score": 79,
         "holes": 18
       },
       {
@@ -3271,6 +3272,13 @@
         "hi": 4.6,
         "course": "",
         "score": 80,
+        "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 2.8,
+        "course": "",
+        "score": 78,
         "holes": 18
       },
       {
@@ -5651,13 +5659,9 @@
     "name": "Alex Newman",
     "club": "Preserve GC",
     "color": "#dc2626",
-    "current": "2.6",
-    "low": "1.6",
+    "current": "2.8",
+    "low": "2.2",
     "revs": [
-      {
-        "date": "2010-01-15",
-        "hi": 20.5
-      },
       {
         "date": "2010-03-01",
         "hi": 20.9
@@ -7653,6 +7657,10 @@
       {
         "date": "2026-07-27",
         "hi": 2.6
+      },
+      {
+        "date": "2026-08-03",
+        "hi": 2.8
       }
     ],
     "rounds": [
@@ -7661,13 +7669,6 @@
         "hi": 3.2,
         "course": "",
         "score": 74,
-        "holes": 18
-      },
-      {
-        "date": "2026-05",
-        "hi": 3.6,
-        "course": "",
-        "score": 73,
         "holes": 18
       },
       {
@@ -7795,6 +7796,13 @@
         "course": "",
         "score": 76,
         "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 2.6,
+        "course": "",
+        "score": 78,
+        "holes": 18
       }
     ],
     "tourney": {}
@@ -7803,7 +7811,7 @@
     "name": "Chris Lugg",
     "club": "CommonGround GC",
     "color": "#0891b2",
-    "current": "8.9",
+    "current": "9.1",
     "low": "4.7",
     "revs": [
       {
@@ -8213,6 +8221,10 @@
       {
         "date": "2026-07-26",
         "hi": 8.9
+      },
+      {
+        "date": "2026-08-03",
+        "hi": 9.1
       }
     ],
     "rounds": [
@@ -8221,13 +8233,6 @@
         "hi": 8.5,
         "course": "",
         "score": 86,
-        "holes": 18
-      },
-      {
-        "date": "2026-05",
-        "hi": 8.6,
-        "course": "",
-        "score": 82,
         "holes": 18
       },
       {
@@ -8355,6 +8360,13 @@
         "course": "",
         "score": 88,
         "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 8.9,
+        "course": "",
+        "score": 51,
+        "holes": 9
       }
     ],
     "tourney": {}
