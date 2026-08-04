@@ -170,6 +170,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .ci-tee{font-weight:700;font-size:11px;width:44px;vertical-align:middle}
 .blue-tee{color:#1d4ed8}
 .white-tee{color:#5a7a60}
+.third-tee{color:#b45309}
 .ci-yards{font-weight:600;font-size:13px;color:#0d1a10}
 .ci-par{color:var(--dim);font-weight:600;text-align:center}
 .ci-rating{font-weight:700;color:#0d1a10;text-align:center}
@@ -237,6 +238,8 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .tee-b.tb-on{border-color:#1d4ed8;color:#1d4ed8;background:rgba(29,78,216,.08)}
 .tee-w{border-color:rgba(0,0,0,.18);color:rgba(0,0,0,.35);background:transparent}
 .tee-w.tb-on{border-color:#374151;color:#374151;background:rgba(0,0,0,.06)}
+.tee-t{border-color:rgba(180,83,9,.3);color:rgba(180,83,9,.5);background:transparent}
+.tee-t.tb-on{border-color:#b45309;color:#b45309;background:rgba(180,83,9,.08)}
 .matchup-wrap{padding-bottom:4px}
 .matchup-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid rgba(0,0,0,0.08)}
 .matchup-table{width:100%;border-collapse:collapse;white-space:nowrap}
@@ -441,11 +444,16 @@ function setSaveStatus(s){
 const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
-  1:{blue:{rating:74.1,slope:142,par:70},white:{rating:71.5,slope:137,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72}},
-  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72}},
-  4:{blue:{rating:72.9,slope:131,par:72},white:{rating:70.5,slope:127,par:72}},
+  1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
+  2:{blue:{rating:73.7,slope:135,par:72},third:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:72},third:{rating:73.6,slope:141,par:72},white:{rating:72.0,slope:139,par:72}},
+  4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.9,slope:131,par:72},white:{rating:70.5,slope:127,par:72}},
 };
+// Course 8's third tee (Gold) is the tips; the others sit between Blue and White.
+const TEE_ORDER={1:['blue','third','white'],2:['blue','third','white'],3:['blue','third','white'],4:['third','blue','white']};
+const THIRD_TEE_LABEL={1:'Blue/White',2:'Putter Boy',3:'Ross',4:'Gold'};
+const THIRD_TEE_ABBR={1:'B/W',2:'PB',3:'Ross',4:'Gold'};
+const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 
 function loadRes(){return SCORES.results||{};}
@@ -618,8 +626,11 @@ function renderSBRows(){
         <td class="hcp-name">${name}</td>
         <td class="hcp-hi">${hi!==null?hi.toFixed(1):'—'}</td>
         <td class="hcp-tee">
-          <button class="tee-btn tee-b${tee==='blue'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="blue">Blue</button>
-          <button class="tee-btn tee-w${tee==='white'?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="white">White</button>
+          ${TEE_ORDER[sbRound].map(t=>{
+            const cls=t==='third'?'tee-t':t==='blue'?'tee-b':'tee-w';
+            const label=t==='third'?THIRD_TEE_LABEL[sbRound]:TEE_BTN_LABEL[t];
+            return `<button class="tee-btn ${cls}${tee===t?' tb-on':''}" data-p="${name}" data-r="${sbRound}" data-t="${t}">${label}</button>`;
+          }).join('')}
         </td>
         ${chCell}${stkCell}
       </tr>`;
@@ -714,7 +725,12 @@ function fmtPar(diff){
   const cls=diff>0?'over':'under';
   return `<span class="sc-par ${cls}">${sign}${diff}</span>`;
 }
-function cycleTee(t){return t==='blue'?'white':t==='white'?null:'blue';}
+function cycleTee(round,t){
+  const order=TEE_ORDER[round];
+  if(t===null)return order[0];
+  const i=order.indexOf(t);
+  return i===-1||i===order.length-1?null:order[i+1];
+}
 function manualScore(name,rnd){
   const v=loadManual()[name]?.[rnd];
   return(v===undefined||v===null||v==='')?null:parseInt(v,10);
@@ -741,7 +757,7 @@ function renderScoresTable(){
       const ch=tee?calcCH(name,rnd,tee):null;
       const net=ch!==null?gross-ch:null;
       if(net!==null)totalNet+=net;else allNet=false;
-      const teeLabel=tee?(tee==='blue'?'B':'W'):'–';
+      const teeLabel=tee?(tee==='blue'?'B':tee==='white'?'W':THIRD_TEE_ABBR[rnd]):'–';
       return `<td>${inp}<div class="sc-net sc-net-tee" data-p="${name}" data-r="${rnd}" title="Click to set tee">${teeLabel} · Net ${net!==null?net:'—'}</div></td>`;
     }).join('');
     const netResolved=hasAny&&allNet;
@@ -775,7 +791,7 @@ function renderScoresTable(){
     el.addEventListener('click',e=>{
       e.stopPropagation();
       const tees=loadTees(),p=el.dataset.p,r=el.dataset.r;
-      const next=cycleTee(tees[teeKey(r,p)]||null);
+      const next=cycleTee(+r,tees[teeKey(r,p)]||null);
       if(next)tees[teeKey(r,p)]=next;else delete tees[teeKey(r,p)];
       saveTees(tees);refreshScoresTable();renderSBRows();
     });
@@ -823,38 +839,47 @@ COURSE_URLS = {
 COURSE_INFO = {
     10: {"url": "https://www.pinehurst.com/golf/courses/no-10/", "designer": "Tom Doak", "par": 70,
          "blue": {"yards": 7020, "rating": 74.1, "slope": 142},
+         "third_label": "Blue/White", "third": {"yards": 6709, "rating": 72.7, "slope": 139},
          "white": {"yards": 6439, "rating": 71.5, "slope": 137}},
     4:  {"url": "https://www.pinehurst.com/golf/courses/no-4/", "designer": "Gil Hanse", "par": 72,
          "blue": {"yards": 6961, "rating": 73.7, "slope": 135},
+         "third_label": "Putter Boy", "third": {"yards": 6658, "rating": 72.0, "slope": 133},
          "white": {"yards": 6428, "rating": 70.8, "slope": 131}},
     2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
          "blue": {"yards": 6961, "rating": 73.7, "slope": 133},
+         "third_label": "Ross", "third": {"yards": 6659, "rating": 73.6, "slope": 141},
          "white": {"yards": 6307, "rating": 70.7, "slope": 126}},
     8:  {"url": "https://www.pinehurst.com/golf/courses/no-8/", "designer": "Tom Fazio", "par": 72,
+         "third_label": "Gold", "third": {"yards": 7063, "rating": 73.9, "slope": 139},
          "blue": {"yards": 6694, "rating": 72.3, "slope": 131},
          "white": {"yards": 6311, "rating": 70.3, "slope": 128}},
 }
+
+# Course 8's third tee (Gold) is the tips; the others sit between Blue and White.
+COURSE_TEE_ORDER = {10: ["blue", "third", "white"], 4: ["blue", "third", "white"],
+                     2: ["blue", "third", "white"], 8: ["third", "blue", "white"]}
+TEE_ROW_LABEL = {"blue": "Blue", "white": "White"}
+TEE_ROW_CLASS = {"blue": "blue-tee", "white": "white-tee", "third": "third-tee"}
 
 course_rounds = [(1, 10), (2, 4), (3, 2), (4, 8)]
 ci_rows = ""
 for rnd, cnum in course_rounds:
     ci = COURSE_INFO[cnum]
-    ci_rows += f"""<tr>
-      <td class="ci-rnd">{rnd}</td>
-      <td class="ci-course"><a href="{ci['url']}" target="_blank" class="course-link">No.&nbsp;{cnum}</a><div class="ci-designer">{ci['designer']}</div></td>
-      <td class="ci-tee blue-tee">Blue</td>
-      <td class="ci-yards">{ci['blue']['yards']:,}</td>
+    order = COURSE_TEE_ORDER[cnum]
+    for i, tee_key in enumerate(order):
+        tee = ci[tee_key]
+        label = ci["third_label"] if tee_key == "third" else TEE_ROW_LABEL[tee_key]
+        row_class = ' class="white-row"' if i == len(order) - 1 else ""
+        lead_cells = (f'<td class="ci-rnd">{rnd}</td>'
+                      f'<td class="ci-course"><a href="{ci["url"]}" target="_blank" class="course-link">No.&nbsp;{cnum}</a>'
+                      f'<div class="ci-designer">{ci["designer"]}</div></td>') if i == 0 else "<td></td><td></td>"
+        ci_rows += f"""<tr{row_class}>
+      {lead_cells}
+      <td class="ci-tee {TEE_ROW_CLASS[tee_key]}">{label}</td>
+      <td class="ci-yards">{tee['yards']:,}</td>
       <td class="ci-par">{ci['par']}</td>
-      <td class="ci-rating">{ci['blue']['rating']}</td>
-      <td class="ci-slope">{ci['blue']['slope']}</td>
-    </tr>
-    <tr class="white-row">
-      <td></td><td></td>
-      <td class="ci-tee white-tee">White</td>
-      <td class="ci-yards">{ci['white']['yards']:,}</td>
-      <td class="ci-par">{ci['par']}</td>
-      <td class="ci-rating">{ci['white']['rating']}</td>
-      <td class="ci-slope">{ci['white']['slope']}</td>
+      <td class="ci-rating">{tee['rating']}</td>
+      <td class="ci-slope">{tee['slope']}</td>
     </tr>"""
 
 course_info_table = f"""<div class="ci-wrap">
