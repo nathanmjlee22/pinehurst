@@ -172,6 +172,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
 .team-btn.won .t-pname{color:#0a3318;font-weight:800}
 .t-phi{font-size:10px;font-weight:700;color:var(--dim);background:rgba(0,0,0,.05);border-radius:4px;padding:1px 5px;flex-shrink:0}
 .hcp-section{border-top:1px solid rgba(0,0,0,.07);padding:10px 10px 6px}
+.hcp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .hcp-table{width:100%;border-collapse:collapse;font-size:12px}
 .hcp-table th{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;padding:0 8px 6px;text-align:left}
 .hcp-table td{padding:5px 8px;border-top:1px solid rgba(0,0,0,.04)}
@@ -694,10 +695,12 @@ function renderSBRows(){
 
     return `<div class="foursome-card" data-key="${key}">
       <div class="hcp-section">
-        <table class="hcp-table">
-          <thead><tr><th>Player</th><th>HI</th><th>Tees</th><th>CH</th><th>Strokes</th></tr></thead>
-          <tbody>${allNames.map(hcpRowHTML).join('')}</tbody>
-        </table>
+        <div class="hcp-scroll">
+          <table class="hcp-table">
+            <thead><tr><th>Player</th><th>HI</th><th>Tees</th><th>CH</th><th>Strokes</th></tr></thead>
+            <tbody>${allNames.map(hcpRowHTML).join('')}</tbody>
+          </table>
+        </div>
       </div>
     </div>`;
   }).join('');
