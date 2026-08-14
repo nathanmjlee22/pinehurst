@@ -1879,7 +1879,7 @@
     "name": "Adam Hawk",
     "club": "AZ Under30",
     "color": "#7c3aed",
-    "current": "6.8",
+    "current": "7.0",
     "low": "6.4",
     "revs": [
       {
@@ -2245,16 +2245,13 @@
       {
         "date": "2026-08-08",
         "hi": 6.8
+      },
+      {
+        "date": "2026-08-14",
+        "hi": 7.0
       }
     ],
     "rounds": [
-      {
-        "date": "2025-06",
-        "hi": 6.5,
-        "course": "",
-        "score": 84,
-        "holes": 18
-      },
       {
         "date": "2025-07",
         "hi": 6.8,
@@ -2358,6 +2355,13 @@
         "hi": 6.4,
         "course": "",
         "score": 82,
+        "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 6.8,
+        "course": "",
+        "score": 89,
         "holes": 18
       },
       {
