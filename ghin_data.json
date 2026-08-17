@@ -437,16 +437,13 @@
       {
         "date": "2026-08-15",
         "hi": 3.2
+      },
+      {
+        "date": "2026-08-17",
+        "hi": 3.2
       }
     ],
     "rounds": [
-      {
-        "date": "2025-08",
-        "hi": 6.8,
-        "course": "",
-        "score": 82,
-        "holes": 18
-      },
       {
         "date": "2025-09",
         "hi": 4.8,
@@ -556,6 +553,13 @@
         "date": "2026-08",
         "hi": 3.2,
         "course": "",
+        "score": 87,
+        "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 3.2,
+        "course": "",
         "score": 37,
         "holes": 9
       },
@@ -587,7 +591,7 @@
     "name": "Nathan Lee",
     "club": "Maderas GC",
     "color": "#b45309",
-    "current": "8.0",
+    "current": "8.1",
     "low": "5.3",
     "revs": [
       {
@@ -1073,16 +1077,13 @@
       {
         "date": "2026-08-16",
         "hi": 8.0
+      },
+      {
+        "date": "2026-08-17",
+        "hi": 8.1
       }
     ],
     "rounds": [
-      {
-        "date": "2026-02-01",
-        "hi": 5.5,
-        "course": "Shadowridge Country Club",
-        "score": 80,
-        "holes": 18
-      },
       {
         "date": "2026-03-14",
         "hi": 5.4,
@@ -1214,6 +1215,13 @@
         "hi": 8.0,
         "course": "Aliso Viejo Country Club",
         "score": 82,
+        "holes": 18
+      },
+      {
+        "date": "2026-08-16",
+        "hi": 8.0,
+        "course": "Aliso Viejo Country Club",
+        "score": 81,
         "holes": 18
       }
     ],
@@ -3225,6 +3233,10 @@
       {
         "date": "2026-08-16",
         "hi": 1.9
+      },
+      {
+        "date": "2026-08-17",
+        "hi": 1.9
       }
     ],
     "rounds": [
@@ -3299,10 +3311,10 @@
         "holes": 18
       },
       {
-        "date": "2026-07",
-        "hi": 4.6,
+        "date": "2026-08",
+        "hi": 1.9,
         "course": "",
-        "score": 80,
+        "score": 81,
         "holes": 18
       },
       {
@@ -5641,16 +5653,13 @@
       {
         "date": "2026-08-10",
         "hi": 12.4
+      },
+      {
+        "date": "2026-08-17",
+        "hi": 12.4
       }
     ],
     "rounds": [
-      {
-        "date": "2026-03",
-        "hi": 12.4,
-        "course": "",
-        "score": 101,
-        "holes": 18
-      },
       {
         "date": "2026-04",
         "hi": 12.7,
@@ -5747,6 +5756,13 @@
         "hi": 13.4,
         "course": "",
         "score": 87,
+        "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 12.4,
+        "course": "",
+        "score": 91,
         "holes": 18
       },
       {
@@ -7943,7 +7959,7 @@
     "name": "Chris Lugg",
     "club": "CommonGround GC",
     "color": "#0891b2",
-    "current": "9.0",
+    "current": "9.5",
     "low": "4.7",
     "revs": [
       {
@@ -8361,6 +8377,10 @@
       {
         "date": "2026-08-09",
         "hi": 9.0
+      },
+      {
+        "date": "2026-08-17",
+        "hi": 9.5
       }
     ],
     "rounds": [
@@ -8411,13 +8431,6 @@
         "hi": 8.1,
         "course": "",
         "score": 82,
-        "holes": 18
-      },
-      {
-        "date": "2026-06",
-        "hi": 8.5,
-        "course": "",
-        "score": 79,
         "holes": 18
       },
       {
@@ -8488,6 +8501,13 @@
         "hi": 8.2,
         "course": "",
         "score": 88,
+        "holes": 18
+      },
+      {
+        "date": "2026-08",
+        "hi": 9.0,
+        "course": "",
+        "score": 89,
         "holes": 18
       },
       {
