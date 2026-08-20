@@ -391,7 +391,7 @@ document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{do
 // ── Scoreboard ──────────────────────────────────────
 const MATCHUPS={
   1:[{left:['Alec','Nathan'],right:['Dillon','Adam']},{left:['Eddie','David'],right:['Alex','Chris']},{left:['Mike','Matt'],right:['Luis','John']}],
-  2:[{left:['Alec','David'],right:['Alex','John']},{left:['Eddie','Mike'],right:['Dillon','Luis']},{left:['Nathan','Matt'],right:['Adam','Chris']}],
+  2:[{left:['Alec'],right:['Alex']},{left:['David'],right:['John']},{left:['Eddie'],right:['Luis']},{left:['Mike'],right:['Dillon']},{left:['Nathan'],right:['Chris']},{left:['Matt'],right:['Adam']}],
   3:[{left:['Alec','Eddie'],right:['Alex','Luis']},{left:['David','Matt'],right:['Chris','Dillon']},{left:['Mike','Nathan'],right:['John','Adam']}],
   4:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['David','Nathan'],right:['Alex','Dillon']}],
 };
