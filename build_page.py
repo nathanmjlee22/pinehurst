@@ -506,12 +506,12 @@ function renderMatchSummary(){
   const res=loadRes();
   const tbody=document.getElementById('matchSummaryBody');
   if(!tbody)return;
-  tbody.innerHTML=MATCH_LIST.map((m,i)=>{
+  tbody.innerHTML=MATCH_LIST.map((m,i)=>({...m,num:i+1})).filter(m=>m.rnd===msRound).map(m=>{
     const key=matchKey(m.rnd,m.idx);
     const saved=res[key]||{};
     const winner=saved.winner||'';
     const result=saved.result||'';
-    const num=i+1;
+    const num=m.num;
     const expandWin=winner==='l', shrinkWin=winner==='r', as=winner==='h';
     const expandInner=expandWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
     const shrinkInner=shrinkWin?`<input class="ms-result-inp" data-key="${key}" placeholder="2&amp;1" value="${result}">`:'';
@@ -594,6 +594,16 @@ function getMatchStrokes(allNames,round){
   return strokes;
 }
 
+let msRound=1;
+function renderMsTabs(){
+  const tabs=document.getElementById('msTabs');
+  tabs.innerHTML=[1,2,3,4].map(r=>`<button class="sb-rtab${r===msRound?' on':''}" data-r="${r}">Round ${r}</button>`).join('');
+  tabs.querySelectorAll('.sb-rtab').forEach(b=>b.addEventListener('click',()=>{
+    msRound=+b.dataset.r;
+    renderMsTabs();renderMatchSummary();
+  }));
+}
+
 function renderSBTabs(){
   const tabs=document.getElementById('sbTabs');
   tabs.innerHTML=[1,2,3,4].map(r=>`<button class="sb-rtab${r===sbRound?' on':''}" data-r="${r}">Round ${r}</button>`).join('');
@@ -658,7 +668,7 @@ function renderSBRows(){
 }
 
 // Render everything that doesn't need saved scores immediately
-renderPills();renderSBTabs();renderSBRows();
+renderPills();renderSBTabs();renderMsTabs();renderSBRows();
 buildChart();renderStats();renderRoundsTabs();renderRounds();
 refreshScoresTable();
 // Re-render score-dependent sections after scores load from GitHub
@@ -987,6 +997,7 @@ refresh_btn_html = '<button class="refresh-btn" id="refreshBtn" onclick="trigger
 if SHOW_SCOREBOARD:
     scoreboard_html = (
         '  <button class="save-scores-btn" id="saveScoresBtn" style="display:none" onclick="saveScores()">&#128190; Save Scores</button>\n'
+        '  <div class="sb-round-tabs" id="msTabs"></div>\n'
         '  <div class="match-summary-wrap">\n'
         '    <table class="match-summary-table" id="matchSummaryTable">\n'
         '      <thead><tr class="ms-score-hdr">\n'
