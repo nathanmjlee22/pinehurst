@@ -3,7 +3,7 @@
     "name": "Eddie Mclaughlin",
     "club": "Costa Mesa GC",
     "color": "#1a5c35",
-    "current": "3.3",
+    "current": "3.9",
     "low": "3.2",
     "revs": [
       {
@@ -445,6 +445,10 @@
       {
         "date": "2026-08-22",
         "hi": 3.3
+      },
+      {
+        "date": "2026-08-29",
+        "hi": 3.9
       }
     ],
     "rounds": [
