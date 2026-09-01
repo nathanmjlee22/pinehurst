@@ -259,13 +259,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">72</td>
       <td class="ci-rating">73.7</td>
       <td class="ci-slope">135</td>
-    </tr><tr>
-      <td></td><td></td>
-      <td class="ci-tee third-tee">Putter Boy</td>
-      <td class="ci-yards">6,658</td>
-      <td class="ci-par">72</td>
-      <td class="ci-rating">72.0</td>
-      <td class="ci-slope">133</td>
     </tr><tr class="white-row">
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
@@ -280,13 +273,6 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">72</td>
       <td class="ci-rating">75.4</td>
       <td class="ci-slope">143</td>
-    </tr><tr>
-      <td></td><td></td>
-      <td class="ci-tee third-tee">Ross</td>
-      <td class="ci-yards">6,659</td>
-      <td class="ci-par">72</td>
-      <td class="ci-rating">73.6</td>
-      <td class="ci-slope">141</td>
     </tr><tr class="white-row">
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
@@ -532,14 +518,15 @@ const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},third:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72}},
-  3:{blue:{rating:75.4,slope:143,par:72},third:{rating:73.6,slope:141,par:72},white:{rating:72.0,slope:139,par:72}},
+  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72}},
   4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
 };
-// Course 8's third tee (Gold) is the tips; the others sit between Blue and White.
-const TEE_ORDER={1:['blue','third','white'],2:['blue','third','white'],3:['blue','third','white'],4:['third','blue','white']};
-const THIRD_TEE_LABEL={1:'Blue/White',2:'Putter Boy',3:'Ross',4:'Gold'};
-const THIRD_TEE_ABBR={1:'B/W',2:'PB',3:'Ross',4:'Gold'};
+// Course 8's third tee (Gold) is the tips; No. 10's Blue/White sits between Blue and White.
+// No. 4's "Putter Boy" and No. 2's "Ross" were removed (not in GHIN's course rating table).
+const TEE_ORDER={1:['blue','third','white'],2:['blue','white'],3:['blue','white'],4:['third','blue','white']};
+const THIRD_TEE_LABEL={1:'Blue/White',4:'Gold'};
+const THIRD_TEE_ABBR={1:'B/W',4:'Gold'};
 const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 
