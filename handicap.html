@@ -245,13 +245,20 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">70</td>
       <td class="ci-rating">72.7</td>
       <td class="ci-slope">139</td>
-    </tr><tr class="white-row">
+    </tr><tr>
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
       <td class="ci-yards">6,439</td>
       <td class="ci-par">70</td>
       <td class="ci-rating">71.5</td>
       <td class="ci-slope">137</td>
+    </tr><tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee third-tee">White/Green</td>
+      <td class="ci-yards">6,111</td>
+      <td class="ci-par">70</td>
+      <td class="ci-rating">69.9</td>
+      <td class="ci-slope">134</td>
     </tr><tr>
       <td class="ci-rnd">2</td><td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-4/" target="_blank" class="course-link">No.&nbsp;4</a><div class="ci-designer">Gil Hanse</div></td>
       <td class="ci-tee blue-tee">Blue</td>
@@ -259,6 +266,13 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">72</td>
       <td class="ci-rating">73.7</td>
       <td class="ci-slope">135</td>
+    </tr><tr>
+      <td></td><td></td>
+      <td class="ci-tee third-tee">Blue/White</td>
+      <td class="ci-yards">6,658</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">72.0</td>
+      <td class="ci-slope">133</td>
     </tr><tr>
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
@@ -269,7 +283,7 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
     </tr><tr class="white-row">
       <td></td><td></td>
       <td class="ci-tee third-tee">White/Green</td>
-      <td class="ci-yards">6,099</td>
+      <td class="ci-yards">6,129</td>
       <td class="ci-par">72</td>
       <td class="ci-rating">69.5</td>
       <td class="ci-slope">126</td>
@@ -303,25 +317,32 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-slope">136</td>
     </tr><tr>
       <td class="ci-rnd">4</td><td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-8/" target="_blank" class="course-link">No.&nbsp;8</a><div class="ci-designer">Tom Fazio</div></td>
-      <td class="ci-tee third-tee">Gold</td>
-      <td class="ci-yards">7,063</td>
-      <td class="ci-par">72</td>
-      <td class="ci-rating">73.9</td>
-      <td class="ci-slope">139</td>
-    </tr><tr>
-      <td></td><td></td>
       <td class="ci-tee blue-tee">Blue</td>
-      <td class="ci-yards">6,694</td>
+      <td class="ci-yards">6,652</td>
       <td class="ci-par">72</td>
       <td class="ci-rating">72.0</td>
       <td class="ci-slope">135</td>
-    </tr><tr class="white-row">
+    </tr><tr>
+      <td></td><td></td>
+      <td class="ci-tee third-tee">Blue/White</td>
+      <td class="ci-yards">6,479</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">71.0</td>
+      <td class="ci-slope">133</td>
+    </tr><tr>
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
-      <td class="ci-yards">6,311</td>
+      <td class="ci-yards">6,247</td>
       <td class="ci-par">72</td>
       <td class="ci-rating">70.0</td>
       <td class="ci-slope">131</td>
+    </tr><tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee third-tee">White/Green</td>
+      <td class="ci-yards">5,916</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">68.4</td>
+      <td class="ci-slope">125</td>
     </tr></tbody>
       </table>
     </div>
@@ -538,16 +559,16 @@ function setSaveStatus(s){
 const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
-  1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
+  1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70},fourth:{rating:69.9,slope:134,par:70}},
+  2:{blue:{rating:73.7,slope:135,par:72},fourth:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
   3:{blue:{rating:75.4,slope:143,par:72},fourth:{rating:73.6,slope:141,par:72},white:{rating:72.0,slope:139,par:72},third:{rating:70.3,slope:136,par:72}},
-  4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
+  4:{blue:{rating:72.0,slope:135,par:72},third:{rating:71.0,slope:133,par:72},white:{rating:70.0,slope:131,par:72},fourth:{rating:68.4,slope:125,par:72}},
 };
-// Course 8's Gold is the tips; No. 10's Blue/White and No. 2's Blue/White Hybrid sit
-// between Blue and White; No. 2/4's White/Green Hybrid is shorter than White, so it's last.
-const TEE_ORDER={1:['blue','third','white'],2:['blue','white','third'],3:['blue','fourth','white','third'],4:['third','blue','white']};
-const TEE_LABEL={1:{third:'Blue/White'},2:{third:'White/Green'},3:{fourth:'Blue/White',third:'White/Green'},4:{third:'Gold'}};
-const TEE_ABBR={1:{third:'B/W'},2:{third:'W/G'},3:{fourth:'B/W',third:'W/G'},4:{third:'Gold'}};
+// Every course now shows the same 4 tees in the same order: Blue, Blue/White, White,
+// White/Green. No. 8's Gold was dropped (not one of the four requested tees).
+const TEE_ORDER={1:['blue','third','white','fourth'],2:['blue','fourth','white','third'],3:['blue','fourth','white','third'],4:['blue','third','white','fourth']};
+const TEE_LABEL={1:{third:'Blue/White',fourth:'White/Green'},2:{fourth:'Blue/White',third:'White/Green'},3:{fourth:'Blue/White',third:'White/Green'},4:{third:'Blue/White',fourth:'White/Green'}};
+const TEE_ABBR={1:{third:'B/W',fourth:'W/G'},2:{fourth:'B/W',third:'W/G'},3:{fourth:'B/W',third:'W/G'},4:{third:'B/W',fourth:'W/G'}};
 const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 
