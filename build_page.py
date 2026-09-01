@@ -446,15 +446,15 @@ const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70},fourth:{rating:69.9,slope:134,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},fourth:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
+  2:{blue:{rating:72.0,slope:135,par:72},third:{rating:71.0,slope:133,par:72},white:{rating:70.0,slope:131,par:72},fourth:{rating:68.4,slope:125,par:72}},
   3:{blue:{rating:75.4,slope:143,par:72},fourth:{rating:73.6,slope:141,par:72},white:{rating:72.0,slope:139,par:72},third:{rating:70.3,slope:136,par:72}},
-  4:{blue:{rating:72.0,slope:135,par:72},third:{rating:71.0,slope:133,par:72},white:{rating:70.0,slope:131,par:72},fourth:{rating:68.4,slope:125,par:72}},
+  4:{blue:{rating:73.7,slope:135,par:72},fourth:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
 };
-// Every course now shows the same 4 tees in the same order: Blue, Blue/White, White,
-// White/Green. No. 8's Gold was dropped (not one of the four requested tees).
-const TEE_ORDER={1:['blue','third','white','fourth'],2:['blue','fourth','white','third'],3:['blue','fourth','white','third'],4:['blue','third','white','fourth']};
-const TEE_LABEL={1:{third:'Blue/White',fourth:'White/Green'},2:{fourth:'Blue/White',third:'White/Green'},3:{fourth:'Blue/White',third:'White/Green'},4:{third:'Blue/White',fourth:'White/Green'}};
-const TEE_ABBR={1:{third:'B/W',fourth:'W/G'},2:{fourth:'B/W',third:'W/G'},3:{fourth:'B/W',third:'W/G'},4:{third:'B/W',fourth:'W/G'}};
+// Rounds 2 and 4 swapped courses (No. 8 <-> No. 4); each round keeps its own
+// matchups/format, just the course (and its tee data/order) moved with it.
+const TEE_ORDER={1:['blue','third','white','fourth'],2:['blue','third','white','fourth'],3:['blue','fourth','white','third'],4:['blue','fourth','white','third']};
+const TEE_LABEL={1:{third:'Blue/White',fourth:'White/Green'},2:{third:'Blue/White',fourth:'White/Green'},3:{fourth:'Blue/White',third:'White/Green'},4:{fourth:'Blue/White',third:'White/Green'}};
+const TEE_ABBR={1:{third:'B/W',fourth:'W/G'},2:{third:'B/W',fourth:'W/G'},3:{fourth:'B/W',third:'W/G'},4:{fourth:'B/W',third:'W/G'}};
 const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 
@@ -883,7 +883,7 @@ COURSE_TEE_ORDER = {10: ["blue", "third", "white", "fourth"], 4: ["blue", "fourt
 TEE_ROW_LABEL = {"blue": "Blue", "white": "White"}
 TEE_ROW_CLASS = {"blue": "blue-tee", "white": "white-tee"}
 
-course_rounds = [(1, 10), (2, 4), (3, 2), (4, 8)]
+course_rounds = [(1, 10), (2, 8), (3, 2), (4, 4)]
 ci_rows = ""
 for rnd, cnum in course_rounds:
     ci = COURSE_INFO[cnum]
@@ -920,12 +920,12 @@ course_info_table = f"""<div class="ci-wrap">
 ROUNDS = [
     {"round": 1, "date": "2026-09-04", "course_num": 10, "par": 70,
      "blue": {"rating": 74.1, "slope": 142}, "white": {"rating": 71.5, "slope": 137}},
-    {"round": 2, "date": "2026-09-05", "course_num": 4,  "par": 72,
-     "blue": {"rating": 73.7, "slope": 135}, "white": {"rating": 70.8, "slope": 131}},
+    {"round": 2, "date": "2026-09-05", "course_num": 8,  "par": 72,
+     "blue": {"rating": 72.0, "slope": 135}, "white": {"rating": 70.0, "slope": 131}},
     {"round": 3, "date": "2026-09-05", "course_num": 2,  "par": 72,
      "blue": {"rating": 75.4, "slope": 143}, "white": {"rating": 72.0, "slope": 139}},
-    {"round": 4, "date": "2026-09-06", "course_num": 8,  "par": 72,
-     "blue": {"rating": 72.9, "slope": 131}, "white": {"rating": 70.5, "slope": 127}},
+    {"round": 4, "date": "2026-09-06", "course_num": 4,  "par": 72,
+     "blue": {"rating": 73.7, "slope": 135}, "white": {"rating": 70.8, "slope": 131}},
 ]
 
 # All 12 players in order (left team then right team)
