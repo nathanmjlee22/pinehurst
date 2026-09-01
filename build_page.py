@@ -397,7 +397,7 @@ const MATCHUPS={
 };
 const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','David':'11367668','Adam':'11634995','John':'10460818','Dillon':'8676617','Mike':'11466889','Alex':'4990445'};
 const ALL_PLAYERS=__ALL_PLAYERS__;
-const ROUND_PAR={1:70,2:72,3:72,4:72};
+const ROUND_PAR={1:70,2:72,3:70,4:72};
 const TOTAL_PAR=__TOTAL_PAR__;
 const REPO='nathanmjlee22/pinehurst';
 const SCORES_FILE='scores.json';
@@ -447,7 +447,7 @@ const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
   2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
-  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72},third:{rating:70.3,slope:136,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:70},white:{rating:72.0,slope:139,par:70},third:{rating:70.3,slope:136,par:70}},
   4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
 };
 // Course 8's Gold is the tips; No. 10's Blue/White sits between Blue and White;
@@ -862,7 +862,7 @@ COURSE_INFO = {
          "blue": {"yards": 6961, "rating": 73.7, "slope": 135},
          "white": {"yards": 6428, "rating": 70.8, "slope": 131},
          "third_label": "White/Green", "third": {"yards": 6099, "rating": 69.5, "slope": 126}},
-    2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
+    2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 70,
          "blue": {"yards": 6961, "rating": 75.4, "slope": 143},
          "white": {"yards": 6307, "rating": 72.0, "slope": 139},
          "third_label": "White/Green", "third": {"yards": 5949, "rating": 70.3, "slope": 136}},
@@ -917,7 +917,7 @@ ROUNDS = [
      "blue": {"rating": 74.1, "slope": 142}, "white": {"rating": 71.5, "slope": 137}},
     {"round": 2, "date": "2026-09-05", "course_num": 4,  "par": 72,
      "blue": {"rating": 73.7, "slope": 135}, "white": {"rating": 70.8, "slope": 131}},
-    {"round": 3, "date": "2026-09-05", "course_num": 2,  "par": 72,
+    {"round": 3, "date": "2026-09-05", "course_num": 2,  "par": 70,
      "blue": {"rating": 75.4, "slope": 143}, "white": {"rating": 72.0, "slope": 139}},
     {"round": 4, "date": "2026-09-06", "course_num": 8,  "par": 72,
      "blue": {"rating": 72.9, "slope": 131}, "white": {"rating": 70.5, "slope": 127}},
@@ -940,7 +940,7 @@ ALL_PLAYERS = [
     ("John",   "10460818", "right"),
 ]
 
-TOTAL_PAR = sum(r["par"] for r in ROUNDS)  # 70+72+72+72 = 286
+TOTAL_PAR = sum(r["par"] for r in ROUNDS)  # 70+72+70+72 = 284
 
 # Rows are rendered client-side (renderScoresTable in the JS below) so manually
 # entered scores — stored in scores.json — can override/fill in the GHIN data.
