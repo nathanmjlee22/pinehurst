@@ -259,13 +259,20 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">72</td>
       <td class="ci-rating">73.7</td>
       <td class="ci-slope">135</td>
-    </tr><tr class="white-row">
+    </tr><tr>
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
       <td class="ci-yards">6,428</td>
       <td class="ci-par">72</td>
       <td class="ci-rating">70.8</td>
       <td class="ci-slope">131</td>
+    </tr><tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee third-tee">White/Green</td>
+      <td class="ci-yards">6,099</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">69.5</td>
+      <td class="ci-slope">126</td>
     </tr><tr>
       <td class="ci-rnd">3</td><td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-2/" target="_blank" class="course-link">No.&nbsp;2</a><div class="ci-designer">Donald Ross</div></td>
       <td class="ci-tee blue-tee">Blue</td>
@@ -273,13 +280,20 @@ header{background:#ffffff;padding:14px 16px 14px;border-bottom:1px solid rgba(0,
       <td class="ci-par">72</td>
       <td class="ci-rating">75.4</td>
       <td class="ci-slope">143</td>
-    </tr><tr class="white-row">
+    </tr><tr>
       <td></td><td></td>
       <td class="ci-tee white-tee">White</td>
       <td class="ci-yards">6,307</td>
       <td class="ci-par">72</td>
       <td class="ci-rating">72.0</td>
       <td class="ci-slope">139</td>
+    </tr><tr class="white-row">
+      <td></td><td></td>
+      <td class="ci-tee third-tee">White/Green</td>
+      <td class="ci-yards">5,949</td>
+      <td class="ci-par">72</td>
+      <td class="ci-rating">70.3</td>
+      <td class="ci-slope">136</td>
     </tr><tr>
       <td class="ci-rnd">4</td><td class="ci-course"><a href="https://www.pinehurst.com/golf/courses/no-8/" target="_blank" class="course-link">No.&nbsp;8</a><div class="ci-designer">Tom Fazio</div></td>
       <td class="ci-tee third-tee">Gold</td>
@@ -518,15 +532,15 @@ const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72}},
-  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72}},
+  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72},third:{rating:70.3,slope:136,par:72}},
   4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
 };
-// Course 8's third tee (Gold) is the tips; No. 10's Blue/White sits between Blue and White.
-// No. 4's "Putter Boy" and No. 2's "Ross" were removed (not in GHIN's course rating table).
-const TEE_ORDER={1:['blue','third','white'],2:['blue','white'],3:['blue','white'],4:['third','blue','white']};
-const THIRD_TEE_LABEL={1:'Blue/White',4:'Gold'};
-const THIRD_TEE_ABBR={1:'B/W',4:'Gold'};
+// Course 8's Gold is the tips; No. 10's Blue/White sits between Blue and White;
+// No. 2/4's White/Green Hybrid is shorter than White, so it sorts last.
+const TEE_ORDER={1:['blue','third','white'],2:['blue','white','third'],3:['blue','white','third'],4:['third','blue','white']};
+const THIRD_TEE_LABEL={1:'Blue/White',2:'White/Green',3:'White/Green',4:'Gold'};
+const THIRD_TEE_ABBR={1:'B/W',2:'W/G',3:'W/G',4:'Gold'};
 const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 

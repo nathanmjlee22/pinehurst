@@ -446,15 +446,15 @@ const STORE='pinehurst2026';
 const TEE_STORE='pinehurst2026_tees';
 const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
-  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72}},
-  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72}},
+  2:{blue:{rating:73.7,slope:135,par:72},white:{rating:70.8,slope:131,par:72},third:{rating:69.5,slope:126,par:72}},
+  3:{blue:{rating:75.4,slope:143,par:72},white:{rating:72.0,slope:139,par:72},third:{rating:70.3,slope:136,par:72}},
   4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
 };
-// Course 8's third tee (Gold) is the tips; No. 10's Blue/White sits between Blue and White.
-// No. 4's "Putter Boy" and No. 2's "Ross" were removed (not in GHIN's course rating table).
-const TEE_ORDER={1:['blue','third','white'],2:['blue','white'],3:['blue','white'],4:['third','blue','white']};
-const THIRD_TEE_LABEL={1:'Blue/White',4:'Gold'};
-const THIRD_TEE_ABBR={1:'B/W',4:'Gold'};
+// Course 8's Gold is the tips; No. 10's Blue/White sits between Blue and White;
+// No. 2/4's White/Green Hybrid is shorter than White, so it sorts last.
+const TEE_ORDER={1:['blue','third','white'],2:['blue','white','third'],3:['blue','white','third'],4:['third','blue','white']};
+const THIRD_TEE_LABEL={1:'Blue/White',2:'White/Green',3:'White/Green',4:'Gold'};
+const THIRD_TEE_ABBR={1:'B/W',2:'W/G',3:'W/G',4:'Gold'};
 const TEE_BTN_LABEL={blue:'Blue',white:'White'};
 let sbRound=1,sbSel=null;
 
@@ -860,20 +860,22 @@ COURSE_INFO = {
          "white": {"yards": 6439, "rating": 71.5, "slope": 137}},
     4:  {"url": "https://www.pinehurst.com/golf/courses/no-4/", "designer": "Gil Hanse", "par": 72,
          "blue": {"yards": 6961, "rating": 73.7, "slope": 135},
-         "white": {"yards": 6428, "rating": 70.8, "slope": 131}},
+         "white": {"yards": 6428, "rating": 70.8, "slope": 131},
+         "third_label": "White/Green", "third": {"yards": 6099, "rating": 69.5, "slope": 126}},
     2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
          "blue": {"yards": 6961, "rating": 75.4, "slope": 143},
-         "white": {"yards": 6307, "rating": 72.0, "slope": 139}},
+         "white": {"yards": 6307, "rating": 72.0, "slope": 139},
+         "third_label": "White/Green", "third": {"yards": 5949, "rating": 70.3, "slope": 136}},
     8:  {"url": "https://www.pinehurst.com/golf/courses/no-8/", "designer": "Tom Fazio", "par": 72,
          "third_label": "Gold", "third": {"yards": 7063, "rating": 73.9, "slope": 139},
          "blue": {"yards": 6694, "rating": 72.0, "slope": 135},
          "white": {"yards": 6311, "rating": 70.0, "slope": 131}},
 }
 
-# Course 8's third tee (Gold) is the tips; No. 10's Blue/White sits between Blue and White.
-# No. 4's "Putter Boy" and No. 2's "Ross" were removed (not in GHIN's course rating table).
-COURSE_TEE_ORDER = {10: ["blue", "third", "white"], 4: ["blue", "white"],
-                     2: ["blue", "white"], 8: ["third", "blue", "white"]}
+# Course 8's Gold is the tips; No. 10's Blue/White sits between Blue and White;
+# No. 2/4's White/Green Hybrid is shorter than White, so it sorts last.
+COURSE_TEE_ORDER = {10: ["blue", "third", "white"], 4: ["blue", "white", "third"],
+                     2: ["blue", "white", "third"], 8: ["third", "blue", "white"]}
 TEE_ROW_LABEL = {"blue": "Blue", "white": "White"}
 TEE_ROW_CLASS = {"blue": "blue-tee", "white": "white-tee", "third": "third-tee"}
 
