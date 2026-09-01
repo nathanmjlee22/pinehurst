@@ -448,7 +448,7 @@ const ROUND_TEES={
   1:{blue:{rating:74.1,slope:142,par:70},third:{rating:72.7,slope:139,par:70},white:{rating:71.5,slope:137,par:70}},
   2:{blue:{rating:73.7,slope:135,par:72},third:{rating:72.0,slope:133,par:72},white:{rating:70.8,slope:131,par:72}},
   3:{blue:{rating:75.4,slope:143,par:72},third:{rating:73.6,slope:141,par:72},white:{rating:72.0,slope:139,par:72}},
-  4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.9,slope:131,par:72},white:{rating:70.5,slope:127,par:72}},
+  4:{third:{rating:73.9,slope:139,par:72},blue:{rating:72.0,slope:135,par:72},white:{rating:70.0,slope:131,par:72}},
 };
 // Course 8's third tee (Gold) is the tips; the others sit between Blue and White.
 const TEE_ORDER={1:['blue','third','white'],2:['blue','third','white'],3:['blue','third','white'],4:['third','blue','white']};
@@ -862,13 +862,13 @@ COURSE_INFO = {
          "third_label": "Putter Boy", "third": {"yards": 6658, "rating": 72.0, "slope": 133},
          "white": {"yards": 6428, "rating": 70.8, "slope": 131}},
     2:  {"url": "https://www.pinehurst.com/golf/courses/no-2/", "designer": "Donald Ross", "par": 72,
-         "blue": {"yards": 6961, "rating": 73.7, "slope": 133},
+         "blue": {"yards": 6961, "rating": 75.4, "slope": 143},
          "third_label": "Ross", "third": {"yards": 6659, "rating": 73.6, "slope": 141},
-         "white": {"yards": 6307, "rating": 70.7, "slope": 126}},
+         "white": {"yards": 6307, "rating": 72.0, "slope": 139}},
     8:  {"url": "https://www.pinehurst.com/golf/courses/no-8/", "designer": "Tom Fazio", "par": 72,
          "third_label": "Gold", "third": {"yards": 7063, "rating": 73.9, "slope": 139},
-         "blue": {"yards": 6694, "rating": 72.3, "slope": 131},
-         "white": {"yards": 6311, "rating": 70.3, "slope": 128}},
+         "blue": {"yards": 6694, "rating": 72.0, "slope": 135},
+         "white": {"yards": 6311, "rating": 70.0, "slope": 131}},
 }
 
 # Course 8's third tee (Gold) is the tips; the others sit between Blue and White.
