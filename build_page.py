@@ -391,9 +391,9 @@ document.querySelectorAll('.rtab').forEach(t=>t.addEventListener('click',()=>{do
 // ── Scoreboard ──────────────────────────────────────
 const MATCHUPS={
   1:[{left:['Alec','Nathan'],right:['Dillon','Adam']},{left:['Eddie','David'],right:['Alex','Chris']},{left:['Mike','Matt'],right:['Luis','John']}],
-  2:[{left:['Alec'],right:['Alex']},{left:['David'],right:['John']},{left:['Eddie'],right:['Luis']},{left:['Mike'],right:['Dillon']},{left:['Nathan'],right:['Chris']},{left:['Matt'],right:['Adam']}],
+  2:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['David','Nathan'],right:['Alex','Dillon']}],
   3:[{left:['Alec','Eddie'],right:['Alex','Luis']},{left:['David','Matt'],right:['Chris','Dillon']},{left:['Mike','Nathan'],right:['John','Adam']}],
-  4:[{left:['Alec','Mike'],right:['Adam','Luis']},{left:['Eddie','Matt'],right:['John','Chris']},{left:['David','Nathan'],right:['Alex','Dillon']}],
+  4:[{left:['Alec'],right:['Alex']},{left:['David'],right:['John']},{left:['Eddie'],right:['Luis']},{left:['Mike'],right:['Dillon']},{left:['Nathan'],right:['Chris']},{left:['Matt'],right:['Adam']}],
 };
 const NAME_GHIN={'Alec':'3031631','Nathan':'7562830','Eddie':'7866286','David':'11367668','Adam':'11634995','John':'10460818','Dillon':'8676617','Mike':'11466889','Alex':'4990445'};
 const ALL_PLAYERS=__ALL_PLAYERS__;
@@ -493,18 +493,18 @@ const MATCH_LIST=[
   {rnd:1,idx:0,expand:['Alec','Nathan'],shrink:['Dillon','Adam']},
   {rnd:1,idx:1,expand:['Eddie','David'],shrink:['Alex','Chris']},
   {rnd:1,idx:2,expand:['Mike','Matt'],  shrink:['Luis','John']},
-  {rnd:2,idx:0,expand:['Alec'],  shrink:['Alex']},
-  {rnd:2,idx:1,expand:['David'], shrink:['John']},
-  {rnd:2,idx:2,expand:['Eddie'], shrink:['Luis']},
-  {rnd:2,idx:3,expand:['Mike'],  shrink:['Dillon']},
-  {rnd:2,idx:4,expand:['Nathan'],shrink:['Chris']},
-  {rnd:2,idx:5,expand:['Matt'],  shrink:['Adam']},
+  {rnd:2,idx:0,expand:['Alec','Mike'],  shrink:['Adam','Luis']},
+  {rnd:2,idx:1,expand:['Eddie','Matt'], shrink:['John','Chris']},
+  {rnd:2,idx:2,expand:['David','Nathan'],shrink:['Alex','Dillon']},
   {rnd:3,idx:0,expand:['Alec','Eddie'], shrink:['Alex','Luis']},
   {rnd:3,idx:1,expand:['David','Matt'], shrink:['Chris','Dillon']},
   {rnd:3,idx:2,expand:['Mike','Nathan'],shrink:['John','Adam']},
-  {rnd:4,idx:0,expand:['Alec','Mike'],  shrink:['Adam','Luis']},
-  {rnd:4,idx:1,expand:['Eddie','Matt'], shrink:['John','Chris']},
-  {rnd:4,idx:2,expand:['David','Nathan'],shrink:['Alex','Dillon']},
+  {rnd:4,idx:0,expand:['Alec'],  shrink:['Alex']},
+  {rnd:4,idx:1,expand:['David'], shrink:['John']},
+  {rnd:4,idx:2,expand:['Eddie'], shrink:['Luis']},
+  {rnd:4,idx:3,expand:['Mike'],  shrink:['Dillon']},
+  {rnd:4,idx:4,expand:['Nathan'],shrink:['Chris']},
+  {rnd:4,idx:5,expand:['Matt'],  shrink:['Adam']},
 ];
 function renderMatchSummary(){
   const res=loadRes();
