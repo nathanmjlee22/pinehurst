@@ -600,7 +600,7 @@
     "club": "Maderas GC",
     "color": "#b45309",
     "current": "8.1",
-    "low": "5.3",
+    "low": "5.4",
     "revs": [
       {
         "date": "2011-08-15",
@@ -1089,16 +1089,13 @@
       {
         "date": "2026-08-17",
         "hi": 8.1
+      },
+      {
+        "date": "2026-09-03",
+        "hi": 8.1
       }
     ],
     "rounds": [
-      {
-        "date": "2026-03-14",
-        "hi": 5.4,
-        "course": "Maderas Golf Club",
-        "score": 88,
-        "holes": 18
-      },
       {
         "date": "2026-03-29",
         "hi": 6.1,
@@ -1230,6 +1227,13 @@
         "hi": 8.0,
         "course": "Aliso Viejo Country Club",
         "score": 81,
+        "holes": 18
+      },
+      {
+        "date": "2026-09-02",
+        "hi": 8.1,
+        "course": "Maderas Golf Club",
+        "score": 87,
         "holes": 18
       }
     ],
