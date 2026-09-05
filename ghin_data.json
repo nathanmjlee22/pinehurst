@@ -3,7 +3,7 @@
     "name": "Eddie Mclaughlin",
     "club": "Costa Mesa GC",
     "color": "#1a5c35",
-    "current": "3.9",
+    "current": "3.7",
     "low": "3.2",
     "revs": [
       {
@@ -449,6 +449,10 @@
       {
         "date": "2026-08-29",
         "hi": 3.9
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 3.7
       }
     ],
     "rounds": [
@@ -472,13 +476,6 @@
         "course": "",
         "score": 42,
         "holes": 9
-      },
-      {
-        "date": "2025-09",
-        "hi": 5.7,
-        "course": "",
-        "score": 84,
-        "holes": 18
       },
       {
         "date": "2025-10",
@@ -591,6 +588,13 @@
         "course": "",
         "score": 79,
         "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 3.9,
+        "course": "",
+        "score": 77,
+        "holes": 18
       }
     ],
     "tourney": {}
@@ -599,7 +603,7 @@
     "name": "Nathan Lee",
     "club": "Maderas GC",
     "color": "#b45309",
-    "current": "8.1",
+    "current": "7.8",
     "low": "5.4",
     "revs": [
       {
@@ -1093,23 +1097,17 @@
       {
         "date": "2026-09-03",
         "hi": 8.1
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 7.9
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 7.8
       }
     ],
     "rounds": [
-      {
-        "date": "2026-03-29",
-        "hi": 6.1,
-        "course": "El Dorado Park Golf Course",
-        "score": 83,
-        "holes": 18
-      },
-      {
-        "date": "2026-04-05",
-        "hi": 6.1,
-        "course": "Aliso Viejo Country Club",
-        "score": 83,
-        "holes": 18
-      },
       {
         "date": "2026-04-18",
         "hi": 6.1,
@@ -1235,9 +1233,34 @@
         "course": "Maderas Golf Club",
         "score": 87,
         "holes": 18
+      },
+      {
+        "date": "2026-09-04",
+        "hi": 8.1,
+        "course": "No. 10",
+        "score": 81,
+        "holes": 18
+      },
+      {
+        "date": "2026-09-04",
+        "hi": 8.1,
+        "course": "No. 10",
+        "score": 81,
+        "holes": 18
       }
     ],
-    "tourney": {}
+    "tourney": {
+      "1": {
+        "gross": 81,
+        "net": 70,
+        "course_handicap": 11,
+        "hi": 8.1,
+        "course": "No. 10",
+        "tee": "White Tees",
+        "slope": 137.0,
+        "rating": 71.5
+      }
+    }
   },
   "11367668": {
     "name": "David Ryu",
@@ -1791,13 +1814,6 @@
         "holes": 18
       },
       {
-        "date": "2026-04",
-        "hi": 13.3,
-        "course": "",
-        "score": 104,
-        "holes": 18
-      },
-      {
         "date": "2026-05",
         "hi": 12.5,
         "course": "",
@@ -1914,6 +1930,13 @@
         "hi": 12.2,
         "course": "",
         "score": 89,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 11.8,
+        "course": "",
+        "score": 90,
         "holes": 18
       }
     ],
@@ -3301,6 +3324,10 @@
       {
         "date": "2026-09-04",
         "hi": 1.6
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 1.6
       }
     ],
     "rounds": [
@@ -3309,13 +3336,6 @@
         "hi": 3.2,
         "course": "",
         "score": 74,
-        "holes": 18
-      },
-      {
-        "date": "2026-07",
-        "hi": 3.3,
-        "course": "",
-        "score": 81,
         "holes": 18
       },
       {
@@ -3441,6 +3461,13 @@
         "date": "2026-09",
         "hi": 1.6,
         "course": "",
+        "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 1.6,
+        "course": "",
         "score": 80,
         "holes": 18
       }
@@ -3451,7 +3478,7 @@
     "name": "Alec Negri",
     "club": "USGA/SCGA GC",
     "color": "#0e7490",
-    "current": "10.7",
+    "current": "10.2",
     "low": "9.6",
     "revs": [
       {
@@ -4441,6 +4468,14 @@
       {
         "date": "2026-08-26",
         "hi": 10.7
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 10.5
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 10.2
       }
     ],
     "rounds": [
@@ -4463,20 +4498,6 @@
         "hi": 10.0,
         "course": "",
         "score": 88,
-        "holes": 18
-      },
-      {
-        "date": "2026-06",
-        "hi": 10.0,
-        "course": "",
-        "score": 87,
-        "holes": 18
-      },
-      {
-        "date": "2026-06",
-        "hi": 10.0,
-        "course": "",
-        "score": 90,
         "holes": 18
       },
       {
@@ -4583,6 +4604,20 @@
         "course": "",
         "score": 77,
         "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 10.7,
+        "course": "",
+        "score": 84,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 10.7,
+        "course": "",
+        "score": 84,
+        "holes": 18
       }
     ],
     "tourney": {}
@@ -4591,7 +4626,7 @@
     "name": "Dillon Staples",
     "club": "NCGA NEXT",
     "color": "#d97706",
-    "current": "6.9",
+    "current": "6.7",
     "low": "6.5",
     "revs": [
       {
@@ -5281,16 +5316,13 @@
       {
         "date": "2026-09-04",
         "hi": 6.9
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 6.7
       }
     ],
     "rounds": [
-      {
-        "date": "2026-06",
-        "hi": 8.4,
-        "course": "",
-        "score": 84,
-        "holes": 18
-      },
       {
         "date": "2026-07",
         "hi": 8.2,
@@ -5419,6 +5451,13 @@
       },
       {
         "date": "2026-09",
+        "hi": 6.9,
+        "course": "",
+        "score": 81,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
         "hi": 6.7,
         "course": "",
         "score": 86,
@@ -5431,7 +5470,7 @@
     "name": "Mike Gronstal",
     "club": "USGA/SCGA GC",
     "color": "#059669",
-    "current": "12.4",
+    "current": "12.8",
     "low": "12.4",
     "revs": [
       {
@@ -5765,6 +5804,10 @@
       {
         "date": "2026-08-20",
         "hi": 12.4
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 12.8
       }
     ],
     "rounds": [
@@ -5773,13 +5816,6 @@
         "hi": 12.7,
         "course": "",
         "score": 98,
-        "holes": 18
-      },
-      {
-        "date": "2026-04",
-        "hi": 12.9,
-        "course": "",
-        "score": 86,
         "holes": 18
       },
       {
@@ -5907,6 +5943,13 @@
         "course": "",
         "score": 97,
         "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 12.4,
+        "course": "",
+        "score": 90,
+        "holes": 18
       }
     ],
     "tourney": {}
@@ -5915,13 +5958,9 @@
     "name": "Alex Newman",
     "club": "Preserve GC",
     "color": "#dc2626",
-    "current": "3.1",
+    "current": "2.9",
     "low": "2.2",
     "revs": [
-      {
-        "date": "2010-05-15",
-        "hi": 16.0
-      },
       {
         "date": "2010-06-01",
         "hi": 15.7
@@ -7917,6 +7956,10 @@
       {
         "date": "2026-09-04",
         "hi": 3.1
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 2.9
       }
     ],
     "rounds": [
@@ -7946,13 +7989,6 @@
         "hi": 2.8,
         "course": "",
         "score": 74,
-        "holes": 18
-      },
-      {
-        "date": "2026-06",
-        "hi": 2.8,
-        "course": "",
-        "score": 77,
         "holes": 18
       },
       {
@@ -8051,6 +8087,13 @@
         "hi": 2.6,
         "course": "",
         "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 3.1,
+        "course": "",
+        "score": 74,
         "holes": 18
       },
       {
@@ -9009,16 +9052,13 @@
       {
         "date": "2026-08-24",
         "hi": 6.1
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 6.1
       }
     ],
     "rounds": [
-      {
-        "date": "2025-10",
-        "hi": 5.0,
-        "course": "",
-        "score": 80,
-        "holes": 18
-      },
       {
         "date": "2025-11",
         "hi": 5.2,
@@ -9150,6 +9190,13 @@
         "hi": 6.4,
         "course": "",
         "score": 78,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 6.1,
+        "course": "",
+        "score": 83,
         "holes": 18
       }
     ],
@@ -10449,6 +10496,10 @@
       {
         "date": "2026-08-25",
         "hi": 1.9
+      },
+      {
+        "date": "2026-09-05",
+        "hi": 1.9
       }
     ],
     "rounds": [
@@ -10457,13 +10508,6 @@
         "hi": 1.9,
         "course": "",
         "score": 76,
-        "holes": 18
-      },
-      {
-        "date": "2025-10",
-        "hi": 2.0,
-        "course": "",
-        "score": 77,
         "holes": 18
       },
       {
@@ -10588,6 +10632,13 @@
       {
         "date": "2026-08",
         "hi": 2.1,
+        "course": "",
+        "score": 82,
+        "holes": 18
+      },
+      {
+        "date": "2026-09",
+        "hi": 1.9,
         "course": "",
         "score": 82,
         "holes": 18
